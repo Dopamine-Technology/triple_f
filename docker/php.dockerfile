@@ -28,3 +28,11 @@ RUN mkdir -p /usr/src/php/ext/redis \
     && docker-php-ext-install redis
 COPY ./php/laravel.ini /usr/local/etc/php/conf.d
 CMD ["php-fpm", "-y", "/usr/local/etc/php-fpm.conf", "-R"]
+
+RUN apt-get -y update \
+&& apt-get install -y libicu-dev \
+&& docker-php-ext-configure intl \
+&& docker-php-ext-install intl
+
+RUN  docker-php-ext-configure exif
+RUN  docker-php-ext-install exif
