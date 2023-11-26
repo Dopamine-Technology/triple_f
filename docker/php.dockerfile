@@ -26,14 +26,16 @@ RUN mkdir -p /usr/src/php/ext/redis \
     && curl -L https://github.com/phpredis/phpredis/archive/5.3.4.tar.gz | tar xvz -C /usr/src/php/ext/redis --strip 1 \
     && echo 'redis' >> /usr/src/php-available-exts \
     && docker-php-ext-install redis
+
+RUN docker-php-ext-install pdo pdo_mysql
+RUN docker-php-ext-configure intl
+RUN docker-php-ext-install intl
+RUN docker-php-ext-enable intl
+
+RUN docker-php-ext-configure exif
+RUN docker-php-ext-install exif
+RUN docker-php-ext-enable exif
+
 COPY ./php/laravel.ini /usr/local/etc/php/conf.d
 CMD ["php-fpm", "-y", "/usr/local/etc/php-fpm.conf", "-R"]
 
-RUN apt-get -y update \
-&& apt-get install -y libicu-dev \
-&& docker-php-ext-configure intl \
-&& docker-php-ext-install intl
-RUN  docker-php-ext-configure exif
-RUN  docker-php-ext-install exif
-RUN docker-php-ext-enable intl
-RUN docker-php-ext-enable exif
