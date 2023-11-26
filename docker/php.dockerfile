@@ -32,9 +32,7 @@ RUN docker-php-ext-configure intl
 RUN docker-php-ext-install intl
 RUN docker-php-ext-enable intl
 
-RUN docker-php-ext-configure exif
-RUN docker-php-ext-install exif
-RUN docker-php-ext-enable exif
+
 
 COPY ./php/laravel.ini /usr/local/etc/php/conf.d
 CMD ["php-fpm", "-y", "/usr/local/etc/php-fpm.conf", "-R"]
