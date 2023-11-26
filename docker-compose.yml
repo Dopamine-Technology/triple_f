@@ -1,0 +1,121 @@
+version: '3'
+networks:
+    laravel:
+
+services:
+    site:
+        build:
+            context: ./docker
+            dockerfile: nginx.dockerfile
+            args:
+                WWWGROUP: '${WWWGROUP}'
+        ports:
+            - 80:80
+        #      - 443:443
+        restart: always
+        volumes:
+            - '.:/var/www/html'
+            - './certbot/www:/var/www/certbot/:ro'
+            - './certbot/conf/:/etc/nginx/ssl/:ro'
+        depends_on:
+            - php
+            - redis
+            - mysql
+            - mailhog
+        networks:
+            - laravel
+    certbot:
+        image: certbot/certbot:arm32v6-latest
+        volumes:
+            - './certbot/www/:/var/www/certbot/:rw'
+            - './certbot/conf/:/etc/letsencrypt/:rw'
+    mysql:
+        image: 'mysql/mysql-server:8.0'
+        ports:
+            - '${FORWARD_DB_PORT:-3306}:3306'
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ROOT_HOST: "%"
+            MYSQL_DATABASE: '${DB_DATABASE}'
+            MYSQL_USER: '${DB_USERNAME}'
+            MYSQL_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        volumes:
+            - 'laravel-mysql:/var/lib/mysql'
+        networks:
+            - laravel
+        healthcheck:
+            test:
+                - CMD
+                - mysqladmin
+                - ping
+                - '-p${DB_PASSWORD}'
+            retries: 3
+            timeout: 5s
+
+
+    php:
+        build:
+            context: ./docker
+            dockerfile: php.dockerfile
+            args:
+                WWWGROUP: '${WWWGROUP}'
+        volumes:
+            - .:/var/www/html:delegated
+        networks:
+            - laravel
+    phpmyadmin:
+        image: 'phpmyadmin:latest'
+        depends_on:
+            - mysql
+        environment:
+            PMA_HOST: mysql   # define the address/hostname of the mysql server eg mysql container name.
+            PMA_PORT: 3306
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            UPLOAD_LIMIT: 300M
+            #      PMA_USER: '${DB_USERNAME}'
+            PMA_ARBITRARY: 1
+        ports:
+            - 8183:80
+        networks:
+            - laravel
+    redis:
+        image: 'redis:alpine'
+        ports:
+            - '${FORWARD_REDIS_PORT:-6379}:6379'
+        volumes:
+            - 'laravel-redis:/data'
+        networks:
+            - laravel
+        healthcheck:
+            test: [ "CMD", "redis-cli", "ping" ]
+            retries: 3
+            timeout: 5s
+    composer:
+        build:
+            context: ./docker
+            dockerfile: composer.dockerfile
+            args:
+                WWWGROUP: '${WWWGROUP}'
+        volumes:
+            - .:/var/www/html
+        working_dir: /var/www/html
+        depends_on:
+            - php
+        user: laravel
+        networks:
+            - laravel
+
+    mailhog:
+        image: mailhog/mailhog:latest
+        ports:
+            - 1025:1025
+            - 8025:8025
+        networks:
+            - laravel
+volumes:
+    laravel-mysql:
+        driver: local
+    laravel-redis:
+        driver: local
