@@ -33,6 +33,7 @@ RUN apt-get -y update \
 && apt-get install -y libicu-dev \
 && docker-php-ext-configure intl \
 && docker-php-ext-install intl
-
 RUN  docker-php-ext-configure exif
 RUN  docker-php-ext-install exif
+RUN docker-php-ext-enable intl
+RUN docker-php-ext-enable exif
