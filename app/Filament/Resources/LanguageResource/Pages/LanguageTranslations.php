@@ -59,7 +59,7 @@ class LanguageTranslations extends Page
         foreach ($this->translations as $translation) {
             $this->inputTranslations[$translation->id] = $translation->getTranslation('value', $this->language->iso_code);
         }
-        $this->inputTranslations = Translation::query()->pluck('value', 'id')->toArray();
+
         Cache::put('translations', $this->translations);
     }
 
