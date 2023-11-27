@@ -54,7 +54,11 @@ class LanguageTranslations extends Page
             $app_translation->replaceTranslations('value', $translations_list['value']);
             $app_translation->save();
         }
+        $this->inputTranslations = array();
         $this->translations = Translation::query()->orderBy('id', 'DESC')->get();
+        foreach ($this->translations as $translation) {
+            $this->inputTranslations[$translation->id] = $translation->getTranslation('value', $this->language->iso_code);
+        }
         $this->inputTranslations = Translation::query()->pluck('value', 'id')->toArray();
         Cache::put('translations', $this->translations);
     }
