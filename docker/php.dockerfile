@@ -18,17 +18,24 @@ RUN sed -i "s/user = www-data/user = laravel/g" /usr/local/etc/php-fpm.d/www.con
 RUN sed -i "s/group = www-data/group = laravel/g" /usr/local/etc/php-fpm.d/www.conf
 RUN echo "php_admin_flag[log_errors] = on" >> /usr/local/etc/php-fpm.d/www.conf
 
-RUN apk --no-cache add libintl icu-libs \
-    && docker-php-ext-configure intl \
-    && docker-php-ext-install intl
-
-RUN docker-php-ext-install exif
+RUN docker-php-ext-install pdo pdo_mysql
 
 COPY crontab /etc/crontabs/root
 
 RUN mkdir -p /usr/src/php/ext/redis \
     && curl -L https://github.com/phpredis/phpredis/archive/5.3.4.tar.gz | tar xvz -C /usr/src/php/ext/redis --strip 1 \
     && echo 'redis' >> /usr/src/php-available-exts \
-    && docker-php-ext-install redis
+    && docker-php-ext-install redis \
+    && echo 'intl' >> /usr/src/php-available-exts \
+    && docker-php-ext-install intl \
+    && echo 'exif' >> /usr/src/php-available-exts \
+    && docker-php-ext-install exif \
+
+
+
+
+
+
 COPY ./php/laravel.ini /usr/local/etc/php/conf.d
 CMD ["php-fpm", "-y", "/usr/local/etc/php-fpm.conf", "-R"]
+
