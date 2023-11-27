@@ -1,4 +1,4 @@
-FROM php:8.2-cli
+FROM php:8-fpm-alpine
 
 ARG WWWGROUP
 
@@ -21,22 +21,15 @@ RUN echo "php_admin_flag[log_errors] = on" >> /usr/local/etc/php-fpm.d/www.conf
 RUN docker-php-ext-install pdo pdo_mysql
 
 COPY crontab /etc/crontabs/root
-COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 
 RUN mkdir -p /usr/src/php/ext/redis \
     && curl -L https://github.com/phpredis/phpredis/archive/5.3.4.tar.gz | tar xvz -C /usr/src/php/ext/redis --strip 1 \
     && echo 'redis' >> /usr/src/php-available-exts \
     && docker-php-ext-install redis
 
-RUN apt update \
-RUN install-php-extensions gd xdebug
-RUN  echo 'gd xdebug' >> /usr/local/bin \
-RUN install-php-extensions intl
-RUN  echo 'intl' >> /usr/local/bin \
-RUN install-php-extensions exif
-RUN  echo 'exif' >> /usr/local/bin \
-
-
+RUN apk add icu-dev
+RUN docker-php-ext-install mysqli pdo pdo_mysql
+RUN docker-php-ext-configure intl && docker-php-ext-install intl
 
 
 
