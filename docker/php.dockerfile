@@ -1,4 +1,4 @@
-FROM php:8-fpm-alpine
+FROM php:8-fpm-alpine3.14
 
 ARG WWWGROUP
 
@@ -27,10 +27,12 @@ RUN mkdir -p /usr/src/php/ext/redis \
     && echo 'redis' >> /usr/src/php-available-exts \
     && docker-php-ext-install redis
 
-RUN apt-get -y update \
-&& apt-get install -y libicu-dev \
-&& docker-php-ext-configure intl \
-&& docker-php-ext-install intl
+RUN apk --no-cache update \
+    && apk --no-cache add libintl icu-libs \
+    && apk --no-cache add --virtual .build-deps autoconf dpkg-dev dpkg file g++ gcc libc-dev make pkgconf re2c \
+    && docker-php-ext-install intl \
+    && apk del .build-deps \
+    && echo "Intl extension installed successfully."
 
 
 
