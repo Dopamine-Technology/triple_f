@@ -1,4 +1,4 @@
-FROM php:8-fpm-alpine3.14
+FROM php:8-fpm-alpine
 
 ARG WWWGROUP
 
@@ -19,6 +19,9 @@ RUN sed -i "s/group = www-data/group = laravel/g" /usr/local/etc/php-fpm.d/www.c
 RUN echo "php_admin_flag[log_errors] = on" >> /usr/local/etc/php-fpm.d/www.conf
 
 RUN docker-php-ext-install pdo pdo_mysql
+RUN docker-php-ext-configure intl
+RUN docker-php-ext-install intl
+RUN docker-php-ext-enable intl
 
 COPY crontab /etc/crontabs/root
 
@@ -26,16 +29,5 @@ RUN mkdir -p /usr/src/php/ext/redis \
     && curl -L https://github.com/phpredis/phpredis/archive/5.3.4.tar.gz | tar xvz -C /usr/src/php/ext/redis --strip 1 \
     && echo 'redis' >> /usr/src/php-available-exts \
     && docker-php-ext-install redis
-
-RUN apk --no-cache update \
-    && apk --no-cache add libintl icu-libs \
-    && apk --no-cache add --virtual .build-deps autoconf dpkg-dev dpkg file g++ gcc libc-dev make pkgconf re2c \
-    && docker-php-ext-install intl \
-    && apk del .build-deps \
-    && echo "Intl extension installed successfully."
-
-
-
 COPY ./php/laravel.ini /usr/local/etc/php/conf.d
 CMD ["php-fpm", "-y", "/usr/local/etc/php-fpm.conf", "-R"]
-
