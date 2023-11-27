@@ -43,6 +43,10 @@ class LanguageTranslations extends Page
         $this->key = '';
         $this->value = '';
         $this->translations = Translation::query()->orderBy('id', 'DESC')->get();
+        $this->inputTranslations = array();
+        foreach ($this->translations as $translation) {
+            $this->inputTranslations[$translation->id] = $translation->getTranslation('value', $this->language->iso_code);
+        }
     }
 
     public function saveTranslations()
