@@ -36,7 +36,7 @@
     let seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
 
     let output = countdown.getAttribute('data-template');
-    output = output.replace('%w', weeks).replace('%d', days *10).replace('%h', hours).replace('%m', minutes).replace('%s', seconds);
+    output = output.replace('%w', weeks).replace('%d', days).replace('%h', hours).replace('%m', minutes).replace('%s', seconds);
     countdown.innerHTML = output;
   }
   countDownDate();
