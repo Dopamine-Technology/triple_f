@@ -7,6 +7,7 @@ use App\Models\Language;
 use App\Models\Translation;
 use Filament\Resources\Pages\Page;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class LanguageTranslations extends Page
 {
@@ -55,6 +56,7 @@ class LanguageTranslations extends Page
         }
         $this->translations = Translation::query()->orderBy('id', 'DESC')->get();
         $this->inputTranslations = Translation::query()->pluck('value', 'id')->toArray();
+        Cache::put('translations', $this->translations);
     }
 
 
