@@ -17,7 +17,7 @@ class PostResource extends JsonResource
         return [
            'title'=> $this->getTranslation('title' , LANGUAGE),
            'content'=> $this->getTranslation('content' , LANGUAGE),
-           'main_image'=> $this->getMedia('main_image')->first()->getUrl() ?? '',
+           'main_image'=> $this->getMedia('main_image')->first()?->getUrl() ?? '',
            'post_media'=> MediaResource::collection($this->getMedia('post_media')),
            'created_at'=> $this->created_at,
         ];
