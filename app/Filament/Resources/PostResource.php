@@ -43,7 +43,7 @@ class PostResource extends Resource
                 ]),
                 Section::make()->schema([
                     Group::make()->schema([
-                        SpatieMediaLibraryFileUpload::make('main_image')->image()->collection('main_image'),
+                        SpatieMediaLibraryFileUpload::make('main_image')->image()->collection('main_image')->required(),
                         SpatieMediaLibraryFileUpload::make('media')->multiple()->collection('post_media'),
                     ])
 
