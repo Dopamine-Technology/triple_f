@@ -66,8 +66,8 @@ class PostResource extends Resource
                     }
                 ),
                 TextColumn::make('title'),
-                TextColumn::make('content')->limit(35),
-                TextColumn::make('created_at'),
+                TextColumn::make('content')->limit(35)->html(),
+                TextColumn::make('created_at')->color('primary'),
             ])
             ->filters([
                 //
