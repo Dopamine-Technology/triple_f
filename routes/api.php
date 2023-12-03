@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::controller(AppController::class)->prefix('/app')->middleware(['localization'])->group(function () {
     Route::get('get_translations', 'getTranslatableStrings');
     Route::post('contact_us', 'contactUs');
+    Route::post('latest_posts', 'getLatestPosts');
 });
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

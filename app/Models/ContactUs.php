@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ContactUs extends Model
 {
+//    HAVE:observer app/Observers/ContactUsObserver.php
     use HasFactory;
 
     protected $guarded = [];

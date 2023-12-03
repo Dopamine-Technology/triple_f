@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PostResource;
 use App\Http\Resources\TranslationResource;
 use App\Models\ContactUs;
+use App\Models\Post;
 use App\Models\Translation;
 use App\Models\User;
 use App\Traits\AppResponse;
@@ -29,10 +32,17 @@ class AppController extends Controller
             'message' => 'required'
         ]);
         ContactUs::query()->create($data);
-
-
-        return $this->success([] , 'your message sent successfully');
-
+        return $this->success([], 'your message sent successfully');
     }
+
+    public function getLatestPosts(Request $request)
+    {
+//        ->getMedia()->first()->getUrl()
+        $offset = $request->page ?? 0;
+        $limit = $request->limit ?? 10;
+        $posts = Post::query()->skip($offset * $limit)->limit($limit)->orderBy('created_at' , 'DESC')->get();
+       return $this->success(PostResource::collection($posts));
+    }
+
 
 }
