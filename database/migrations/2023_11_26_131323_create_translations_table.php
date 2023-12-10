@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('key');
             $table->json('value');
+            $table->string('tag')->default('general');
             $table->timestamps();
         });
     }
