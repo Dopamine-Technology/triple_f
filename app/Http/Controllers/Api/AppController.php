@@ -21,7 +21,9 @@ class AppController extends Controller
 
     public function getTranslatableStrings()
     {
-        return $this->success(TranslationResource::collection(Cache::get('translations', Translation::all())));
+
+        $translations = request()->tag ? Translation::query()->where('tag', request()->tag)->get() : Translation::all();
+        return $this->success(TranslationResource::collection($translations));
     }
 
     public function contactUs(Request $request)
@@ -40,8 +42,8 @@ class AppController extends Controller
 //        ->getMedia()->first()->getUrl()
         $offset = $request->page ?? 0;
         $limit = $request->limit ?? 10;
-        $posts = Post::query()->skip($offset * $limit)->limit($limit)->orderBy('created_at' , 'DESC')->get();
-       return $this->success(PostResource::collection($posts));
+        $posts = Post::query()->skip($offset * $limit)->limit($limit)->orderBy('created_at', 'DESC')->get();
+        return $this->success(PostResource::collection($posts));
     }
 
 
