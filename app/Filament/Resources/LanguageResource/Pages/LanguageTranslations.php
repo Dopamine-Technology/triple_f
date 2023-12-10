@@ -38,7 +38,8 @@ class LanguageTranslations extends Page
     {
         $languages = Language::all();
         $newTranslation = new Translation();
-        $newTranslation->key = Str::snake(Str::squish($this->key));
+
+        $newTranslation->key = self::cleanKey($this->key);
         foreach ($languages as $language) {
             $newTranslation->setTranslation('value', $language->iso_code, Str::squish($this->value));
         }
@@ -52,6 +53,14 @@ class LanguageTranslations extends Page
             $this->inputTag[$translation->id] = $translation->tag;
         }
     }
+
+    public static function cleanKey($key): string
+    {
+        $clean_key = str_replace('-', ' ', $key);
+        $clean_key = Str::snake(Str::squish(preg_replace('/[^A-Za-z0-9\-]/', ' ', $clean_key)));
+        return $clean_key;
+    }
+
 
     public function saveTranslations()
     {
