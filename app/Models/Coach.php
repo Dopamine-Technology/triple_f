@@ -11,4 +11,12 @@ class Coach extends Model
 
     protected $guarded = [];
     protected $casts = ['birth_date' => 'date'];
+
+
+    public function sport()
+    {
+        return $this->belongsTo(Sport::class);
+    }
+
+
 }

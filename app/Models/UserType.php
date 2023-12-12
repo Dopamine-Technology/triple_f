@@ -10,6 +10,7 @@ class UserType extends Model
 {
     use HasFactory, HasTranslations;
 
+    protected $table = 'user_types';
     public $translatable = ['name'];
 
     protected $guarded = [];
