@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Position;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,8 +17,12 @@ class DatabaseSeeder extends Seeder
             LanguageSeeder::class,
             PermissionSeeder::class,
             RoleSeeder::class,
+            TranslationsSeeder::class,
+            UserTypeSeeder::class,
             UserSeeder::class,
-            TranslationsSeeder::class
+            SportSeeder::class,
+            positionsSeeder::class,
+            CountrySeeder::class,
         ]);
     }
 }
