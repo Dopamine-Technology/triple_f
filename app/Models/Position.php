@@ -12,4 +12,11 @@ class Position extends Model
 
     public $translatable = ['name'];
     protected $guarded = [];
+
+    public function parent()
+    {
+        return $this->belongsTo($this , 'parent_id' , 'id');
+    }
+
+
 }

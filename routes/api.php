@@ -19,6 +19,9 @@ Route::controller(AppController::class)->prefix('/app')->middleware(['localizati
     Route::get('get_translations', 'getTranslatableStrings');
     Route::post('contact_us', 'contactUs');
     Route::post('latest_posts', 'getLatestPosts');
+    Route::get('get_sports', 'getSports');
+    Route::get('get_countries', 'getCountries');
+    Route::post('get_sport_positions/{sport}', 'getSportPositions');
 });
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
