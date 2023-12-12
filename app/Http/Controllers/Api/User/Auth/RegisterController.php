@@ -63,6 +63,7 @@ class RegisterController extends Controller
         $exist_user = User::query()->where('google_identifier', $request->google_identifier)->orWhere('email', $request->email)->first();
         if (!empty($exist_user)) {
             $exist_user->google_identifier = $request->google_identifier;
+            $exist_user->email_verified_at = now();
             $exist_user->save();
             return $this->success([
                 'user' => new UserResource($exist_user),
@@ -88,6 +89,7 @@ class RegisterController extends Controller
         $exist_user = User::query()->where('facebook_identifier', $request->facebook_identifier)->orWhere('email', $request->email)->first();
         if (!empty($exist_user)) {
             $exist_user->facebook_identifier = $request->facebook_identifier;
+            $exist_user->email_verified_at = now();
             $exist_user->save();
             return $this->success([
                 'user' => new UserResource($exist_user),

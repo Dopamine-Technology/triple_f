@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AppController;
+use App\Http\Controllers\Api\User\Auth\LoginController;
 use App\Http\Controllers\Api\User\Auth\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,5 +29,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::controller(RegisterController::class)->prefix('/user/auth')->middleware(['localization'])->group(function () {
     Route::post('register', 'register');
+
+});
+Route::controller(LoginController::class)->prefix('/user/auth')->middleware(['localization'])->group(function () {
+    Route::post('email_login', 'loginWithEmail');
+    Route::post('google_login', 'loginWithGoogle');
+    Route::post('facebook_login', 'loginWithFacebook');
 
 });
