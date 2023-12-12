@@ -64,7 +64,6 @@ class AppController extends Controller
     public function getSportPositions(Sport $sport, Request $request)
     {
         $positions = $sport->positions();
-//        dd($request->name);this li last of us to be the last
         if ($request->name) {
             $positions->where('name->' . LANGUAGE, 'LIKE', '%' . $request->name . '%');
         }
