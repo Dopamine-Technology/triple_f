@@ -24,6 +24,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::controller(RegisterController::class)->prefix('/user/auth')->middleware(['localization'])->group(function () {
-    Route::post('email_register', 'emailRegister');
+    Route::post('register', 'register');
 
 });

@@ -17,7 +17,7 @@ class RegisterController extends Controller
 {
     use AppResponse;
 
-    public function emailRegister(RegisterRequest $request)
+    public function register(RegisterRequest $request)
     {
         $userData = $request->user;
         $profileData = $request->profile;
