@@ -31,6 +31,7 @@ class RegisterController extends Controller
 
 
         $newUser = User::query()->create($userData);
+        $profileData['user_id'] = $newUser->id;
         $this->profileCreationHandler($profileData);
 
         return $this->success([
