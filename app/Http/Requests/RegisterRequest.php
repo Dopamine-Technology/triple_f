@@ -14,10 +14,11 @@ class RegisterRequest extends FormRequest
         'user_type' => 'required|exists:user_types,id|max:255',
         'first_name' => 'required|string|max:255',
         'last_name' => 'required|string|max:255',
-        'email' => 'required|email|max:255|unique:users,email|max:255',
         'password' => 'required|min:8|max:255',
         'user_name' => 'sometimes|max:255',
         'image' => 'sometimes|file',
+        'google_identifier' => 'sometimes',
+        'facebook_identifier' => 'sometimes',
     ];
 
     public function authorize(): bool
@@ -32,7 +33,14 @@ class RegisterRequest extends FormRequest
      */
     public function rules(): array
     {
-        return $this->getTypeValidation();
+        $validation_arr = $this->getTypeValidation();
+        if (!$this->google_identifier && !$this->facebook_identifier) {
+            $validation_arr['email'] = 'required|email|max:255|unique:users,email';
+        }else{
+            $validation_arr['email'] = 'sometimes|max:255';
+        }
+
+        return $validation_arr;
     }
 
     protected function passedValidation()

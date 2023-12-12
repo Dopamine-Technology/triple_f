@@ -19,13 +19,20 @@ class RegisterController extends Controller
 
     public function emailRegister(RegisterRequest $request)
     {
-//        dd(User::query()->with(['profile_type'])->find(7)->profile);
-//        return $this->success(['user'=>new UserResource(User::query()->with(['profile_type'])->find(7))]);
         $userData = $request->user;
         $profileData = $request->profile;
+
+        if ($request->google_identifier) {
+            return $this->googleRegisterHandler($request);
+        }
+        if ($request->facebook_identifier) {
+            return $this->facebookRegisterHandler($request);
+        }
+
+
         $newUser = User::query()->create($userData);
-        $profileData['user_id'] = $newUser->id;
         $this->profileCreationHandler($profileData);
+
         return $this->success([
             'user' => new UserResource($newUser),
             'token' => $newUser->createToken('apptoken')->plainTextToken,
@@ -41,12 +48,63 @@ class RegisterController extends Controller
                 return Talent::query()->create($profileData);
             case 2 :
                 return Coach::query()->create($profileData);
-                case 3 :
+            case 3 :
                 return Club::query()->create($profileData);
-                case 4 :
+            case 4 :
                 return Scout::query()->create($profileData);
         }
 
     }
+
+    public function googleRegisterHandler($request)
+    {
+        $userData = $request->user;
+        $profileData = $request->profile;
+        $exist_user = User::query()->where('google_identifier', $request->google_identifier)->orWhere('email', $request->email)->first();
+        if (!empty($exist_user)) {
+            $exist_user->google_identifier = $request->google_identifier;
+            $exist_user->save();
+            return $this->success([
+                'user' => new UserResource($exist_user),
+                'token' => $exist_user->createToken('apptoken')->plainTextToken,
+            ], __('User successfully logged in via google'));
+        } else {
+            $newUser = User::query()->create($userData);
+            $newUser->google_identifier = $request->google_identifier;
+            $newUser->save();
+            $profileData['user_id'] = $newUser->id;
+            $this->profileCreationHandler($profileData);
+            return $this->success([
+                'user' => new UserResource($newUser),
+                'token' => $newUser->createToken('apptoken')->plainTextToken,
+            ], __('User successfully Registered via google'));
+        }
+    }
+
+    public function facebookRegisterHandler($request)
+    {
+        $userData = $request->user;
+        $profileData = $request->profile;
+        $exist_user = User::query()->where('facebook_identifier', $request->facebook_identifier)->orWhere('email', $request->email)->first();
+        if (!empty($exist_user)) {
+            $exist_user->facebook_identifier = $request->facebook_identifier;
+            $exist_user->save();
+            return $this->success([
+                'user' => new UserResource($exist_user),
+                'token' => $exist_user->createToken('apptoken')->plainTextToken,
+            ], __('User successfully logged in via facebook'));
+        } else {
+            $newUser = User::query()->create($userData);
+            $newUser->google_identifier = $request->google_identifier;
+            $newUser->save();
+            $profileData['user_id'] = $newUser->id;
+            $this->profileCreationHandler($profileData);
+            return $this->success([
+                'user' => new UserResource($newUser),
+                'token' => $newUser->createToken('apptoken')->plainTextToken,
+            ], __('User successfully Registered via facebook'));
+        }
+    }
+
 
 }
