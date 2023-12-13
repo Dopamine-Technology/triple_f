@@ -15,6 +15,8 @@ return new class extends Migration {
     {
         Schema::create('clubs', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('logo')->nullable();
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(Sport::class);
             $table->foreignIdFor(Country::class);

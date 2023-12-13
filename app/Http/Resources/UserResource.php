@@ -27,6 +27,8 @@ class UserResource extends JsonResource
             'is_baned' => $this->baned_to ? true : false,
             'is_email_verified' => $this->email_verified_at ? true : false,
             'profile' => [
+                'club_name' => $this->profile->name ?? '',
+                'club_logo' => $this->profile->logo  ? asset('storage/' . $this->profile->logo) : '' ,
                 'type_id' => $this->user_type_id,
                 'type_name' => $this->profile_type->getTranslation('name', LANGUAGE),
                 'mobile_number' => $this->profile->mobile_number,

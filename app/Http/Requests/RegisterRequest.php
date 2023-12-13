@@ -36,7 +36,7 @@ class RegisterRequest extends FormRequest
         $validation_arr = $this->getTypeValidation();
         if (!$this->google_identifier && !$this->facebook_identifier) {
             $validation_arr['email'] = 'required|email|max:255|unique:users,email';
-        }else{
+        } else {
             $validation_arr['email'] = 'sometimes|max:255';
         }
 
@@ -109,6 +109,8 @@ class RegisterRequest extends FormRequest
     public function clubValidationRoles(): array
     {
         $roles = $this->commonRoles;
+        $roles['club_name'] = 'required|string|max:255';
+        $roles['club_logo'] = 'sometimes';
         $roles['talent_type'] = 'required';
         $roles['country_id'] = 'required';
         $roles['mobile_number'] = 'required';
@@ -182,6 +184,8 @@ class RegisterRequest extends FormRequest
     {
         $data = array();
         $data['profile']['user_type'] = $this->user_type;
+        $data['profile']['name'] = $this->club_name;
+        $data['profile']['logo'] = $this->club_logo ? $this->file('club_logo')->store('clubs', 'public') : '';
         $data['profile']['sport_id'] = $this->talent_type;
         $data['profile']['country_id'] = $this->country_id;
         $data['profile']['mobile_number'] = $this->mobile_number;
