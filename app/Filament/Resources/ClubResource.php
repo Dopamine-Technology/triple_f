@@ -9,6 +9,8 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -31,7 +33,14 @@ class ClubResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('id'),
+                TextColumn::make('name')->label('club name')->searchable(),
+                TextColumn::make('user.name')->label('associated user')->color('primary')->searchable(),
+                TextColumn::make('mobile_number')->icon('heroicon-o-clipboard-document')->copyable()->searchable(),
+                TextColumn::make('year_founded')->color('primary'),
+                TextColumn::make('sport.name'),
+                TextColumn::make('country.name'),
+                ToggleColumn::make('approved_by_admin')
             ])
             ->filters([
                 //

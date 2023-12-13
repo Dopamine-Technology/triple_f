@@ -11,6 +11,11 @@ class Club extends Model
 
     protected $guarded = [];
     protected $with = ['country'];
+    protected $casts = ['approved_by_admin' => 'boolean'];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function sport()
     {

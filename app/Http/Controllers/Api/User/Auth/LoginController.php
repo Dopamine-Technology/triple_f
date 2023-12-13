@@ -25,6 +25,12 @@ class LoginController extends Controller
                 'password' => ['The provided credentials are incorrect.'],
             ]);
         } else {
+            if ($user->user_type_id == 3 && !$user->profile->approved_by_admin) {
+                throw ValidationException::withMessages([
+                    'approved_by_admin' => ['Club need to be approved by admin to proceed'],
+                ]);
+            }
+
             return $this->success([
                 'user' => new UserResource($user),
                 'token' => $user->createToken('apptoken')->plainTextToken,
@@ -40,9 +46,14 @@ class LoginController extends Controller
             ]
         );
         $user = User::query()->where('google_identifier', $data['google_identifier'])->first();
-        if(!$user->email_verified_at){
+        if (!$user->email_verified_at) {
             $user->email_verified_at = now();
             $user->save();
+        }
+        if ($user->user_type_id == 3 && !$user->profile->approved_by_admin) {
+            throw ValidationException::withMessages([
+                'approved_by_admin' => ['Club need to be approved by admin to proceed'],
+            ]);
         }
         return $this->success([
             'user' => new UserResource($user),
@@ -67,9 +78,14 @@ class LoginController extends Controller
         );
         $user = User::query()->where('facebook_identifier', $data['facebook_identifier'])->first();
 
-        if(!$user->email_verified_at){
+        if (!$user->email_verified_at) {
             $user->email_verified_at = now();
             $user->save();
+        }
+        if ($user->user_type_id == 3 && !$user->profile->approved_by_admin) {
+            throw ValidationException::withMessages([
+                'approved_by_admin' => ['Club need to be approved by admin to proceed'],
+            ]);
         }
         return $this->success([
             'user' => new UserResource($user),
