@@ -9,12 +9,15 @@ use App\Http\Resources\PostionsResource;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\SportResource;
 use App\Http\Resources\TranslationResource;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\UsertypeResource;
 use App\Models\ContactUs;
 use App\Models\Country;
 use App\Models\Post;
 use App\Models\Sport;
 use App\Models\Translation;
 use App\Models\User;
+use App\Models\UserType;
 use App\Traits\AppResponse;
 use Filament\Notifications\Notification;
 use Illuminate\Http\Request;
@@ -49,6 +52,11 @@ class AppController extends Controller
         $limit = $request->limit ?? 10;
         $posts = Post::query()->skip($offset * $limit)->limit($limit)->orderBy('created_at', 'DESC')->get();
         return $this->success(PostResource::collection($posts));
+    }
+
+    public function getUserTypes()
+    {
+        return $this->success(UsertypeResource::collection(UserType::all()));
     }
 
     public function getSports()
