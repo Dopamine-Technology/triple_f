@@ -33,7 +33,6 @@ class AuthController extends Controller
                 'password' => 'required|min:8|confirmed',
             ]
         );
-
         $user = User::query()->whereRaw('md5(id) = "' . $data['user_token'] . '"')->firstOrFail();
         $user->password = Hash::make($data['password']);
         $user->save();
