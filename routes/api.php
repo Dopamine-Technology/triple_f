@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AppController;
+use App\Http\Controllers\Api\User\Auth\AuthController;
 use App\Http\Controllers\Api\User\Auth\LoginController;
 use App\Http\Controllers\Api\User\Auth\RegisterController;
 use Illuminate\Http\Request;
@@ -24,16 +25,22 @@ Route::controller(AppController::class)->prefix('/app')->middleware(['localizati
     Route::get('get_countries', 'getCountries');
     Route::post('get_sport_positions/{sport}', 'getSportPositions');
 });
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+
 Route::controller(RegisterController::class)->prefix('/user/auth')->middleware(['localization'])->group(function () {
     Route::post('register', 'register');
-
 });
 Route::controller(LoginController::class)->prefix('/user/auth')->middleware(['localization'])->group(function () {
     Route::post('email_login', 'loginWithEmail');
     Route::post('google_login', 'loginWithGoogle');
     Route::post('facebook_login', 'loginWithFacebook');
 
+});
+Route::controller(AuthController::class)->prefix('/user/auth')->middleware(['localization'])->group(function () {
+    Route::post('verify_email', 'verifyEmail');
+    Route::post('reset_password', 'resetPassword');
+
+});
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
 });

@@ -37,7 +37,7 @@ class VerfyMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.welcome',
+            view: 'mail.verfiy_email',
             with: [
                 'title' => $this->title,
                 'body' => $this->body,

@@ -28,12 +28,9 @@ class RegisterController extends Controller
         if ($request->facebook_identifier) {
             return $this->facebookRegisterHandler($request);
         }
-
-
         $newUser = User::query()->create($userData);
         $profileData['user_id'] = $newUser->id;
         $this->profileCreationHandler($profileData);
-
         return $this->success([
             'user' => new UserResource($newUser),
             'token' => $newUser->createToken('apptoken')->plainTextToken,

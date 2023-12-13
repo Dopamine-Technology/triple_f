@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Api\User\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Resources\UserResource;
+use App\Mail\VerfyMail;
 use App\Models\User;
 use App\Traits\AppResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
@@ -52,6 +54,12 @@ class LoginController extends Controller
 
     public function loginWithFacebook(Request $request)
     {
+
+//        $title = 'Welcome to the laracoding.com example email';
+//        $body = 'Thank you for participating!';
+//        Mail::to('ab.basem.j@gmail.com')->send(new VerfyMail($title = 'verify you email', $body = 'test data'));
+//TODO: make sure to wrap the mail inside queue
+// TODO configure email sending
         $data = $request->validate(
             [
                 'facebook_identifier' => 'required|exists:users,facebook_identifier'
