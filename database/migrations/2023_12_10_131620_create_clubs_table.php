@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->foreignIdFor(Sport::class);
             $table->foreignIdFor(Country::class);
             $table->string('mobile_number');
-            $table->date('year_founded')->nullable();
+            $table->integer('year_founded')->nullable();
             $table->boolean('is_authorized')->default(false);
             $table->string('registration_document')->nullable();
 

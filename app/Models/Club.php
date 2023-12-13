@@ -10,7 +10,6 @@ class Club extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $casts = ['year_founded' => 'date'];
     protected $with = ['country'];
 
     public function sport()

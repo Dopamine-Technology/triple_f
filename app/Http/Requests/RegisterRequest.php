@@ -114,7 +114,7 @@ class RegisterRequest extends FormRequest
         $roles['talent_type'] = 'required';
         $roles['country_id'] = 'required';
         $roles['mobile_number'] = 'required';
-        $roles['year_founded'] = 'required|date';
+        $roles['year_founded'] = 'required';
         return $roles;
     }
 
