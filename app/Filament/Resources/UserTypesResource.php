@@ -40,7 +40,6 @@ class UserTypesResource extends Resource
         'view_talent' => 'View Talent Profiles , View Talent Reels And content',
         'view_scout' => 'View Scout Profiles and mke scout profiles appear in user search result',
         'view_club' => 'View Clubs , Clubs Profiles , Show Club Certificates and information',
-
     ];
 
     public static function form(Form $form): Form
@@ -60,8 +59,6 @@ class UserTypesResource extends Resource
                         ->orderable(false)
                         ->columns(2)
                         ->grid(2)
-
-
                 ])
             ]);
     }

@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AppController;
 use App\Http\Controllers\Api\User\Auth\AuthController;
 use App\Http\Controllers\Api\User\Auth\LoginController;
 use App\Http\Controllers\Api\User\Auth\RegisterController;
+use App\Http\Controllers\Api\User\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +26,6 @@ Route::controller(AppController::class)->prefix('/app')->middleware(['localizati
     Route::get('get_countries', 'getCountries');
     Route::post('get_sport_positions/{sport}', 'getSportPositions');
 });
-
 Route::controller(RegisterController::class)->prefix('/user/auth')->middleware(['localization'])->group(function () {
     Route::post('register', 'register');
 });
@@ -40,7 +40,15 @@ Route::controller(AuthController::class)->prefix('/user/auth')->middleware(['loc
     Route::post('reset_password', 'resetPassword');
 
 });
-
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::middleware('auth:sanctum')->group(function () {
+    Route::controller(UserController::class)->prefix('/user')->middleware(['localization'])->group(function () {
+        Route::get('get_permissions', 'getUserPermission');
+    });
+});
+
+
+
+
