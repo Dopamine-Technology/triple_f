@@ -21,7 +21,7 @@ class AdminResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationGroup = 'system';
+    protected static ?string $navigationGroup = 'Admin Settings';
     protected static ?string $label = 'Admin';
 
     public static function getEloquentQuery(): Builder

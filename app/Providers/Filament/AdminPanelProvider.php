@@ -55,8 +55,12 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->navigationGroups([
                 NavigationGroup::make()
-                    ->label('system')
-                    ->icon('heroicon-o-cog-6-tooth'),
+                    ->label('System Settings')
+                    ->icon('heroicon-o-adjustments-horizontal'),
+                NavigationGroup::make()
+                    ->label('Admin Settings')
+                    ->icon('heroicon-o-wrench-screwdriver'),
+
             ])
             ->authMiddleware([
                 Authenticate::class,

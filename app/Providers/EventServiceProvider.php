@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Club;
 use App\Models\ContactUs;
+use App\Observers\ClubObserver;
 use App\Observers\ContactUsObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -28,6 +30,7 @@ class EventServiceProvider extends ServiceProvider
     public function boot(): void
     {
         ContactUs::observe(ContactUsObserver::class);
+        Club::observe(ClubObserver::class);
 
     }
 

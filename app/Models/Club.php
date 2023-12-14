@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Club extends Model
 {
     use HasFactory;
-
+// this model has an observer : ClubObserver
     protected $guarded = [];
     protected $with = ['country'];
     protected $casts = ['approved_by_admin' => 'boolean'];

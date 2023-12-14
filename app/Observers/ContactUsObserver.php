@@ -13,7 +13,6 @@ class ContactUsObserver
      */
     public function created(ContactUs $contactUs): void
     {
-
         $admins = User::query()->where('is_admin', true)->get();
         foreach ($admins as $admin) {
             Notification::make()

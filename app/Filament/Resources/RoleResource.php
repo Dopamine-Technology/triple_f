@@ -22,7 +22,7 @@ use stdClass;
 class RoleResource extends Resource
 {
     protected static ?string $model = Role::class;
-    protected static ?string $navigationGroup = 'system';
+    protected static ?string $navigationGroup = 'Admin Settings';
 
     public static function form(Form $form): Form
     {

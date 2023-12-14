@@ -9,6 +9,8 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\BulkAction;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
@@ -34,8 +36,10 @@ class ClubResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id'),
+                ImageColumn::make('logo')->disk('public')->circular()
+                    ->defaultImageUrl(asset('2NoKUDZBHGiX0UUIFb1MJkU6zDwe4FRHFOE9BrRq.png')),
                 TextColumn::make('name')->label('club name')->searchable(),
-                TextColumn::make('user.name')->label('associated user')->color('primary')->searchable(),
+                TextColumn::make('user.name')->label('associated user')->icon('heroicon-o-user')->color('primary')->searchable(),
                 TextColumn::make('mobile_number')->icon('heroicon-o-clipboard-document')->copyable()->searchable(),
                 TextColumn::make('year_founded')->color('primary'),
                 TextColumn::make('sport.name'),
@@ -46,11 +50,21 @@ class ClubResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+//                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+//                    Tables\Actions\DeleteBulkAction::make(),
+                    BulkAction::make('Approve')
+                        ->requiresConfirmation()
+                        ->icon('heroicon-o-shield-check')
+                        ->color('primary')
+                        ->action(fn($records) => $records->each->update(['approved_by_admin' => true])),
+                    BulkAction::make('Block')
+                        ->requiresConfirmation()
+                        ->icon('heroicon-o-exclamation-circle')
+                        ->color('danger')
+                        ->action(fn($records) => $records->each->update(['approved_by_admin' => false]))
                 ]),
             ])
             ->emptyStateActions([

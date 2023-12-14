@@ -29,7 +29,7 @@ class UserTypesResource extends Resource
 {
     protected static ?string $model = UserType::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'System Settings';
     private static $permisions_options = [
         'view_talent' => 'View Talent',
         'view_scout' => 'View Scout',
