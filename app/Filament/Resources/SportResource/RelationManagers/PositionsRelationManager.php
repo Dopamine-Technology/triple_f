@@ -54,7 +54,7 @@ class PositionsRelationManager extends RelationManager
                     return $query
                         ->where('name->en', 'like', "%{$search}%");
                 }),
-                TextColumn::make('code')->label('Shortcut Code')->searchable()->badge(),
+                TextColumn::make('code')->label('Shortcut Code')->badge(),
                 TextColumn::make('parent.name')->color('primary')->default('Parent Category'),
             ])
             ->filters([
