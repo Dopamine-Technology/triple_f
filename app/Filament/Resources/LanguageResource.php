@@ -29,7 +29,8 @@ class LanguageResource extends Resource
                     Forms\Components\Grid::make()->schema([
                         TextInput::make('name.en')->label('English Name'),
                         TextInput::make('name.ar')->label('Arabic Name'),
-                    ])
+                        TextInput::make('iso_code')->label('ISO Code')->maxLength(4),
+                    ])->columns(1)
                 ]),
             ]);
     }
