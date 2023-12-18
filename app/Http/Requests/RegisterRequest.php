@@ -20,7 +20,7 @@ class RegisterRequest extends FormRequest
             'max:255',
         ],
         'user_name' => 'sometimes|max:255',
-        'image' => 'sometimes|file',
+        'image' => 'sometimes',
         'social_image' => 'required_with:facebook_identifier|required_with:google_identifier',
         'google_identifier' => 'sometimes',
         'facebook_identifier' => 'sometimes',
