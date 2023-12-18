@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->string('user_name')->nullable();
             $table->string('email')->unique();
             $table->string('image')->nullable();
+            $table->string('social_image')->nullable();
             $table->string('password')->nullable();
             $table->string('google_identifier')->nullable();
             $table->string('facebook_identifier')->nullable();

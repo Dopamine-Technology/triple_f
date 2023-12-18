@@ -14,9 +14,14 @@ class RegisterRequest extends FormRequest
         'user_type' => 'required|exists:user_types,id|max:255',
         'first_name' => 'required|string|max:255',
         'last_name' => 'required|string|max:255',
-        'password' => 'required|min:8|max:255',
+        'password' => [
+            'required_without_all:facebook_identifier,google_identifier',
+            'min:8',
+            'max:255',
+        ],
         'user_name' => 'sometimes|max:255',
         'image' => 'sometimes|file',
+        'social_image' => 'required_with:facebook_identifier|required_with:google_identifier',
         'google_identifier' => 'sometimes',
         'facebook_identifier' => 'sometimes',
     ];
@@ -48,7 +53,8 @@ class RegisterRequest extends FormRequest
         $data = array();
         $data['user']['first_name'] = $this->first_name;
         $data['user']['last_name'] = $this->last_name;
-        $data['user']['image'] = $this->file('image')->store('avatars', 'public');
+        $data['user']['image'] = $this->image ?  $this->file('image')->store('avatars', 'public') : '';
+        $data['user']['social_image'] = $this->social_image ?? '';
         $data['user']['name'] = $this->first_name . ' ' . $this->last_name;
         $data['user']['user_name'] = $this->user_name;
         $data['user']['email'] = $this->email;

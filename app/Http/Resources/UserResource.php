@@ -21,6 +21,7 @@ class UserResource extends JsonResource
             'last_name' => $this->last_name ?? '',
             'name' => $this->first_name ?? '' . ' ' . $this->last_name ?? '',
             'image' => $this->image ? asset('storage/' . $this->image) : '',
+            'social_image' => $this->social_image ?? '',
             'user_name' => $this->user_name ?? '',
             'email' => $this->email,
             'is_blocked' => $this->is_blocked,
