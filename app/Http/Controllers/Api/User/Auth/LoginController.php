@@ -42,10 +42,13 @@ class LoginController extends Controller
     {
         $data = $request->validate(
             [
-                'google_identifier' => 'required|exists:users,google_identifier'
+                'google_identifier' => 'required',
+                'email' => 'required|email|exists:users,email'
             ]
         );
-        $user = User::query()->where('google_identifier', $data['google_identifier'])->first();
+        $user = User::query()->where('email', $data['email'])->first();
+        $user->google_identifier = $data['google_identifier'];
+        $user->save();
         if (!$user->email_verified_at) {
             $user->email_verified_at = now();
             $user->save();
@@ -73,11 +76,13 @@ class LoginController extends Controller
 // TODO configure email sending
         $data = $request->validate(
             [
-                'facebook_identifier' => 'required|exists:users,facebook_identifier'
+                'facebook_identifier' => 'required',
+                'email' => 'required|email|exists:users,email'
             ]
         );
-        $user = User::query()->where('facebook_identifier', $data['facebook_identifier'])->first();
-
+        $user = User::query()->where('email', $data['email'])->first();
+        $user->facebook_identifier = $data['facebook_identifier'];
+        $user->save();
         if (!$user->email_verified_at) {
             $user->email_verified_at = now();
             $user->save();
