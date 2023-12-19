@@ -24,13 +24,21 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
+            ->brandLogo(asset('logo.svg'))
+            ->darkModeBrandLogo(asset('dark-logo.svg'))
+            ->brandLogoHeight('2rem')
             ->default()
             ->id('admin')
             ->path('admin')
             ->login()
             ->databaseNotifications()
             ->colors([
-                'primary' => Color::Blue,
+                'primary' => '#5Fb099',
+                'gray' => '#464646',
+                'info' => '#1877f2',
+                'success' => '#77DCBF',
+                'warning' => '#DDB207',
+                'danger' => '#D40303',
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
