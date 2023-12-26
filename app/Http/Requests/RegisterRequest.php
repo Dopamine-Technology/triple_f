@@ -53,10 +53,11 @@ class RegisterRequest extends FormRequest
         $data = array();
         $data['user']['first_name'] = $this->first_name;
         $data['user']['last_name'] = $this->last_name;
-        $data['user']['image'] = $this->image ?  $this->file('image')->store('avatars', 'public') : '';
+        $data['user']['image'] = $this->image ? $this->file('image')->store('avatars', 'public') : '';
         $data['user']['social_image'] = $this->social_image ?? '';
         $data['user']['name'] = $this->first_name . ' ' . $this->last_name;
         $data['user']['user_name'] = $this->user_name;
+        $data['user']['gender'] = $this->gender ?? 'other';
         $data['user']['email'] = $this->email;
         $data['user']['password'] = Hash::make($this->password);
         $data['user']['user_type_id'] = $this->user_type;
