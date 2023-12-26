@@ -41,8 +41,10 @@ class RegisterController extends Controller
     {
         $type = $profileData['user_type'];
         unset($profileData['user_type']);
+
         switch ($type) {
             case 1 :
+//                dd($profileData);
                 return Talent::query()->create($profileData);
             case 2 :
                 return Coach::query()->create($profileData);

@@ -20,7 +20,7 @@ class LanguageResource extends Resource
     protected static ?string $model = Language::class;
     protected static ?string $navigationIcon = 'heroicon-o-language';
     const Tags = ['general' => 'General', 'landing' => 'Landing', 'forms' => 'Forms'];
-
+    protected static ?int $navigationSort = 6;
     public static function form(Form $form): Form
     {
         return $form

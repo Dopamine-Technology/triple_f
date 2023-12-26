@@ -28,6 +28,7 @@ class ContactUsResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-envelope';
     protected static ?string $navigationLabel = 'Contact Us';
+    protected static ?int $navigationSort = 5;
     public static function getNavigationBadge(): ?string
     {
         return ContactUs::query()->where('action', 'action_required')->count();

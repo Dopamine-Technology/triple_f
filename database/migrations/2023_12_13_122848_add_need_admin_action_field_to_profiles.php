@@ -19,7 +19,7 @@ return new class extends Migration {
         Schema::table('scouts', function (Blueprint $table) {
             $table->boolean('approved_by_admin')->default(true);
         });
-        Schema::table('talent', function (Blueprint $table) {
+        Schema::table('talents', function (Blueprint $table) {
             $table->boolean('approved_by_admin')->default(true);
         });
     }

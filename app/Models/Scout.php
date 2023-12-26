@@ -16,4 +16,10 @@ class Scout extends Model
     {
         return $this->belongsTo(Sport::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
