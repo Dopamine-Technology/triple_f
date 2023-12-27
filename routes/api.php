@@ -25,6 +25,7 @@ Route::controller(AppController::class)->prefix('/app')->middleware(['localizati
     Route::post('latest_posts', 'getLatestPosts');
     Route::get('get_sports', 'getSports');
     Route::get('get_countries', 'getCountries');
+    Route::get('get_cities/{country_id?}', 'getCities');
     Route::post('get_sport_positions/{sport}', 'getSportPositions');
 });
 Route::controller(RegisterController::class)->prefix('/user/auth')->middleware(['localization'])->group(function () {

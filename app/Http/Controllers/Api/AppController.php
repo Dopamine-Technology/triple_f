@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CitiesResource;
 use App\Http\Resources\CountriesResource;
 use App\Http\Resources\PostionsResource;
 use App\Http\Resources\PostResource;
@@ -11,6 +12,7 @@ use App\Http\Resources\SportResource;
 use App\Http\Resources\TranslationResource;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UsertypeResource;
+use App\Models\City;
 use App\Models\ContactUs;
 use App\Models\Country;
 use App\Models\Post;
@@ -66,7 +68,13 @@ class AppController extends Controller
 
     public function getCountries()
     {
-        return $this->success(CountriesResource::collection(Country::all()));
+        return $this->success(CountriesResource::collection(Country::query()->get()));
+    }
+
+    public function getCities($country_id = 0)
+    {
+        $cities = $country_id ? City::query()->where('country_id', $country_id)->get() : City::query()->get();
+        return $this->success(CitiesResource::collection($cities));
     }
 
     public function getSportPositions(Sport $sport, Request $request)

@@ -49,7 +49,6 @@ class TalensAge extends ChartWidget
                         '#d3b67f',
                         '#D43030',
                     ],
-
                 ],
             ],
             'labels' => ['5-10', '11-14', '15-17', '18-24', '25-35', 'Older Than 35'],

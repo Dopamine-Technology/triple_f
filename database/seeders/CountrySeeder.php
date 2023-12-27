@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\City;
 use App\Models\Country;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\File;
+
 
 class CountrySeeder extends Seeder
 {
@@ -13,10 +16,15 @@ class CountrySeeder extends Seeder
      */
     public function run(): void
     {
-        $countries = array();
-        $countries[] = ['name' => json_encode(['en' => 'Jordan', 'ar' => 'الأردن']), 'iso_code' => 'jo', 'order' => 1];
-        $countries[] = ['name' => json_encode(['en' => 'Saudi Arabia', 'ar' => 'المملكة السعودية العربية']), 'iso_code' => 'ksa', 'order' => 2];
-        $countries[] = ['name' => json_encode(['en' => 'Egypt', 'ar' => 'جمهورية مصر العربية']), 'iso_code' => 'eg', 'order' => 3];
-        Country::query()->insert($countries);
+        $json = File::get("database/seeders/data/country.json");
+        $countries = json_decode($json);
+        foreach ($countries as $key => $value) {
+            $new_country = Country::query()->create(['name' => $key]);
+            foreach ($value as $city) {
+                City::query()->insert(['name' => json_encode(['en' => $city]), 'country_id' => $new_country->id]);
+            }
+        }
+
+
     }
 }
