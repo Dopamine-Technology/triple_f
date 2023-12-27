@@ -98,6 +98,6 @@ class User extends Authenticatable implements HasMedia, FilamentUser
             return $this->scout;
         }
         return null;
-
     }
+
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,6 +14,8 @@ class Talent extends Model
     protected $casts = ['birth_date' => 'date'];
     protected $with = ['sport', 'parent_position', 'position'];
     protected $table = 'talents';
+    protected $appends = ['age'];
+
     public function sport()
     {
         return $this->belongsTo(Sport::class);
@@ -27,8 +30,15 @@ class Talent extends Model
     {
         return $this->belongsTo(Position::class, 'position_id');
     }
-    public function user(){
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
+    }
+
+    public function getAgeAttribute()
+    {
+        return Carbon::parse($this->birth_date)->age;
     }
 
 

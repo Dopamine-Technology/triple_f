@@ -12,9 +12,10 @@ class UserByGender extends ChartWidget
 {
     protected static ?string $heading = 'User Genders';
     private $gender_colors = ['male' => '#213555', 'female' => '#77dcbf', 'other' => '#fdb83e'];
+
     protected function getData(): array
     {
-        $users_gender = DB::table('users')->selectRaw('gender, count(id) as gender_count')->groupBy('gender')->get();
+        $users_gender = DB::table('users')->selectRaw('gender, count(id) as gender_count')->where('is_admin', false)->groupBy('gender')->get();
         $dataset = [];
         foreach ($users_gender as $one) {
             $dataset[] = [
