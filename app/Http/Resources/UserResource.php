@@ -47,6 +47,10 @@ class UserResource extends JsonResource
                     'id' => $this->profile->country->id,
                     'name' => $this->profile->country->getTranslation('name', LANGUAGE),
                 ] : null,
+                'city' => $this->profile->city ? [
+                    'id' => $this->profile->city->id,
+                    'name' => $this->profile->city->getTranslation('name', LANGUAGE),
+                ] : null,
                 'years_of_experience' => $this->profile->years_of_experience ?? '',
                 'parent_position' => $this->profile->parent_position ? [
                     'id' => $this->profile->parent_position->id,
