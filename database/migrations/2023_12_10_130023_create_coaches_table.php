@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\City;
+use App\Models\Country;
 use App\Models\Sport;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -19,7 +21,8 @@ return new class extends Migration {
             $table->foreignIdFor(Sport::class);
             $table->string('gender')->default('other');
             $table->date('birth_date')->nullable();
-            $table->string('residence_place');
+            $table->foreignIdFor(Country::class)->nullable();
+            $table->foreignIdFor(City::class)->nullable();
             $table->integer('years_of_experience')->default(0);
             $table->timestamps();
         });

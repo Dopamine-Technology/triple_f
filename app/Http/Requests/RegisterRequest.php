@@ -96,7 +96,8 @@ class RegisterRequest extends FormRequest
         $roles['birth_date'] = 'required|date';
         $roles['height'] = 'required|numeric';
         $roles['wight'] = 'required|numeric';
-        $roles['residence_place'] = 'required';
+        $roles['country_id'] = 'required';
+        $roles['city_id'] = 'required';
         $roles['mobile_number'] = 'required';
         return $roles;
     }
@@ -108,7 +109,8 @@ class RegisterRequest extends FormRequest
         $roles['gender'] = 'required|in:male,female,other';
         $roles['birth_date'] = 'required|date';
         $roles['years_of_experience'] = 'required|numeric';
-        $roles['residence_place'] = 'required';
+        $roles['country_id'] = 'required';
+        $roles['city_id'] = 'required';
         $roles['mobile_number'] = 'required';
         return $roles;
     }
@@ -132,7 +134,8 @@ class RegisterRequest extends FormRequest
         $roles['gender'] = 'required|in:male,female,other';
         $roles['birth_date'] = 'required|date';
         $roles['years_of_experience'] = 'required|numeric';
-        $roles['residence_place'] = 'required';
+        $roles['country_id'] = 'required';
+        $roles['city_id'] = 'required';
         $roles['mobile_number'] = 'required';
         return $roles;
     }
@@ -169,7 +172,8 @@ class RegisterRequest extends FormRequest
         $data['profile']['birth_date'] = $this->birth_date;
         $data['profile']['height'] = $this->height;
         $data['profile']['wight'] = $this->wight;
-        $data['profile']['residence_place'] = $this->residence_place;
+        $data['profile']['country_id'] = $this->country_id;
+        $data['profile']['city_id'] = $this->city_id;
         $data['profile']['mobile_number'] = $this->mobile_number;
         return $data;
     }
@@ -181,7 +185,8 @@ class RegisterRequest extends FormRequest
         $data['profile']['sport_id'] = $this->talent_type;
         $data['profile']['gender'] = $this->gender;
         $data['profile']['birth_date'] = $this->birth_date;
-        $data['profile']['residence_place'] = $this->residence_place;
+        $data['profile']['country_id'] = $this->country_id;
+        $data['profile']['city_id'] = $this->city_id;
         $data['profile']['mobile_number'] = $this->mobile_number;
         $data['profile']['years_of_experience'] = $this->years_of_experience;
         return $data;
@@ -207,7 +212,8 @@ class RegisterRequest extends FormRequest
         $data['profile']['sport_id'] = $this->talent_type;
         $data['profile']['gender'] = $this->gender;
         $data['profile']['birth_date'] = $this->birth_date;
-        $data['profile']['residence_place'] = $this->residence_place;
+        $data['profile']['country_id'] = $this->country_id;
+        $data['profile']['city_id'] = $this->city_id;
         $data['profile']['mobile_number'] = $this->mobile_number;
         $data['profile']['years_of_experience'] = $this->years_of_experience;
         return $data;

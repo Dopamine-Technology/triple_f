@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\City;
+use App\Models\Country;
 use App\Models\Position;
 use App\Models\Sport;
 use App\Models\User;
@@ -24,7 +26,8 @@ return new class extends Migration {
             $table->date('birth_date')->nullable();
             $table->integer('height')->default(160);
             $table->integer('wight')->default(60);
-            $table->string('residence_place');
+            $table->foreignIdFor(Country::class)->nullable();
+            $table->foreignIdFor(City::class)->nullable();
             $table->timestamps();
         });
     }
