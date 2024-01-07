@@ -56,6 +56,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::controller(StatusController::class)->prefix('/status')->middleware(['localization'])->group(function () {
         Route::post('create', 'createStatus');
+        Route::get('get/{status}', 'getOne');
         Route::post('react', 'reactToStatus');
         Route::post('toggle_save/{status}', 'toggleSave');
         Route::put('share_status/{status}', 'shareStatus');

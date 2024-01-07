@@ -15,6 +15,11 @@ class StatusController extends Controller
 {
     use AppResponse;
 
+    public function getOne(Status $status)
+    {
+        return $this->success(new StatusResource($status));
+    }
+
     public function createStatus(StatusRequest $request)
     {
         return $this->success(new StatusResource(Status::query()->create($request['status'])));

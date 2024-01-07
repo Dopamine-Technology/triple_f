@@ -14,18 +14,23 @@ class Status extends Model
     protected $guarded = [];
     protected $appends = ['reaction_count', 'total_points'];
 
+    public function challenge()
+    {
+        return $this->belongsTo(Challenge::class);
+    }
+
     public function reactions(): belongsToMany
     {
         return $this->belongsToMany(User::class)->withPivot('points');
     }
 
-    public function getReactionCountAttribute():int
+    public function getReactionCountAttribute(): int
     {
         return ReactionStatus::query()->where('status_id', $this->id)->count();
 
     }
 
-    public function getTotalPointsAttribute():int
+    public function getTotalPointsAttribute(): int
     {
         return ReactionStatus::query()->where('status_id', $this->id)->sum('points');
 

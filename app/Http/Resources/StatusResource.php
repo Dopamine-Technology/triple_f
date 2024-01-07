@@ -24,6 +24,10 @@ class StatusResource extends JsonResource
             'shares' => $this->shares,
             'shares' => $this->saves,
             'reaction_count' => $this->reaction_count,
+            'challenge' => [
+                'id' => $this->challenge->id,
+                'name' => $this->challenge->getTranslation('name', LANGUAGE),
+            ],
             'total_points' => $this->total_points,
             'created_at' => Carbon::create($this->created_at)->diffForHumans(),
         ];
