@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             SportSeeder::class,
             positionsSeeder::class,
             CountrySeeder::class,
+            ChallengeSeeder::class,
         ]);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AppController;
+use App\Http\Controllers\Api\ChallengeController;
 use App\Http\Controllers\Api\User\Auth\AuthController;
 use App\Http\Controllers\Api\User\Auth\LoginController;
 use App\Http\Controllers\Api\User\Auth\RegisterController;
@@ -48,6 +49,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->group(function () {
     Route::controller(UserController::class)->prefix('/user')->middleware(['localization'])->group(function () {
         Route::get('get_permissions', 'getUserPermission');
+    });
+    Route::controller(ChallengeController::class)->prefix('/challenge')->middleware(['localization'])->group(function () {
+        Route::get('get', 'getChallenges');
     });
 });
 

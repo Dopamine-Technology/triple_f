@@ -9,7 +9,6 @@ use Spatie\Translatable\HasTranslations;
 class Language extends Model
 {
     use HasFactory;
-
     use HasTranslations;
 
     protected $guarded = [];
