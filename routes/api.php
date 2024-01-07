@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\User\Auth\AuthController;
 use App\Http\Controllers\Api\User\Auth\LoginController;
 use App\Http\Controllers\Api\User\Auth\RegisterController;
 use App\Http\Controllers\Api\User\UserController;
+use App\Http\Controllers\StatusController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -52,6 +53,12 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::controller(ChallengeController::class)->prefix('/challenge')->middleware(['localization'])->group(function () {
         Route::get('get', 'getChallenges');
+    });
+    Route::controller(StatusController::class)->prefix('/status')->middleware(['localization'])->group(function () {
+        Route::post('create', 'createStatus');
+        Route::post('react', 'reactToStatus');
+        Route::post('toggle_save/{status}', 'toggleSave');
+        Route::put('share_status/{status}', 'shareStatus');
     });
 });
 
