@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AppController;
 use App\Http\Controllers\Api\ChallengeController;
+use App\Http\Controllers\Api\FollowController;
 use App\Http\Controllers\Api\User\Auth\AuthController;
 use App\Http\Controllers\Api\User\Auth\LoginController;
 use App\Http\Controllers\Api\User\Auth\RegisterController;
@@ -55,11 +56,17 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('get', 'getChallenges');
     });
     Route::controller(StatusController::class)->prefix('/status')->middleware(['localization'])->group(function () {
+        Route::get('timeline', 'getTimelineStatuses');
         Route::post('create', 'createStatus');
         Route::get('get/{status}', 'getOne');
         Route::post('react', 'reactToStatus');
         Route::post('toggle_save/{status}', 'toggleSave');
         Route::put('share_status/{status}', 'shareStatus');
+    });
+    Route::controller(FollowController::class)->prefix('/follow')->middleware(['localization'])->group(function () {
+        Route::get('toggle/{user}', 'toggleFollow');
+        Route::get('all', 'getFollowList');
+        Route::post('get_recommendations', 'getSuggestionsToFollow');
     });
 });
 

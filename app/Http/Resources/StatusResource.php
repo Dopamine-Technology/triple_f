@@ -22,7 +22,7 @@ class StatusResource extends JsonResource
             'video' => $this->video ? asset('storage/' . $this->video) : '',
             'image' => $this->image ? asset('storage/' . $this->image) : '',
             'shares' => $this->shares,
-            'shares' => $this->saves,
+            'saves' => $this->saves,
             'reaction_count' => $this->reaction_count,
             'challenge' => [
                 'id' => $this->challenge->id,

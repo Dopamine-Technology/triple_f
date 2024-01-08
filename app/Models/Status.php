@@ -24,11 +24,11 @@ class Status extends Model
         return $this->belongsToMany(User::class)->withPivot('points');
     }
 
-    public function getReactionCountAttribute(): int
-    {
-        return ReactionStatus::query()->where('status_id', $this->id)->count();
-
-    }
+//    public function getReactionCountAttribute(): int
+//    {
+//        return ReactionStatus::query()->where('status_id', $this->id)->count();
+//
+//    }
 
     public function getTotalPointsAttribute(): int
     {

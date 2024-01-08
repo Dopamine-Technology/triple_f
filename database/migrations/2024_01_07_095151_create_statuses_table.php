@@ -23,6 +23,7 @@ return new class extends Migration {
             $table->boolean('approved')->default(false);
             $table->integer('shares')->default(0);
             $table->integer('saves')->default(0);
+            $table->integer('total_points')->default(0);
             $table->timestamps();
         });
     }

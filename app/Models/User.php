@@ -100,4 +100,10 @@ class User extends Authenticatable implements HasMedia, FilamentUser
         return null;
     }
 
+    public function followed()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'user_id', 'followed_id');
+    }
+
+
 }

@@ -28,6 +28,7 @@ return new class extends Migration {
             $table->integer('wight')->default(60);
             $table->foreignIdFor(Country::class)->nullable();
             $table->foreignIdFor(City::class)->nullable();
+            $table->integer('follower_count')->default(0);
             $table->timestamps();
         });
     }

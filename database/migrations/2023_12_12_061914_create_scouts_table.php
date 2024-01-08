@@ -24,6 +24,7 @@ return new class extends Migration {
             $table->foreignIdFor(Country::class)->nullable();
             $table->foreignIdFor(City::class)->nullable();
             $table->integer('years_of_experience')->default(0);
+            $table->integer('follower_count')->default(0);
             $table->timestamps();
         });
     }

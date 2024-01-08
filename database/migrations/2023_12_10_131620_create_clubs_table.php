@@ -24,7 +24,7 @@ return new class extends Migration {
             $table->integer('year_founded')->nullable();
             $table->boolean('is_authorized')->default(false);
             $table->string('registration_document')->nullable();
-
+            $table->integer('follower_count')->default(0);
             $table->timestamps();
         });
     }
