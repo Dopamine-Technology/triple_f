@@ -28,6 +28,7 @@ class StatusResource extends JsonResource
                 'id' => $this->challenge->id,
                 'name' => $this->challenge->getTranslation('name', LANGUAGE),
             ],
+            'user' => new UserResource($this->user),
             'total_points' => $this->total_points,
             'created_at' => Carbon::create($this->created_at)->diffForHumans(),
         ];

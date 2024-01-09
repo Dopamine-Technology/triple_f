@@ -29,6 +29,10 @@ class Status extends Model
 //        return ReactionStatus::query()->where('status_id', $this->id)->count();
 //
 //    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function getTotalPointsAttribute(): int
     {
