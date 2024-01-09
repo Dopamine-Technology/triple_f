@@ -22,7 +22,7 @@ class StatusController extends Controller
         array_push($statuses_user_ids, auth()->user()->id);
         $trending_this_week = Status::query()->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
             ->orderBy('total_points', 'DESC')->pluck('id')->toArray();
-        $statuses = Status::query()->whereIn('id', $trending_this_week)->whereIn('user_id', $statuses_user_ids)->orderBy('created_date', 'DESC')->get();
+        $statuses = Status::query()->whereIn('id', $trending_this_week)->whereIn('user_id', $statuses_user_ids)->orderBy('created_at', 'DESC')->get();
         return $this->success(StatusResource::collection($statuses));
     }
 
