@@ -34,7 +34,7 @@ class StatusController extends Controller
         $data = $request->validate([
             'points' => 'sometimes'
         ]);
-        $reactions = ReactionStatus::query()->where('status_id', $status_id)->where('user_id', '!=', auth()->user()->id);
+        $reactions = ReactionStatus::query()->where('status_id', $status_id);
         if (isset($data['points'])) {
             $reactions->where('points', $data['points']);
         }
