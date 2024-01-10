@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Follow;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -15,7 +16,7 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-
+//dd(auth()->user()->id);
         return [
             'id' => $this->id,
             'first_name' => $this->first_name ?? '',
@@ -27,10 +28,11 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'is_blocked' => $this->is_blocked,
             'is_baned' => $this->baned_to ? true : false,
+            'is_followed' => in_array($this->id, Follow::query()->where('user_id', auth()->user()->id)->pluck('followed_id')->toArray()),
             'is_email_verified' => $this->email_verified_at ? true : false,
             'profile' => [
                 'club_name' => $this->profile->name ?? '',
-                'club_logo' => $this->profile?->logo  ? asset('storage/' . $this->profile->logo) : '' ,
+                'club_logo' => $this->profile?->logo ? asset('storage/' . $this->profile->logo) : '',
                 'type_id' => $this->user_type_id,
                 'type_name' => $this->profile_type->getTranslation('name', LANGUAGE),
                 'mobile_number' => $this->profile->mobile_number,

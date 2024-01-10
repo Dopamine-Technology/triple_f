@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StatusRequest;
 use App\Http\Resources\StatusResource;
+use App\Http\Resources\UserResource;
 use App\Models\ReactionStatus;
 use App\Models\Status;
+use App\Models\User;
 use App\Models\UserSave;
 use App\Services\ReactionService;
 use App\Traits\AppResponse;
@@ -27,6 +29,20 @@ class StatusController extends Controller
         return $this->success(StatusResource::collection($statuses));
     }
 
+    public function getStatusReactions($status_id, Request $request)
+    {
+        $data = $request->validate([
+            'points' => 'sometimes'
+        ]);
+        $reactions = ReactionStatus::query()->where('status_id', $status_id)->where('user_id', '!=', auth()->user()->id);
+        if (isset($data['points'])) {
+            $reactions->where('points', $data['points']);
+        }
+        $user_ids = $reactions->pluck('user_id')->toArray();
+        return $this->success(UserResource::collection(User::query()->whereIn('id' ,$user_ids )->get()));
+
+    }
+
     public function getOne(Status $status)
     {
         return $this->success(new StatusResource($status));
@@ -43,13 +59,9 @@ class StatusController extends Controller
             'status_id' => 'required',
             'points' => 'required',
         ]);
-
         ReactionService::handleStatusReaction($data);
         return $this->success(true, 'status reaction updated !');
     }
-
-
-
 
     public function toggleSave(Status $status)
     {
