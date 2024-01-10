@@ -32,8 +32,8 @@ class RegisterController extends Controller
         $profileData['user_id'] = $newUser->id;
         $this->profileCreationHandler($profileData);
         return $this->success([
-            'user' => new UserResource($newUser),
             'token' => $newUser->createToken('apptoken')->plainTextToken,
+            'user' => new UserResource($newUser),
         ], __('User successfully created'));
     }
 

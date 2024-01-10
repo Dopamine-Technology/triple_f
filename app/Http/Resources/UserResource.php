@@ -16,7 +16,7 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-//dd(auth()->user()->id);
+
         return [
             'id' => $this->id,
             'first_name' => $this->first_name ?? '',
@@ -28,7 +28,7 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'is_blocked' => $this->is_blocked,
             'is_baned' => $this->baned_to ? true : false,
-            'is_followed' => in_array($this->id, Follow::query()->where('user_id', auth()->user()->id)->pluck('followed_id')->toArray()),
+            'is_followed' => auth()->user()?->id ?  in_array($this->id, Follow::query()->where('user_id', auth()->user()->id)->pluck('followed_id')->toArray()) : false,
             'is_email_verified' => $this->email_verified_at ? true : false,
             'profile' => [
                 'club_name' => $this->profile->name ?? '',
