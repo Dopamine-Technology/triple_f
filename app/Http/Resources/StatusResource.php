@@ -24,6 +24,9 @@ class StatusResource extends JsonResource
             'shares' => $this->shares,
             'saves' => $this->saves,
             'reaction_count' => $this->reaction_count,
+            'gold_reacts_count' => $this->gold_reacts,
+            'silver_reacts_count' => $this->silver_reacts,
+            'bronze_reacts_count' => $this->bronze_reacts,
             'challenge' => [
                 'id' => $this->challenge->id,
                 'name' => $this->challenge->getTranslation('name', LANGUAGE),

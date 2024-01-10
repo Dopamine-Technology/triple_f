@@ -8,6 +8,7 @@ use App\Http\Resources\StatusResource;
 use App\Models\ReactionStatus;
 use App\Models\Status;
 use App\Models\UserSave;
+use App\Services\ReactionService;
 use App\Traits\AppResponse;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -42,19 +43,13 @@ class StatusController extends Controller
             'status_id' => 'required',
             'points' => 'required',
         ]);
-        $status = Status::find($data['status_id']);
-        $reaction = ReactionStatus::query()->where('user_id', auth()->user()->id)->where('status_id', $data['status_id'])->first();
-        if (empty($reaction)) {
-            ReactionStatus::query()->create(['user_id' => auth()->user()->id, 'status_id' => $data['status_id'], 'points' => $data['points']]);
-            $status->total_points = $status->total_points + $data['points'];
-            $status->save();
-        } else {
-            $status->total_points = $status->total_points - $reaction->points;
-            $status->total_points = $status->total_points + $data['points'];
-            $status->save();
-        }
+
+        ReactionService::handleStatusReaction($data);
         return $this->success(true, 'status reaction updated !');
     }
+
+
+
 
     public function toggleSave(Status $status)
     {

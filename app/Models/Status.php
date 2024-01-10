@@ -12,7 +12,7 @@ class Status extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $appends = ['reaction_count', 'total_points'];
+    protected $appends = ['reaction_count'];
 
     public function challenge()
     {
@@ -34,10 +34,6 @@ class Status extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function getTotalPointsAttribute(): int
-    {
-        return ReactionStatus::query()->where('status_id', $this->id)->sum('points');
 
-    }
 
 }

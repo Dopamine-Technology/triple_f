@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignIdFor(User::class)->nullable();
             $table->foreignIdFor(Status::class)->nullable();
-            $table->integer('points')->default(0);
+            $table->bigInteger('points')->default(0);
             $table->timestamps();
         });
     }

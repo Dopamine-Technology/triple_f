@@ -21,9 +21,12 @@ return new class extends Migration {
             $table->string('video')->default('');
             $table->string('image')->default('');
             $table->boolean('approved')->default(false);
-            $table->integer('shares')->default(0);
-            $table->integer('saves')->default(0);
-            $table->integer('total_points')->default(0);
+            $table->bigInteger('shares')->default(0);
+            $table->bigInteger('saves')->default(0);
+            $table->bigInteger('total_points')->default(0);
+            $table->bigInteger('gold_reacts')->default(0);
+            $table->bigInteger('silver_reacts')->default(0);
+            $table->bigInteger('bronze_reacts')->default(0);
             $table->timestamps();
         });
     }
