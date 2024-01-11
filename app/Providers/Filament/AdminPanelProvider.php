@@ -42,6 +42,9 @@ class AdminPanelProvider extends PanelProvider
                 'success' => '#77DCBF',
                 'warning' => '#DDB207',
                 'danger' => '#D40303',
+                'gold' => '#FFD700',
+                'silver' => '#c0c0c0',
+                'bronze' => '#CD7F32',
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')

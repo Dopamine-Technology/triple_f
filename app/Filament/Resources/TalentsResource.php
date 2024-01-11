@@ -36,6 +36,7 @@ class TalentsResource extends Resource
 
     protected static ?string $navigationIcon = 'fas-futbol';
     protected static ?int $navigationSort = 3;
+
     public static function form(Form $form): Form
     {
         return $form
@@ -43,16 +44,13 @@ class TalentsResource extends Resource
                 Section::make()->schema([
                     Toggle::make('approved_by_admin'),
                     Grid::make()->schema([
-
                         Placeholder::make('user_name')
                             ->label('User Name')
                             ->content(fn(Talent $record) => new HtmlString('<b><a class="text-primary-600 dark:text-primary-400"  href="' . url('admin/users/' . $record->user_id . '/edit') . '">' . User::query()->find($record->user_id)->name . '</a></b>')
                             ),
-
                         Placeholder::make('user_email')
                             ->label('User Email')
                             ->content(fn(Talent $record): ?string => User::find($record->user_id)->email),
-
                         Placeholder::make('created_at')
                             ->label('Created at')
                             ->content(fn(Talent $record): ?string => $record->created_at?->diffForHumans()),
@@ -87,7 +85,8 @@ class TalentsResource extends Resource
                                 : Position::query()->where('id', $get('parent_position_id'))->pluck('name', 'id')->toArray()
                         ),
                     ])->columns(2),
-                ])
+                ]),
+
             ]);
     }
 

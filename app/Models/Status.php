@@ -12,7 +12,7 @@ class Status extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $appends = ['reaction_count'];
+    protected $appends = [];
 
     public function challenge()
     {
@@ -21,19 +21,11 @@ class Status extends Model
 
     public function reactions(): belongsToMany
     {
-        return $this->belongsToMany(User::class)->withPivot('points');
+        return $this->belongsToMany(User::class , 'reaction_statuses' , 'status_id' )->withPivot('points');
     }
 
-//    public function getReactionCountAttribute(): int
-//    {
-//        return ReactionStatus::query()->where('status_id', $this->id)->count();
-//
-//    }
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
-
-
 }
