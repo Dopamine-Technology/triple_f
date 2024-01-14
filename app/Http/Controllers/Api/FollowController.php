@@ -40,7 +40,7 @@ class FollowController extends Controller
 
     public function getFollowList()
     {
-        return $this->success(UserResource::collection(auth()->user()->followed));
+        return $this->success(UserResource::collection(auth()->user()->followed()->paginate(10)));
     }
 
     public function getSuggestionsToFollow(Request $request)

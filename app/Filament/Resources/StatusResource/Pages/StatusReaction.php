@@ -51,8 +51,6 @@ class StatusReaction extends ManageRelatedRecords
                     ->formatStateUsing(fn(string $state): string => Str::upper(self::getPointText("{$state}")))
                     ->icon('heroicon-o-trophy')
                     ->iconColor(fn(string $state): string => self::getPointText("{$state}"))->sortable()
-
-
             ]);
     }
 
