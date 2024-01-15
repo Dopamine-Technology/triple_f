@@ -34,10 +34,10 @@ class Status extends Model
         return $this->belongsToMany(User::class, 'report_statuses', 'status_id')->withPivot(['report', 'is_reviewed']);
     }
 
-    public function getIsReactedAttribute(): bool
+    public function getIsReactedAttribute()
     {
         $reaction = ReactionStatus::query()->where('status_id', $this->id)->where('user_id', auth()->user()->id)->first();
-        return !empty($reaction);
+        return $reaction?->points ?? 0;
     }
 
 
