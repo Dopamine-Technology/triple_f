@@ -45,6 +45,9 @@ Route::controller(AuthController::class)->prefix('/user/auth')->middleware(['loc
     Route::post('reset_password', 'resetPassword');
 
 });
+Route::controller(AuthController::class)->middleware('auth:sanctum')->group(function () {
+    Route::delete('auth/logout', 'logout');
+});
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

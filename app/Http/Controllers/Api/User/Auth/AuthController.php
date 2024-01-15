@@ -23,8 +23,9 @@ class AuthController extends Controller
         $user = User::query()->whereRaw('md5(id) = "' . $data['user_token'] . '"')->firstOrFail();
         $user->email_verified_at = now();
         $user->save();
-        return $this->success('user email' . $user->email .' '. 'verified successfully');
+        return $this->success('user email' . $user->email . ' ' . 'verified successfully');
     }
+
     public function resetPassword(Request $request)
     {
         $data = $request->validate(
@@ -36,7 +37,14 @@ class AuthController extends Controller
         $user = User::query()->whereRaw('md5(id) = "' . $data['user_token'] . '"')->firstOrFail();
         $user->password = Hash::make($data['password']);
         $user->save();
-        return $this->success('user ' . $user->email .' '. 'password reset successfully');
+        return $this->success('user ' . $user->email . ' ' . 'password reset successfully');
+    }
+
+    public function logout()
+    {
+        auth()->user()->tokens()->delete();
+        return $this->success(true, 'user logged out');
+
     }
 
 
