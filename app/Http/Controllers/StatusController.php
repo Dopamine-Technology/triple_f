@@ -7,6 +7,7 @@ use App\Http\Requests\StatusRequest;
 use App\Http\Resources\StatusResource;
 use App\Http\Resources\UserResource;
 use App\Models\ReactionStatus;
+use App\Models\ReportStatus;
 use App\Models\Status;
 use App\Models\User;
 use App\Models\UserSave;
@@ -39,7 +40,7 @@ class StatusController extends Controller
             $reactions->where('points', $data['points']);
         }
         $user_ids = $reactions->pluck('user_id')->toArray();
-        return $this->success(UserResource::collection(User::query()->whereIn('id' ,$user_ids )->get()));
+        return $this->success(UserResource::collection(User::query()->whereIn('id', $user_ids)->get()));
 
     }
 
@@ -90,6 +91,16 @@ class StatusController extends Controller
         $status->shares = $status->shares + 1;
         $status->save();
         return $this->success(true);
+    }
+
+    public function reportStatus($status_id, Request $request)
+    {
+        $data = $request->validate([
+            'report' => 'required'
+        ]);
+        ReportStatus::query()->updateOrCreate(['user_id' => auth()->user()->id, 'status_id' => $status_id,],[ 'report' => $data['report']]);
+        return $this->success(true, 'Status Reported !');
+
     }
 
 

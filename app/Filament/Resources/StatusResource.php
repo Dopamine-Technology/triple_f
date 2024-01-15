@@ -126,6 +126,7 @@ class StatusResource extends Resource
             Pages\ViewStatus::class,
             Pages\EditStatus::class,
             Pages\StatusReaction::class,
+            Pages\StatusReports::class,
         ]);
     }
 
@@ -144,6 +145,7 @@ class StatusResource extends Resource
             'edit' => Pages\EditStatus::route('/{record}/edit'),
             'view' => Pages\ViewStatus::route('/{record}/view'),
             'reactions' => Pages\StatusReaction::route('/{record}/reactions'),
+            'reports' => Pages\StatusReports::route('/{record}/reports'),
         ];
     }
 }

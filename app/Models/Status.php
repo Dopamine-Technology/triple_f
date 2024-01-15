@@ -12,7 +12,7 @@ class Status extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $appends = [];
+    protected $appends = ['is_reacted'];
 
     public function challenge()
     {
@@ -21,11 +21,24 @@ class Status extends Model
 
     public function reactions(): belongsToMany
     {
-        return $this->belongsToMany(User::class , 'reaction_statuses' , 'status_id' )->withPivot('points');
+        return $this->belongsToMany(User::class, 'reaction_statuses', 'status_id')->withPivot('points');
     }
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+
+    public function reports(): belongsToMany
+    {
+        return $this->belongsToMany(User::class, 'report_statuses', 'status_id')->withPivot(['report', 'is_reviewed']);
+    }
+
+    public function getIsReactedAttribute(): bool
+    {
+        $reaction = ReactionStatus::query()->where('status_id', $this->id)->where('user_id', auth()->user()->id)->first();
+        return !empty($reaction);
+    }
+
+
 }
