@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Storage;
 
 class StatusRequest extends FormRequest
 {
@@ -37,8 +38,8 @@ class StatusRequest extends FormRequest
         $data['status']['title'] = $this->title ?? '';
         $data['status']['description'] = $this->description ?? '';
         $data['status']['challenge_id'] = $this->challenge_id ?? 0;
-        $data['status']['video'] = $this->video ? $this->file('video')->store('statuses', 'public') : '';
-        $data['status']['image'] = $this->image ? $this->file('image')->store('statuses', 'public') : '';
+        $data['status']['video'] = $this->video ? Storage::disk('public')->put('statuses/videos', $this->video) : '';
+        $data['status']['image'] = $this->image ? Storage::disk('public')->put('statuses/images', $this->image) : '';
         $this->merge($data);
     }
 }
