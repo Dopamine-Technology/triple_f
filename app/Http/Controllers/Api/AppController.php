@@ -31,7 +31,6 @@ class AppController extends Controller
 
     public function getTranslatableStrings()
     {
-
         $translations = request()->tag ? Translation::query()->where('tag', request()->tag)->get() : Translation::all();
         return $this->success(TranslationResource::collection($translations));
     }

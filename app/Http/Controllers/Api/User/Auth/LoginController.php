@@ -31,10 +31,21 @@ class LoginController extends Controller
                     'approved_by_admin' => ['Club need to be approved by admin to proceed'],
                 ]);
             }
-            return $this->success([
-                'user' => json_decode(Redis::get('user:profile:' . $user->id)),
-                'token' => $user->createToken('apptoken')->plainTextToken,
-            ], __('User successfully logged in'));
+            if (Redis::get('user:profile:' . $user->id)) {
+                return $this->success([
+                    'source' => 'redis',
+                    'user' => json_decode(Redis::get('user:profile:' . $user->id)),
+                    'token' => $user->createToken('apptoken')->plainTextToken,
+                ], __('User successfully logged in'));
+            }else{
+                Redis::set('user:profile:' . $user->id , json_encode(new UserResource($user)));
+                return $this->success([
+                    'source' => 'database',
+                    'user' => json_decode(Redis::get('user:profile:' . $user->id)),
+                    'token' => $user->createToken('apptoken')->plainTextToken,
+                ], __('User successfully logged in'));
+            }
+
         }
     }
 
@@ -58,10 +69,20 @@ class LoginController extends Controller
                 'approved_by_admin' => ['Club need to be approved by admin to proceed'],
             ]);
         }
-        return $this->success([
-            'user' =>json_decode(Redis::get('user:profile:' . $user->id)),
-            'token' => $user->createToken('apptoken')->plainTextToken,
-        ], __('User successfully logged in with google'));
+        if (Redis::get('user:profile:' . $user->id)) {
+            return $this->success([
+                'source' => 'redis',
+                'user' => json_decode(Redis::get('user:profile:' . $user->id)),
+                'token' => $user->createToken('apptoken')->plainTextToken,
+            ], __('User successfully logged in'));
+        }else{
+            Redis::set('user:profile:' . $user->id , json_encode(new UserResource($user)));
+            return $this->success([
+                'source' => 'database',
+                'user' => json_decode(Redis::get('user:profile:' . $user->id)),
+                'token' => $user->createToken('apptoken')->plainTextToken,
+            ], __('User successfully logged in'));
+        }
 
 
     }
@@ -92,10 +113,20 @@ class LoginController extends Controller
                 'approved_by_admin' => ['Club need to be approved by admin to proceed'],
             ]);
         }
-        return $this->success([
-            'user' => json_decode(Redis::get('user:profile:' . $user->id)),
-            'token' => $user->createToken('apptoken')->plainTextToken,
-        ], __('User successfully logged in with facebook'));
+        if (Redis::get('user:profile:' . $user->id)) {
+            return $this->success([
+                'source' => 'redis',
+                'user' => json_decode(Redis::get('user:profile:' . $user->id)),
+                'token' => $user->createToken('apptoken')->plainTextToken,
+            ], __('User successfully logged in'));
+        }else{
+            Redis::set('user:profile:' . $user->id , json_encode(new UserResource($user)));
+            return $this->success([
+                'source' => 'database',
+                'user' => json_decode(Redis::get('user:profile:' . $user->id)),
+                'token' => $user->createToken('apptoken')->plainTextToken,
+            ], __('User successfully logged in'));
+        }
     }
 
 }

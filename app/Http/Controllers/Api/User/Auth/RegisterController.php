@@ -18,8 +18,13 @@ class RegisterController extends Controller
 {
     use AppResponse;
 
-    public function register(RegisterRequest $request)
+    public function register()
     {
+        return response()->json([
+            "errors" => '',
+            "message" => '',
+            "result" => true
+        ], 200);
         $userData = $request->user;
         $profileData = $request->profile;
 

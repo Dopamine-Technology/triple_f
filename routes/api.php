@@ -54,6 +54,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->group(function () {
     Route::controller(UserController::class)->prefix('/user')->middleware(['localization'])->group(function () {
         Route::get('get_permissions', 'getUserPermission');
+        Route::get('profile', 'getUserProfile');
     });
     Route::controller(ChallengeController::class)->prefix('/challenge')->middleware(['localization'])->group(function () {
         Route::get('get', 'getChallenges');
