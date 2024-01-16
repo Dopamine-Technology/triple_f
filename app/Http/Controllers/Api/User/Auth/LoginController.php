@@ -11,6 +11,7 @@ use App\Traits\AppResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
@@ -30,9 +31,8 @@ class LoginController extends Controller
                     'approved_by_admin' => ['Club need to be approved by admin to proceed'],
                 ]);
             }
-
             return $this->success([
-                'user' => new UserResource($user),
+                'user' => json_decode(Redis::get('user:profile:' . $user->id)),
                 'token' => $user->createToken('apptoken')->plainTextToken,
             ], __('User successfully logged in'));
         }
@@ -59,7 +59,7 @@ class LoginController extends Controller
             ]);
         }
         return $this->success([
-            'user' => new UserResource($user),
+            'user' =>json_decode(Redis::get('user:profile:' . $user->id)),
             'token' => $user->createToken('apptoken')->plainTextToken,
         ], __('User successfully logged in with google'));
 
@@ -93,7 +93,7 @@ class LoginController extends Controller
             ]);
         }
         return $this->success([
-            'user' => new UserResource($user),
+            'user' => json_decode(Redis::get('user:profile:' . $user->id)),
             'token' => $user->createToken('apptoken')->plainTextToken,
         ], __('User successfully logged in with facebook'));
     }

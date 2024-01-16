@@ -12,6 +12,7 @@ use App\Models\Talent;
 use App\Models\User;
 use App\Traits\AppResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class RegisterController extends Controller
 {
@@ -31,9 +32,10 @@ class RegisterController extends Controller
         $newUser = User::query()->create($userData);
         $profileData['user_id'] = $newUser->id;
         $this->profileCreationHandler($profileData);
+        Redis::set('user:profile:' . $newUser->id, json_encode(new UserResource($newUser)));
         return $this->success([
             'token' => $newUser->createToken('apptoken')->plainTextToken,
-            'user' => new UserResource($newUser),
+            'user' => json_decode(Redis::get('user:profile:' . $newUser->id)),
         ], __('User successfully created'));
     }
 
@@ -65,8 +67,11 @@ class RegisterController extends Controller
             $exist_user->google_identifier = $request->google_identifier;
             $exist_user->email_verified_at = now();
             $exist_user->save();
+            if (!Redis::get('user:profile:' . $exist_user->id)) {
+                Redis::set('user:profile:' . $exist_user->id, json_encode(new UserResource($exist_user)));
+            }
             return $this->success([
-                'user' => new UserResource($exist_user),
+                'user' => json_decode(Redis::get('user:profile:' . $exist_user->id)),
                 'token' => $exist_user->createToken('apptoken')->plainTextToken,
             ], __('User successfully logged in via google'));
         } else {
@@ -75,8 +80,9 @@ class RegisterController extends Controller
             $newUser->save();
             $profileData['user_id'] = $newUser->id;
             $this->profileCreationHandler($profileData);
+            Redis::set('user:profile:' . $newUser->id, json_encode(new UserResource($newUser)));
             return $this->success([
-                'user' => new UserResource($newUser),
+                'user' => json_decode(Redis::get('user:profile:' . $newUser->id)),
                 'token' => $newUser->createToken('apptoken')->plainTextToken,
             ], __('User successfully Registered via google'));
         }
@@ -91,8 +97,11 @@ class RegisterController extends Controller
             $exist_user->facebook_identifier = $request->facebook_identifier;
             $exist_user->email_verified_at = now();
             $exist_user->save();
+            if (!Redis::get('user:profile:' . $exist_user->id)) {
+                Redis::set('user:profile:' . $exist_user->id, json_encode(new UserResource($exist_user)));
+            }
             return $this->success([
-                'user' => new UserResource($exist_user),
+                'user' => json_decode(Redis::get('user:profile:' . $exist_user->id)),
                 'token' => $exist_user->createToken('apptoken')->plainTextToken,
             ], __('User successfully logged in via facebook'));
         } else {
@@ -101,12 +110,11 @@ class RegisterController extends Controller
             $newUser->save();
             $profileData['user_id'] = $newUser->id;
             $this->profileCreationHandler($profileData);
+            Redis::set('user:profile:' . $newUser->id, json_encode(new UserResource($newUser)));
             return $this->success([
-                'user' => new UserResource($newUser),
+                'user' => json_decode(Redis::get('user:profile:' . $newUser->id)),
                 'token' => $newUser->createToken('apptoken')->plainTextToken,
             ], __('User successfully Registered via facebook'));
         }
     }
-
-
 }

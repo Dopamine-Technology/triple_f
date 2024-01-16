@@ -8,6 +8,7 @@ use App\Traits\AppResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redis;
 
 class AuthController extends Controller
 {
@@ -42,6 +43,8 @@ class AuthController extends Controller
 
     public function logout()
     {
+        Redis::set('name', 'Taylor');
+        dd(Redis::get('name'));
         auth()->user()->tokens()->delete();
         return $this->success(true, 'user logged out');
 
