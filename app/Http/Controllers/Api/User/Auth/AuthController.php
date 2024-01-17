@@ -43,8 +43,6 @@ class AuthController extends Controller
 
     public function logout()
     {
-        Redis::set('name', 'Taylor');
-        dd(Redis::get('name'));
         auth()->user()->tokens()->delete();
         return $this->success(true, 'user logged out');
 
