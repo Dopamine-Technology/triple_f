@@ -24,6 +24,7 @@ use App\Traits\AppResponse;
 use Filament\Notifications\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Redis;
 
 class AppController extends Controller
 {
@@ -67,7 +68,7 @@ class AppController extends Controller
 
     public function getCountries()
     {
-        return $this->success(CountriesResource::collection(Country::query()->get()));
+        return $this->success(json_decode(Redis::get('countries_' . LANGUAGE)) ?? CountriesResource::collection(Country::query()->get()));
     }
 
     public function getCities($country_id = 0)
@@ -89,6 +90,4 @@ class AppController extends Controller
         }
         return $this->success(PostionsResource::collection($positions->get()));
     }
-
-
 }

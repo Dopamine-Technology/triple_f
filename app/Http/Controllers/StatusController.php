@@ -20,6 +20,14 @@ class StatusController extends Controller
 {
     use AppResponse;
 
+    public function getStories()
+    {
+        $statuses_user_ids = auth()->user()->followed()->pluck('followed_id')->toArray();
+        dump(auth()->user()->id);
+        dd($statuses_user_ids);
+
+    }
+
     public function getTimelineStatuses()
     {
         $statuses_user_ids = auth()->user()->followed()->pluck('followed_id')->toArray();
@@ -98,7 +106,7 @@ class StatusController extends Controller
         $data = $request->validate([
             'report' => 'required'
         ]);
-        ReportStatus::query()->updateOrCreate(['user_id' => auth()->user()->id, 'status_id' => $status_id,],[ 'report' => $data['report']]);
+        ReportStatus::query()->updateOrCreate(['user_id' => auth()->user()->id, 'status_id' => $status_id,], ['report' => $data['report']]);
         return $this->success(true, 'Status Reported !');
 
     }
