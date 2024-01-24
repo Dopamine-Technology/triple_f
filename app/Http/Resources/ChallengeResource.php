@@ -25,6 +25,9 @@ class ChallengeResource extends JsonResource
                 'id' => $this->sport->id,
                 'name' => $this->sport->getTranslation('name', LANGUAGE),
             ] : null,
+            'tips' => $this->tips ? collect($this->tips)->map(function ($tip) {
+                return $tip[LANGUAGE];
+            }) : [],
             'positions' => PostionsResource::collection(Position::query()->whereIn('id', $this->positions)->get())
         ];
     }

@@ -14,7 +14,7 @@ class Challenge extends Model
 
     protected $guarded = [];
     public $translatable = ['name', 'description'];
-    protected $casts = ['positions' => 'array'];
+    protected $casts = ['positions' => 'array' , 'tips'=>'array'];
 
     public function sport(): belongsTo
     {

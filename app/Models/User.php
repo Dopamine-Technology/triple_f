@@ -81,6 +81,11 @@ class User extends Authenticatable implements HasMedia, FilamentUser
         return $this->hasOne(Coach::class, 'user_id', 'id');
     }
 
+    public function statuses()
+    {
+        return $this->hasMany(Status::class);
+    }
+
     public function getProfileAttribute()
     {
 

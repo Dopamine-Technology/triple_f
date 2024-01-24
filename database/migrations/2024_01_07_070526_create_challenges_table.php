@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->json('name');
             $table->json('description');
             $table->string('image')->nullable();
+            $table->json('tips')->nullable();
             $table->timestamps();
         });
     }

@@ -11,6 +11,7 @@ use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -55,6 +56,14 @@ class ChallengeResource extends Resource
                             ->options(Position::query()->pluck('name', 'id')->toArray())
                             ->searchable()->multiple(),
                     ])->columns(1),
+                ]),
+                Section::make('What Should I do')->schema([
+                    Repeater::make('tips')->label('Challenge Tips List')
+                        ->schema([
+                            TextInput::make('en')->label('Tips in english')->required(),
+                            TextInput::make('ar')->label('Tips in arabic')->required(),
+                        ])
+                        ->columns(2)->required()
                 ])
             ]);
     }

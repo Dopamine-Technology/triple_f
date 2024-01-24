@@ -15,6 +15,7 @@ use App\Services\ReactionService;
 use App\Traits\AppResponse;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StatusController extends Controller
 {
@@ -22,10 +23,13 @@ class StatusController extends Controller
 
     public function getStories()
     {
-        $statuses_user_ids = auth()->user()->followed()->pluck('followed_id')->toArray();
-        dump(auth()->user()->id);
-        dd($statuses_user_ids);
-
+        $followed_users_ids = auth()->user()->followed()->pluck('followed_id')->toArray();
+        $followedWithStatuses = User::query()->whereIn('id', $followed_users_ids)
+            ->whereHas('statuses')
+            ->get()->sortByDesc(function ($user) {
+                return $user->statuses->first()->created_at ?? null;
+            });
+        return $this->success(UserResource::collection($followedWithStatuses));
     }
 
     public function getTimelineStatuses()
