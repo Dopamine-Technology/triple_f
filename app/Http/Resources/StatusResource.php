@@ -28,8 +28,8 @@ class StatusResource extends JsonResource
             'silver_reacts_count' => $this->silver_reacts,
             'bronze_reacts_count' => $this->bronze_reacts,
             'challenge' => [
-                'id' => $this->challenge->id,
-                'name' => $this->challenge->getTranslation('name', LANGUAGE),
+                'id' => $this->challenge?->id ?? '',
+                'name' => $this->challenge?->getTranslation('name', LANGUAGE) ?? '',
             ],
             'user' => new UserResource($this->user),
             'is_reacted' => $this->is_reacted,
