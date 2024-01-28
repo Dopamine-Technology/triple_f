@@ -32,6 +32,14 @@ class StatusController extends Controller
         return $this->success(UserResource::collection($followedWithStatuses));
     }
 
+    public function getUserStories($user_id)
+    {
+        $statuses = Status::query()->where('user_id', $user_id)->orderBy('created_at', 'DESC')->get();
+        return $this->success(StatusResource::collection($statuses));
+
+    }
+
+
     public function getTimelineStatuses()
     {
         $statuses_user_ids = auth()->user()->followed()->pluck('followed_id')->toArray();
