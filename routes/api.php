@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AppController;
 use App\Http\Controllers\Api\ChallengeController;
 use App\Http\Controllers\Api\FollowController;
+use App\Http\Controllers\Api\OpportunityController;
 use App\Http\Controllers\Api\User\Auth\AuthController;
 use App\Http\Controllers\Api\User\Auth\LoginController;
 use App\Http\Controllers\Api\User\Auth\RegisterController;
@@ -75,6 +76,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('toggle/{user}', 'toggleFollow');
         Route::get('all', 'getFollowList');
         Route::post('get_recommendations', 'getSuggestionsToFollow');
+    });
+    Route::controller(OpportunityController::class)->prefix('/opportunities')->middleware(['localization'])->group(function () {
+        Route::post('create', 'create');
     });
 });
 
