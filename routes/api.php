@@ -78,6 +78,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('get_recommendations', 'getSuggestionsToFollow');
     });
     Route::controller(OpportunityController::class)->prefix('/opportunities')->middleware(['localization'])->group(function () {
+        Route::get('get', 'getOpportunities');
         Route::post('create', 'create');
     });
 });

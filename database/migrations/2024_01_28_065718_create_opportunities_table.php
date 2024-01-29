@@ -34,6 +34,7 @@ return new class extends Migration {
             $table->foreignIdFor(City::class)->nullable();
             $table->text('requirements')->default('');
             $table->text('additional_info')->default('');
+            $table->string('status')->default('open');
             $table->timestamps();
         });
     }
