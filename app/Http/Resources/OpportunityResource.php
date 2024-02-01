@@ -20,7 +20,7 @@ class OpportunityResource extends JsonResource
             'requirements' => $this->requirements,
             'additional_info' => $this->additional_info,
             'status' => $this->status,
-            'ownership' => $this->user_id == auth()->user()->id,
+            'is_published' => $this->user_id == auth()->user()->id ? 'published' : 'applied',
             'from_age' => $this->from_age,
             'to_age' => $this->to_age,
             'from_height' => $this->from_height,
