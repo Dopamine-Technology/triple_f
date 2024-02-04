@@ -33,6 +33,7 @@ class OpportunityResource extends JsonResource
             'user' => new UserResource($this->user),
             'country' => $this->country->getTranslation('name', LANGUAGE),
             'city' => $this->city->getTranslation('name', LANGUAGE),
+            'created_at' => $this->created_at,
         ];
     }
 }
