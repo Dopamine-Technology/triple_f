@@ -19,6 +19,14 @@ class OpportunityController extends Controller
         return $this->success($opportunity->id);
     }
 
+    public function toggleStatus(Opportunity $opportunity)
+    {
+        $opportunity->status = $opportunity->status == 'open' ? 'closed' : 'open';
+        $opportunity->save();
+        return $this->success(true, 'Opportunity status changed to ' . $opportunity->status);
+    }
+
+
     public function getOpportunities()
     {
         $most_fit_opportunities = Opportunity::query()

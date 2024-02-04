@@ -80,6 +80,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::controller(OpportunityController::class)->prefix('/opportunities')->middleware(['localization'])->group(function () {
         Route::get('get', 'getOpportunities');
         Route::post('create', 'create');
+        Route::get('toggle_status/{opportunity}', 'toggleStatus');
     });
 });
 
