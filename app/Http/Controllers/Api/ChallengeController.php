@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ChallengeResource;
 use App\Models\Challenge;
 use App\Traits\AppResponse;
-use Illuminate\Http\Request;
 
 class ChallengeController extends Controller
 {

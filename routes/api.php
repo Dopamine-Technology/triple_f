@@ -4,11 +4,11 @@ use App\Http\Controllers\Api\AppController;
 use App\Http\Controllers\Api\ChallengeController;
 use App\Http\Controllers\Api\FollowController;
 use App\Http\Controllers\Api\OpportunityController;
+use App\Http\Controllers\Api\StatusController;
 use App\Http\Controllers\Api\User\Auth\AuthController;
 use App\Http\Controllers\Api\User\Auth\LoginController;
 use App\Http\Controllers\Api\User\Auth\RegisterController;
 use App\Http\Controllers\Api\User\UserController;
-use App\Http\Controllers\StatusController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -78,9 +78,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('get_recommendations', 'getSuggestionsToFollow');
     });
     Route::controller(OpportunityController::class)->prefix('/opportunities')->middleware(['localization'])->group(function () {
-        Route::get('get', 'getOpportunities');
+        Route::get('find', 'findOpportunities');
+        Route::get('apply/{opportunity_id}', 'apply');
         Route::post('create', 'create');
         Route::get('toggle_status/{opportunity}', 'toggleStatus');
+        Route::post('user_opportunities', 'getUserOpportunities');
     });
 });
 

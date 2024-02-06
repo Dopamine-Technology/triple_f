@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StatusRequest;
@@ -15,7 +15,6 @@ use App\Services\ReactionService;
 use App\Traits\AppResponse;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class StatusController extends Controller
 {
@@ -61,7 +60,6 @@ class StatusController extends Controller
         }
         $user_ids = $reactions->pluck('user_id')->toArray();
         return $this->success(UserResource::collection(User::query()->whereIn('id', $user_ids)->get()));
-
     }
 
     public function getOne(Status $status)

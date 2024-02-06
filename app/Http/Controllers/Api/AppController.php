@@ -10,7 +10,6 @@ use App\Http\Resources\PostionsResource;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\SportResource;
 use App\Http\Resources\TranslationResource;
-use App\Http\Resources\UserResource;
 use App\Http\Resources\UsertypeResource;
 use App\Models\City;
 use App\Models\ContactUs;
@@ -18,12 +17,9 @@ use App\Models\Country;
 use App\Models\Post;
 use App\Models\Sport;
 use App\Models\Translation;
-use App\Models\User;
 use App\Models\UserType;
 use App\Traits\AppResponse;
-use Filament\Notifications\Notification;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 
 class AppController extends Controller
@@ -38,11 +34,7 @@ class AppController extends Controller
 
     public function contactUs(Request $request)
     {
-        $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'message' => 'required'
-        ]);
+        $data = $request->validate(['name' => 'required|string|max:255', 'email' => 'required|email|max:255', 'message' => 'required']);
         ContactUs::query()->create($data);
         return $this->success([], 'your message sent successfully');
     }
