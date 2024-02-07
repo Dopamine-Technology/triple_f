@@ -83,6 +83,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('create', 'create');
         Route::get('toggle_status/{opportunity}', 'toggleStatus');
         Route::post('user_opportunities', 'getUserOpportunities');
+        Route::get('applicants/{opportunity}', 'getApplicants');
     });
 });
 

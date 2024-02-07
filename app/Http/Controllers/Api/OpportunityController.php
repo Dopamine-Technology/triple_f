@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OpportunityRequest;
 use App\Http\Resources\OpportunityResource;
+use App\Http\Resources\UserResource;
 use App\Models\Opportunity;
 use App\Models\OpportunityApplicant;
 use App\Traits\AppResponse;
@@ -36,7 +37,9 @@ class OpportunityController extends Controller
 
         $opportunities = Opportunity::query()
             ->where('user_id', '!=', auth()->user()->id)
-            ->whereNotIn('id', $applied_opportunities)->get();
+            ->whereNotIn('id', $applied_opportunities)
+            ->orderBy('created_date', 'DESC')
+            ->get();
         return $this->success(OpportunityResource::collection($opportunities));
 
     }
@@ -61,12 +64,17 @@ class OpportunityController extends Controller
         if ($data['type'] == 'applied') {
             $applied_opportunities = OpportunityApplicant::query()->where('user_id', auth()->user()->id)
                 ->where('user_type_id', auth()->user()->user_type_id)->pluck('opportunity_id')->toArray();
-            $opportunities = Opportunity::query()->whereIn('id', $applied_opportunities)->get();
+            $opportunities = Opportunity::query()->whereIn('id', $applied_opportunities)->orderBy('created_date', 'DESC')->get();
             return $this->success(OpportunityResource::collection($opportunities));
         } else {
-            $opportunities = Opportunity::query()->where('user_id', auth()->user()->id)->get();
+            $opportunities = Opportunity::query()->where('user_id', auth()->user()->id)->orderBy('created_date', 'DESC')->get();
             return $this->success(OpportunityResource::collection($opportunities));
         }
+    }
+
+    public function getApplicants(Opportunity $opportunity)
+    {
+        return $this->success(UserResource::collection($opportunity->applicants));
     }
 
 
