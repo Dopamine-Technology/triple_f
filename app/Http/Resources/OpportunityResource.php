@@ -29,6 +29,7 @@ class OpportunityResource extends JsonResource
             'to_weight' => $this->to_weight,
             'gender' => $this->gender,
             'foot' => $this->foot,
+            'position' =>  new PostionsResource($this->postion),
             'targeted_type' => $this->targeted_type,
             'user' => new UserResource($this->user),
             'country' => [
