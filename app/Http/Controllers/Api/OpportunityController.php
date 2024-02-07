@@ -38,7 +38,7 @@ class OpportunityController extends Controller
         $opportunities = Opportunity::query()
             ->where('user_id', '!=', auth()->user()->id)
             ->whereNotIn('id', $applied_opportunities)
-            ->orderBy('created_date', 'DESC')
+            ->orderBy('created_at', 'DESC')
             ->get();
         return $this->success(OpportunityResource::collection($opportunities));
 
@@ -64,10 +64,10 @@ class OpportunityController extends Controller
         if ($data['type'] == 'applied') {
             $applied_opportunities = OpportunityApplicant::query()->where('user_id', auth()->user()->id)
                 ->where('user_type_id', auth()->user()->user_type_id)->pluck('opportunity_id')->toArray();
-            $opportunities = Opportunity::query()->whereIn('id', $applied_opportunities)->orderBy('created_date', 'DESC')->get();
+            $opportunities = Opportunity::query()->whereIn('id', $applied_opportunities)->orderBy('created_at', 'DESC')->get();
             return $this->success(OpportunityResource::collection($opportunities));
         } else {
-            $opportunities = Opportunity::query()->where('user_id', auth()->user()->id)->orderBy('created_date', 'DESC')->get();
+            $opportunities = Opportunity::query()->where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->get();
             return $this->success(OpportunityResource::collection($opportunities));
         }
     }
