@@ -37,6 +37,7 @@ class OpportunityController extends Controller
 
         $opportunities = Opportunity::query()
             ->where('user_id', '!=', auth()->user()->id)
+            ->where('user_type_id', auth()->user()->user_type_id)
             ->whereNotIn('id', $applied_opportunities)
             ->orderBy('created_at', 'DESC')
             ->get();
