@@ -34,7 +34,7 @@ class CoachResource extends Resource
 {
     protected static ?string $model = Coach::class;
 
-    protected static ?string $navigationIcon = 'fas-hands-asl-interpreting';
+    protected static ?string $navigationIcon = 'icon-coach';
     protected static ?int $navigationSort = 2;
     public static function form(Form $form): Form
     {

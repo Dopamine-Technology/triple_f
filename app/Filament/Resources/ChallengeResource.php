@@ -30,7 +30,7 @@ class ChallengeResource extends Resource
 {
     protected static ?string $model = Challenge::class;
 
-    protected static ?string $navigationIcon = 'fas-trophy';
+    protected static ?string $navigationIcon = 'icon-trophy';
 
     public static function form(Form $form): Form
     {

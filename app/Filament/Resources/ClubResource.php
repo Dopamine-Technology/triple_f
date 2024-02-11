@@ -28,7 +28,7 @@ class ClubResource extends Resource
 {
     protected static ?string $model = Club::class;
 
-    protected static ?string $navigationIcon = 'fas-people-group';
+    protected static ?string $navigationIcon = 'icon-club';
     protected static ?int $navigationSort = 1;
     public static function infolist(Infolist $infolist): Infolist
     {

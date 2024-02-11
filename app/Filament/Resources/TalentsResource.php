@@ -34,7 +34,7 @@ class TalentsResource extends Resource
 {
     protected static ?string $model = Talent::class;
 
-    protected static ?string $navigationIcon = 'fas-futbol';
+    protected static ?string $navigationIcon = 'icon-talent';
     protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form

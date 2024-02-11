@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class LanguageResource extends Resource
 {
     protected static ?string $model = Language::class;
-    protected static ?string $navigationIcon = 'heroicon-o-language';
+    protected static ?string $navigationIcon = 'icon-translation';
     const Tags = ['general' => 'General', 'landing' => 'Landing', 'forms' => 'Forms'];
     protected static ?int $navigationSort = 6;
     public static function form(Form $form): Form

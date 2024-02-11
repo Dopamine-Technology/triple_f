@@ -31,7 +31,7 @@ class ScoutResource extends Resource
 {
     protected static ?string $model = Scout::class;
 
-    protected static ?string $navigationIcon = 'fas-compass';
+    protected static ?string $navigationIcon = 'icon-scout';
     protected static ?int $navigationSort = 4;
     public static function form(Form $form): Form
     {

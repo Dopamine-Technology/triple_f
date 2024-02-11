@@ -71,10 +71,10 @@ class AdminPanelProvider extends PanelProvider
             ->navigationGroups([
                 NavigationGroup::make()
                     ->label('System Settings')
-                    ->icon('heroicon-o-adjustments-horizontal'),
+                    ->icon('icon-controls'),
                 NavigationGroup::make()
                     ->label('Admin Settings')
-                    ->icon('heroicon-o-wrench-screwdriver'),
+                    ->icon('icon-repair'),
 
             ])
             ->authMiddleware([
