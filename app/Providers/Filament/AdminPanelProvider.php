@@ -75,8 +75,7 @@ class AdminPanelProvider extends PanelProvider
                 NavigationGroup::make()
                     ->label('Admin Settings')
                     ->icon('icon-repair'),
-
-            ])
+             ])
             ->authMiddleware([
                 Authenticate::class,
             ]);

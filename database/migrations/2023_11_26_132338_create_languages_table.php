@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->json('name');
             $table->string('iso_code');
+            $table->boolean('is_site_locale')->default(false);
             $table->timestamps();
         });
     }

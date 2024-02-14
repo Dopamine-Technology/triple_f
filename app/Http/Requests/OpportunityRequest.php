@@ -21,14 +21,16 @@ class OpportunityRequest extends FormRequest
      */
     public function rules(): array
     {
+
         return [
-            'title' => 'required|max:255|string',
+
             'requirements' => 'required',
             'additional_info' => 'sometimes',
             'position_id' => 'sometimes',
             'targeted_type' => 'sometimes',
             'from_age' => 'sometimes',
             'to_age' => 'sometimes',
+            'languages' => 'sometimes',
             'from_height' => 'sometimes',
             'to_height' => 'sometimes',
             'from_weight' => 'sometimes',

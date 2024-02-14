@@ -22,6 +22,7 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'icon-users';
     protected static ?int $navigationSort = 8;
+
     public static function getEloquentQuery(): Builder
     {
         return User::query()->where('is_admin', false);
@@ -35,9 +36,7 @@ class UserResource extends Resource
                     TextInput::make('name')->required(),
                     TextInput::make('email')->required(),
                     TextInput::make('password')->required(fn(string $context): bool => $context === 'create')
-
                 ])
-
             ]);
     }
 

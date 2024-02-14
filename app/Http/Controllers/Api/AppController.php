@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CitiesResource;
 use App\Http\Resources\CountriesResource;
+use App\Http\Resources\LanguageResource;
 use App\Http\Resources\PostionsResource;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\SportResource;
@@ -14,6 +15,7 @@ use App\Http\Resources\UsertypeResource;
 use App\Models\City;
 use App\Models\ContactUs;
 use App\Models\Country;
+use App\Models\Language;
 use App\Models\Post;
 use App\Models\Sport;
 use App\Models\Translation;
@@ -25,6 +27,17 @@ use Illuminate\Support\Facades\Redis;
 class AppController extends Controller
 {
     use AppResponse;
+
+    public function getSiteLocaleLanguages()
+    {
+        $languages = Language::query()->where('is_site_locale', true)->get();
+        return $this->success(LanguageResource::collection($languages));
+    }
+
+    public function getLanguages()
+    {
+        return $this->success(LanguageResource::collection(Language::all()));
+    }
 
     public function getTranslatableStrings()
     {
