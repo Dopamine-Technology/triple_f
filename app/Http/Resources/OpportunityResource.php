@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Language;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -32,6 +33,7 @@ class OpportunityResource extends JsonResource
             'position' => new PostionsResource($this->position),
             'targeted_type' => $this->targeted_type,
             'user' => new UserResource($this->user),
+            'languages' => !empty($this->languages) ? LanguageResource::collection(Language::query()->whereIn('id', $this->languages)->get()) : [],
             'country' => [
                 'id' => $this->country->id,
                 'name' => $this->country->getTranslation('name', LANGUAGE),
