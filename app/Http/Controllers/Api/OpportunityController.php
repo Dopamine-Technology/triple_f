@@ -17,8 +17,11 @@ class OpportunityController extends Controller
 
     public function create(OpportunityRequest $request)
     {
-        $opportunity = Opportunity::query()->create($request->all());
-        return $this->success($opportunity->id);
+        $data = $request->validated();
+        $data['user_id'] = auth()->user()->id;
+        $data['user_type_id'] = auth()->user()->user_type_id;
+        Opportunity::query()->create($data);
+        return $this->success(true, 'Opportunity created successfully');
     }
 
     public function toggleStatus(Opportunity $opportunity)

@@ -2,6 +2,7 @@
 
 use App\Models\City;
 use App\Models\Country;
+use App\Models\Language;
 use App\Models\Position;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -22,6 +23,9 @@ return new class extends Migration {
             $table->string('title');
             $table->foreignIdFor(Position::class)->nullable();
             $table->foreignIdFor(UserType::class, 'targeted_type')->nullable();
+            $table->json('languages')->nullable();
+            $table->integer('from_experience')->default(0);
+            $table->integer('to_experience')->default(0);
             $table->integer('from_age')->default(0);
             $table->integer('to_age')->default(0);
             $table->integer('from_height')->default(0);

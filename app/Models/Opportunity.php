@@ -12,7 +12,7 @@ class Opportunity extends Model
     use HasFactory;
 
     protected $guarded = [];
-
+    protected $casts = ['languages' => 'array'];
 
     public function user(): belongsTo
     {

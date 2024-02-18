@@ -23,8 +23,8 @@ class OpportunityRequest extends FormRequest
     {
 
         return [
-
             'requirements' => 'required',
+            'title' => 'required',
             'additional_info' => 'sometimes',
             'position_id' => 'sometimes',
             'targeted_type' => 'sometimes',
@@ -35,18 +35,18 @@ class OpportunityRequest extends FormRequest
             'to_height' => 'sometimes',
             'from_weight' => 'sometimes',
             'to_weight' => 'sometimes',
+            'from_experience' => 'sometimes',
+            'to_experience' => 'sometimes',
             'gender' => 'sometimes',
             'foot' => 'sometimes',
             'country_id' => 'sometimes',
             'city_id' => 'sometimes',
+
         ];
     }
 
     protected function passedValidation()
     {
-        $data = array();
-        $data['user_id'] = auth()->user()->id;
-        $data['user_type_id'] = auth()->user()->user_type_id;
-        $this->merge($data);
+
     }
 }
