@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Language;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -39,7 +40,7 @@ class OpportunityResource extends JsonResource
                 'name' => $this->country->getTranslation('name', LANGUAGE),
             ],
             'city' => $this->city->getTranslation('name', LANGUAGE),
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at->diffInHours() >= 24 ? $this->created_at->format('Y-m-d') : $this->created_at->diffForHumans()
         ];
     }
 }
