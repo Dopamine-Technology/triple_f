@@ -12,7 +12,7 @@ class Status extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $appends = ['is_reacted'];
+    protected $appends = ['is_reacted', 'Is_saved'];
 
     public function challenge()
     {
@@ -38,6 +38,12 @@ class Status extends Model
     {
         $reaction = ReactionStatus::query()->where('status_id', $this->id)->where('user_id', auth()->user()->id)->first();
         return $reaction?->points ?? 0;
+    }
+
+    public function getIsSavedAttribute(): bool
+    {
+        $saved = UserSave::query()->where('user_id', auth()->user()->id)->where('element_type', 'challenge_post')->where('element_id', $this->id)->first();
+        return !empty($saved);
     }
 
 
