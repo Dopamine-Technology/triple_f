@@ -1,0 +1,19 @@
+/*@media (prefers-color-scheme: light) {*/
+/*    body{*/
+/*        background-color: red !important;*/
+/*    }*/
+/*}*/
+/*@media (prefers-color-scheme: dark) {*/
+/*    body{*/
+/*        background-color: blue !important;*/
+/*    }*/
+/*}*/
+
+    .fi-sidebar-item-icon {
+        fill: #447b6a;
+    }
+.fi-sidebar-group-icon{
+    fill: #447b6a;
+}
+
+

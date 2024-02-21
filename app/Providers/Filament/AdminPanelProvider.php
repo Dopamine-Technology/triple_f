@@ -12,8 +12,11 @@ use Filament\Navigation\NavigationGroup;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
+use Filament\Support\Assets\Css;
 use Filament\Support\Colors\Color;
 use Filament\Widgets;
+use Filament\Support\Assets\Js;
+
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -29,6 +32,7 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->brandLogo(asset('logo.svg'))
             ->darkModeBrandLogo(asset('dark-logo.svg'))
+            ->darkMode(true)
             ->brandLogoHeight('2rem')
             ->default()
             ->id('admin')
