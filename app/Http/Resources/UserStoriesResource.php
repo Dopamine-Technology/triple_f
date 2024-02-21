@@ -25,7 +25,7 @@ class UserStoriesResource extends JsonResource
             'image' => $this->image ? asset('storage/' . $this->image) : '',
             'social_image' => $this->social_image ?? '',
             'user_name' => $this->user_name ?? '',
-            'stories' => statusResource::collection(Status::query()->where('user_id', $this->id)->orderBy('created_at', 'DESC')->get())
+            'stories' => StatusResource::collection(Status::query()->where('user_id', $this->id)->orderBy('created_at', 'DESC')->get())
         ];
     }
 }
