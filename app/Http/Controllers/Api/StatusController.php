@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StatusRequest;
 use App\Http\Resources\StatusResource;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\UserStoriesResource;
 use App\Models\ReactionStatus;
 use App\Models\ReportStatus;
 use App\Models\Status;
@@ -28,7 +29,7 @@ class StatusController extends Controller
             ->get()->sortByDesc(function ($user) {
                 return $user->statuses->first()->created_at ?? null;
             });
-        return $this->success(UserResource::collection($followedWithStatuses));
+        return $this->success(UserStoriesResource::collection($followedWithStatuses));
     }
 
     public function getUserStories($user_id)
@@ -118,6 +119,10 @@ class StatusController extends Controller
         ]);
         ReportStatus::query()->updateOrCreate(['user_id' => auth()->user()->id, 'status_id' => $status_id,], ['report' => $data['report']]);
         return $this->success(true, 'Status Reported !');
+    }
+
+    public function updateSeenStories()
+    {
 
     }
 
