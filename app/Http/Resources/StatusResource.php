@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\SeenStorie;
 use App\Models\UserSave;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -33,6 +34,7 @@ class StatusResource extends JsonResource
                 'name' => $this->challenge?->getTranslation('name', LANGUAGE),
             ],
             'user' => new UserResource($this->user),
+            'is_seen' => !empty(SeenStorie::query()->where('user_id', auth()->user()->id)->where('seen_user_id', $this->user->id)->first()),
             'is_reacted' => $this->is_reacted,
             'is_saved' => $this->is_saved,
             'total_points' => $this->total_points,
