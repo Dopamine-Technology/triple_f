@@ -9,6 +9,7 @@ use App\Http\Resources\UserResource;
 use App\Http\Resources\UserStoriesResource;
 use App\Models\ReactionStatus;
 use App\Models\ReportStatus;
+use App\Models\SeenStorie;
 use App\Models\Status;
 use App\Models\User;
 use App\Models\UserSave;
@@ -70,6 +71,7 @@ class StatusController extends Controller
 
     public function createStatus(StatusRequest $request)
     {
+        SeenStorie::query()->where('seen_user_id', auth()->user()->id)->delete();
         return $this->success(new StatusResource(Status::query()->create($request['status'])));
     }
 
@@ -121,9 +123,20 @@ class StatusController extends Controller
         return $this->success(true, 'Status Reported !');
     }
 
-    public function updateSeenStories()
+    public function updateSeenStories(Request $request)
     {
+//        dd( auth()->user()->id);
+        $data = $request->validate(['user_ids' => 'required']);
 
+        foreach ($data['user_ids'] as $one) {
+
+            SeenStorie::query()->updateOrCreate(
+                ['user_id' => auth()->user()->id, 'seen_user_id' => $one],
+                ['seen_user_id' => $one]
+            );
+
+        }
+        return $this->success(true, 'Seen Stories Updated');
     }
 
 

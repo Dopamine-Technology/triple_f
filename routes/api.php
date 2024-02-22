@@ -73,6 +73,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('report/{status_id}', 'reportStatus');
         Route::get('stories', 'getStories');
         Route::get('user_stories/{user_id}', 'getUserStories');
+        Route::post('update_seen_stories', 'updateSeenStories');
     });
     Route::controller(FollowController::class)->prefix('/follow')->middleware(['localization'])->group(function () {
         Route::get('toggle/{user}', 'toggleFollow');
