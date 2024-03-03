@@ -24,7 +24,7 @@ class UserTypeSeeder extends Seeder
 
         $types = array();
         $types[] = ['name' => json_encode(['en' => 'talent', 'ar' => 'موهبة']), 'permissions' => $default_permissions];
-        $types[] = ['name' => json_encode(['en' => 'couch', 'ar' => 'مدرب']), 'permissions' => $default_permissions];
+        $types[] = ['name' => json_encode(['en' => 'coach', 'ar' => 'مدرب']), 'permissions' => $default_permissions];
         $types[] = ['name' => json_encode(['en' => 'club', 'ar' => 'نادي']), 'permissions' => $default_permissions];
         $types[] = ['name' => json_encode(['en' => 'scout', 'ar' => 'مكتشف مواهب']), 'permissions' => $default_permissions];
         UserType::query()->insert($types);

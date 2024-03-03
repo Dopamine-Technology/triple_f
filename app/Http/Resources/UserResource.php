@@ -28,7 +28,9 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'is_blocked' => $this->is_blocked,
             'is_baned' => $this->baned_to ? true : false,
-            'is_followed' => auth()->user()?->id ?  in_array($this->id, Follow::query()->where('user_id', auth()->user()->id)->pluck('followed_id')->toArray()) : false,
+            'is_followed' => auth()->user()?->id ? in_array($this->id, Follow::query()->where('user_id', auth()->user()->id)->pluck('followed_id')->toArray()) : false,
+            'following_count' => Follow::query()->where('user_id', $this->id)->count(),
+            'followers_count' => Follow::query()->where('followed_id', $this->id)->count(),
             'is_email_verified' => $this->email_verified_at ? true : false,
             'profile' => [
                 'club_name' => $this->profile->name ?? '',

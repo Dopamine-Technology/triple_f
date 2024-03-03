@@ -37,7 +37,6 @@ class StatusController extends Controller
     {
         $statuses = Status::query()->where('user_id', $user_id)->orderBy('created_at', 'DESC')->get();
         return $this->success(StatusResource::collection($statuses));
-
     }
 
 
