@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Models\Follow;
 use App\Models\User;
 use App\Traits\AppResponse;
 use Illuminate\Http\Request;
@@ -34,6 +35,17 @@ class UserController extends Controller
     {
         $user = User::query()->find($user_id);
         return $this->success(new UserResource($user));
+    }
+
+    public function getFollowingList($user_id)
+    {
+        $following_ids = Follow::query()->where('user_id', $user_id)->pluck('followed_id')->toArray();
+        return $this->success(UserResource::collection(User::query()->whereIn('id', $following_ids)->get()));
+    }
+    public function getFollowersList($user_id)
+    {
+        $followers_ids = Follow::query()->where('followed_id', $user_id)->pluck('user_id')->toArray();
+        return $this->success(UserResource::collection(User::query()->whereIn('id', $followers_ids)->get()));
     }
 
 

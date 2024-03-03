@@ -59,6 +59,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('get_permissions', 'getUserPermission');
         Route::get('profile', 'getUserProfile');
         Route::get('get_profile/{user_id}', 'getUserByID');
+        Route::get('following/{user_id}', 'getFollowingList');
+        Route::get('followers/{user_id}', 'getFollowersList');
     });
     Route::controller(ChallengeController::class)->prefix('/challenge')->middleware(['localization'])->group(function () {
         Route::get('get', 'getChallenges');
