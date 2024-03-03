@@ -21,8 +21,8 @@ return new class extends Migration {
             $table->string('gender')->default('other');
             $table->date('birth_date')->nullable();
             $table->string('email')->unique();
-            $table->string('image')->nullable();
-            $table->string('social_image')->nullable();
+            $table->string('image')->default('profile_avatar.svg');
+            $table->string('social_image')->default('profile_avatar.svg');
             $table->string('password')->nullable();
             $table->string('google_identifier')->nullable();
             $table->string('facebook_identifier')->nullable();

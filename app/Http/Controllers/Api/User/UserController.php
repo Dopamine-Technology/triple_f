@@ -30,5 +30,11 @@ class UserController extends Controller
         }
     }
 
+    public function getUserByID($user_id)
+    {
+        $user = User::query()->find($user_id);
+        return $this->success(new UserResource($user));
+    }
+
 
 }
