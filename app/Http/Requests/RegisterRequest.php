@@ -53,7 +53,7 @@ class RegisterRequest extends FormRequest
         $data = array();
         $data['user']['first_name'] = $this->first_name;
         $data['user']['last_name'] = $this->last_name;
-        $data['user']['image'] = $this->image ? $this->file('image')->store('avatars', 'public') : '';
+        $data['user']['image'] = isset($this->image) && !empty($this->image) ? $this->file('image')->store('avatars', 'public') : 'profile_avatar.svg';
         $data['user']['social_image'] = $this->social_image ?? '';
         $data['user']['name'] = $this->first_name . ' ' . $this->last_name;
         $data['user']['user_name'] = $this->user_name;
