@@ -18,7 +18,7 @@ class PostionsResource extends JsonResource
             'id' => $this->id,
             'name' => $this->getTranslation('name', LANGUAGE),
             'code' => $this->code,
-            'image' => $this->image ? asset('storage/postions' . $this->image) : '',
+            'image' => $this->image ? asset('storage/positions/' . $this->image) : '',
 //            'parent' => $this->parent,
         ];
     }
