@@ -91,6 +91,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('toggle_status/{opportunity}', 'toggleStatus');
         Route::post('user_opportunities', 'getUserOpportunities');
         Route::get('applicants/{opportunity}', 'getApplicants');
+        Route::get('user_published_opportunities/{user_id}', 'getUserPublishedOpportunities');
     });
 });
 

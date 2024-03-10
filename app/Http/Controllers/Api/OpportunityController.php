@@ -48,6 +48,12 @@ class OpportunityController extends Controller
 
     }
 
+    public function getUserPublishedOpportunities($user_id)
+    {
+        $opportunities = Opportunity::query()->where('user_id', $user_id)->orderBy('created_at', 'DESC')->get();
+        return $this->success(OpportunityResource::collection($opportunities));
+    }
+
     public function apply($opportunity_id)
     {
         OpportunityApplicant::query()->create([
