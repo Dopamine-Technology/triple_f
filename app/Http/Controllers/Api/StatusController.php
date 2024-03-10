@@ -50,6 +50,12 @@ class StatusController extends Controller
         return $this->success(StatusResource::collection($statuses));
     }
 
+    public function getUserStatuses($user_id)
+    {
+        $statuses = Status::query()->where('user_id', $user_id)->orderBy('created_at', 'DESC')->get();
+        return $this->success(StatusResource::collection($statuses));
+    }
+
     public function getStatusReactions($status_id, Request $request)
     {
         $data = $request->validate([
