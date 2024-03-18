@@ -9,7 +9,7 @@ use App\Traits\AppResponse;
 
 class ChallengeController extends Controller
 {
-    use  AppResponse;
+    use  AppResponse; 
 
     public function getChallenges()
     {

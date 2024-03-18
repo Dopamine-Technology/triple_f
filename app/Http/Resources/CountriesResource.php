@@ -16,8 +16,9 @@ class CountriesResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'iso' => $this->iso_code,
             'name' => $this->getTranslation('name', LANGUAGE),
+            'iso' => $this->iso_code,
+            'image'=> asset($this->image)
         ];
     }
 }

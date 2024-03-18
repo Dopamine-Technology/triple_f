@@ -18,9 +18,9 @@ class CountrySeeder extends Seeder
     {
         $json = File::get("database/seeders/data/country.json");
         $countries = json_decode($json);
-        foreach ($countries as $key => $value) {
-            $new_country = Country::query()->create(['name' => $key]);
-            foreach ($value as $city) {
+        foreach ($countries  as $one) {
+            $new_country = Country::query()->create(['name' => $one->name , 'iso_code'=> $one->iso_code ?? '' , 'image'=> $one->image]);
+            foreach ($one->cities as $city) {
                 City::query()->insert(['name' => json_encode(['en' => $city]), 'country_id' => $new_country->id]);
             }
         }

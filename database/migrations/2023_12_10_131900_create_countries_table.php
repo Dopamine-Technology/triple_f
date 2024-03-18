@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->json('name');
             $table->string('iso_code')->nullable();
+            $table->string('image')->nullable();
             $table->integer('order')->default(0);
             $table->timestamps();
         });
