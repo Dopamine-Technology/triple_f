@@ -119,7 +119,7 @@ class RegisterRequest extends FormRequest
     {
         $roles = $this->commonRoles;
         $roles['club_name'] = 'required|string|max:255';
-        $roles['club_logo'] = 'required';
+        $roles['club_logo'] = 'sometimes';
         $roles['talent_type'] = 'required';
         $roles['country_id'] = 'required';
         $roles['mobile_number'] = 'required';
