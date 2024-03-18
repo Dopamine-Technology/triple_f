@@ -72,7 +72,7 @@ class AppController extends Controller
 
     public function getCountries()
     {
-        return $this->success(json_decode(Redis::get('countries_' . LANGUAGE)) ?? CountriesResource::collection(Country::query()->get()));
+        return $this->success(CountriesResource::collection(Country::query()->get()));
     }
 
     public function getCities($country_id = 0)
