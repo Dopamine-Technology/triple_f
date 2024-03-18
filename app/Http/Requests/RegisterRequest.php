@@ -197,7 +197,7 @@ class RegisterRequest extends FormRequest
         $data = array();
         $data['profile']['user_type'] = $this->user_type;
         $data['profile']['name'] = $this->club_name;
-        $data['profile']['logo'] = $this->club_logo ? $this->file('club_logo')->store('clubs', 'public') : '';
+        $data['profile']['logo'] = isset($this->club_logo) && !empty($this->club_logo) ? $this->file('club_logo')->store('clubs', 'public') : '';
         $data['profile']['sport_id'] = $this->talent_type;
         $data['profile']['country_id'] = $this->country_id;
         $data['profile']['mobile_number'] = $this->mobile_number;
