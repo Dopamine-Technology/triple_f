@@ -108,7 +108,6 @@ class ProfileEditRequest extends FormRequest
     public function scoutValidationRoles(): array
     {
         $roles = $this->commonRoles;
-        $roles['talent_type'] = 'required';
         $roles['gender'] = 'required|in:male,female,other';
         $roles['birth_date'] = 'required|date';
         $roles['years_of_experience'] = 'required|numeric';
