@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProfileEditRequest;
 use App\Http\Resources\UserResource;
+use App\Models\Club;
+use App\Models\Coach;
 use App\Models\Follow;
+use App\Models\Scout;
+use App\Models\Talent;
 use App\Models\User;
 use App\Traits\AppResponse;
 use Illuminate\Http\Request;
@@ -42,10 +47,19 @@ class UserController extends Controller
         $following_ids = Follow::query()->where('user_id', $user_id)->pluck('followed_id')->toArray();
         return $this->success(UserResource::collection(User::query()->whereIn('id', $following_ids)->get()));
     }
+
     public function getFollowersList($user_id)
     {
         $followers_ids = Follow::query()->where('followed_id', $user_id)->pluck('user_id')->toArray();
         return $this->success(UserResource::collection(User::query()->whereIn('id', $followers_ids)->get()));
+    }
+
+    public function updateProfile(ProfileEditRequest $request)
+    {
+        User::query()->where('id', auth()->user()->id)->update($request->user);
+        $profileType = 'App\Models\\' . ucfirst(auth()->user()->profile_type->name);
+        $profileType::query()->where('user_id', auth()->user()->id)->update($request->profile);
+        return $this->success(true, 'user ' . ucfirst(auth()->user()->profile_type->name) . ' profile successfully updated');
     }
 
 

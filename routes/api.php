@@ -56,6 +56,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::middleware('auth:sanctum')->group(function () {
     Route::controller(UserController::class)->prefix('/user')->middleware(['localization'])->group(function () {
+        Route::put('edit', 'updateProfile');
         Route::get('get_permissions', 'getUserPermission');
         Route::get('profile', 'getUserProfile');
         Route::get('get_profile/{user_id}', 'getUserByID');
