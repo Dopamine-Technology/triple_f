@@ -75,7 +75,7 @@ class ProfileEditRequest extends FormRequest
         $roles['height'] = 'required|numeric';
         $roles['wight'] = 'required|numeric';
         $roles['country_id'] = 'required';
-        $roles['city_id'] = 'required';
+        $roles['city_id'] = 'sometimes';
         $roles['mobile_number'] = 'required';
         return $roles;
     }
@@ -88,7 +88,7 @@ class ProfileEditRequest extends FormRequest
         $roles['birth_date'] = 'required|date';
         $roles['years_of_experience'] = 'required|numeric';
         $roles['country_id'] = 'required';
-        $roles['city_id'] = 'required';
+        $roles['city_id'] = 'sometimes';
         $roles['mobile_number'] = 'required';
         return $roles;
     }
@@ -112,7 +112,7 @@ class ProfileEditRequest extends FormRequest
         $roles['birth_date'] = 'required|date';
         $roles['years_of_experience'] = 'required|numeric';
         $roles['country_id'] = 'required';
-        $roles['city_id'] = 'required';
+        $roles['city_id'] = 'sometimes';
         $roles['mobile_number'] = 'required';
         return $roles;
     }
