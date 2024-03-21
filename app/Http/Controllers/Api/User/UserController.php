@@ -59,6 +59,7 @@ class UserController extends Controller
         User::query()->where('id', auth()->user()->id)->update($request->user);
         $profileType = 'App\Models\\' . ucfirst(auth()->user()->profile_type->name);
         $profileType::query()->where('user_id', auth()->user()->id)->update($request->profile);
+        Redis::set('user:profile:' . auth()->user()->id, json_encode(new UserResource(auth()->user())));
         return $this->success(true, 'user ' . ucfirst(auth()->user()->profile_type->name) . ' profile successfully updated');
     }
 
