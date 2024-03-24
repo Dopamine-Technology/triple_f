@@ -16,7 +16,7 @@ class SportSeeder extends Seeder
     {
         $sports = array();
         $sports[] = ['name' => json_encode(['en' => 'football', 'ar' => 'كرة القدم'])];
-        $sports[] = ['name' => json_encode(['en' => 'basketball', 'ar' => 'كرة السلة'])];
+//        $sports[] = ['name' => json_encode(['en' => 'basketball', 'ar' => 'كرة السلة'])];
         Sport::query()->insert($sports);
     }
 }
