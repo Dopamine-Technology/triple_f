@@ -45,6 +45,7 @@ class UserResource extends JsonResource
                 'gender' => $this->profile->gender ?? '',
                 'height' => $this->profile->height ?? '',
                 'wight' => $this->profile->wight ?? '',
+                'preferred_foot' => $this->profile->preferred_foot ?? '',
                 'year_founded' => $this->profile->year_founded ?? '',
                 'birth_date' => $this->profile->birth_date ? Carbon::make($this->profile->birth_date)->format('Y-m-d') : '',
                 'residence_place' => $this->profile->residence_place ?? '',

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('talents', function (Blueprint $table) {
-            $table->string('gender')->default('other');
+            $table->string('preferred_foot')->default('both');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('talent', function (Blueprint $table) {
-            //
+        Schema::table('talents', function (Blueprint $table) {
+            $table->removeColumn('preferred_foot');
         });
     }
 };

@@ -90,6 +90,7 @@ class RegisterRequest extends FormRequest
     {
         $roles = $this->commonRoles;
         $roles['talent_type'] = 'required';
+        $roles['preferred_foot'] = 'required';
         $roles['parent_position'] = 'required|exists:positions,id';
         $roles['position'] = 'required|exists:positions,id';
         $roles['gender'] = 'required|in:male,female,other';
@@ -165,6 +166,7 @@ class RegisterRequest extends FormRequest
     {
         $data = array();
         $data['profile']['user_type'] = $this->user_type;
+        $data['profile']['preferred_foot'] = $this->preferred_foot;
         $data['profile']['sport_id'] = $this->talent_type;
         $data['profile']['parent_position_id'] = $this->parent_position;
         $data['profile']['position_id'] = $this->position;
