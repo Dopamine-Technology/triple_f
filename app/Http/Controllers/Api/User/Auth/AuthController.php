@@ -48,5 +48,12 @@ class AuthController extends Controller
 
     }
 
+    public function uniqueEmail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|unique:users,email|email'
+        ]);
+        return $this->success(true, 'email is unique !');
+    }
 
 }
