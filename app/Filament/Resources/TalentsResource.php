@@ -4,6 +4,8 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\TalentsResource\Pages;
 use App\Filament\Resources\TalentsResource\RelationManagers;
+use App\Models\City;
+use App\Models\Country;
 use App\Models\Position;
 use App\Models\Sport;
 use App\Models\Talent;
@@ -58,10 +60,14 @@ class TalentsResource extends Resource
                 ]),
                 Section::make()->schema([
                     Grid::make()->schema([
+                        Select::make('country_id')->label('Country')->options(Country::query()->pluck('name' , 'id'))->searchable(),
+                        Select::make('city_id')->label('City')->options(City::query()->pluck('name' , 'id'))->searchable(),
+                    ])->columns(2),
+                    Grid::make()->schema([
                         TextInput::make('mobile_number'),
                         DatePicker::make('birth_date'),
-                        TextInput::make('residence_place'),
-                    ])->columns(3),
+
+                    ])->columns(2),
                     Grid::make()->schema([
                         Select::make('gender')->options([
                             'male' => 'Male',

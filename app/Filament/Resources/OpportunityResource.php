@@ -81,4 +81,8 @@ class OpportunityResource extends Resource
             'edit' => Pages\EditOpportunity::route('/{record}/edit'),
         ];
     }
+    public static function canCreate(): bool
+    {
+        return false;
+    }
 }

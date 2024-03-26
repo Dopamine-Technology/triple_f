@@ -4,7 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ScoutResource\Pages;
 use App\Filament\Resources\ScoutResource\RelationManagers;
+use App\Models\City;
 use App\Models\Coach;
+use App\Models\Country;
 use App\Models\Scout;
 use App\Models\User;
 use Carbon\Carbon;
@@ -55,7 +57,12 @@ class ScoutResource extends Resource
                             ->content(fn(Scout $record): ?string => $record->created_at?->diffForHumans()),
                     ])->columns(3)
                 ]),
+
                 Section::make()->schema([
+                    Grid::make()->schema([
+                        Select::make('country_id')->label('Country')->options(Country::query()->pluck('name' , 'id'))->searchable(),
+                        Select::make('city_id')->label('City')->options(City::query()->pluck('name' , 'id'))->searchable(),
+                    ])->columns(2),
                     Grid::make()->schema([
                         TextInput::make('mobile_number'),
                         DatePicker::make('birth_date'),
