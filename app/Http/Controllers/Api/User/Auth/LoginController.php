@@ -31,7 +31,7 @@ class LoginController extends Controller
                     'approved_by_admin' => ['Club need to be approved by admin to proceed'],
                 ]);
             }
-            if ($user->is_blocked) {
+            if (!$user->profile->approved_by_admin) {
                 throw ValidationException::withMessages([
                     'blocked_by_admin' => ['Your Account is currently suspended , please contact with support for more details'],
                 ]);
