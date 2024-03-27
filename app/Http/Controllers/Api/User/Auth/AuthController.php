@@ -51,9 +51,15 @@ class AuthController extends Controller
     public function uniqueEmail(Request $request)
     {
         $request->validate([
-            'email' => 'required|unique:users,email|email'
+            'email' => 'required|email'
         ]);
-        return $this->success(true, 'email is unique !');
+        $user = User::query()->where('email' , $request->email)->first();
+        if(empty($user)){
+            return $this->success(true, 'email is unique !');
+        }
+        return $this->success(false, 'email already used');
+
+
     }
 
 }
