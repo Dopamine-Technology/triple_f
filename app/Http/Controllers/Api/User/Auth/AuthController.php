@@ -45,7 +45,6 @@ class AuthController extends Controller
     {
         auth()->user()->tokens()->delete();
         return $this->success(true, 'user logged out');
-
     }
 
     public function uniqueEmail(Request $request)
@@ -53,13 +52,11 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|email'
         ]);
-        $user = User::query()->where('email' , $request->email)->first();
-        if(empty($user)){
+        $user = User::query()->where('email', $request->email)->first();
+        if (empty($user)) {
             return $this->success(true, 'email is unique !');
         }
         return $this->success(false, 'email already used');
-
-
     }
 
 }

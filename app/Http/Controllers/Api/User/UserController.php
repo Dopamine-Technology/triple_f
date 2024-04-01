@@ -13,7 +13,9 @@ use App\Models\Talent;
 use App\Models\User;
 use App\Traits\AppResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -63,5 +65,22 @@ class UserController extends Controller
         return $this->success(true, 'user ' . ucfirst(auth()->user()->profile_type->name) . ' profile successfully updated');
     }
 
+    public function editPassword(Request $request)
+    {
+        $data = $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed'
+        ]);
+        $user = User::query()->where('id', auth()->user()->id)->first();
+        if (!Hash::check($request->old_password, $user->password)) {
+            throw ValidationException::withMessages([
+                'old_password' => ['The provided credentials are incorrect.'],
+            ]);
+        } else {
+            $user->password = Hash::make($data['new_password']);
+            $user->save();
+        }
+        return $this->success(true, 'password updated successfully !');
+    }
 
 }
