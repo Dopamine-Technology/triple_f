@@ -144,5 +144,11 @@ class StatusController extends Controller
         return $this->success(true, 'Seen Stories Updated');
     }
 
+    public function deleteStatus($status_id)
+    {
+        Status::query()->where('id', $status_id)->delete();
+        return $this->success(true, 'post successfully deleted');
+    }
+
 
 }
