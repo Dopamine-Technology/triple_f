@@ -49,6 +49,7 @@ class User extends Authenticatable implements HasMedia, FilamentUser
         'password' => 'hashed',
         'is_admin' => 'boolean',
         'is_blocked' => 'boolean',
+        'notification_settings' => 'array',
     ];
 
     public function canAccessPanel(Panel $panel): bool

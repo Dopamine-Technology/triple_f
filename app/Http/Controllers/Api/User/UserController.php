@@ -13,6 +13,7 @@ use App\Models\Talent;
 use App\Models\User;
 use App\Traits\AppResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Validation\ValidationException;
@@ -82,5 +83,17 @@ class UserController extends Controller
         }
         return $this->success(true, 'password updated successfully !');
     }
+
+    public function notificationSettings(Request $request)
+    {
+        $data = $request->validate(['notifications' => 'required']);
+        $user = auth()->user();
+        auth()->user()->notification_settings = $data['notifications'];
+        auth()->user()->save();
+        auth()->guard('web')->login($user);
+//        dd(auth()->user());
+        return $this->success(true, 'notifications settings successfully updated');
+    }
+
 
 }
