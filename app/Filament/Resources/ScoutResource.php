@@ -11,6 +11,7 @@ use App\Models\Scout;
 use App\Models\User;
 use Carbon\Carbon;
 use Filament\Forms;
+use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Placeholder;
@@ -39,24 +40,13 @@ class ScoutResource extends Resource
     {
         return $form
             ->schema([
-                Section::make()->schema([
-                    Toggle::make('approved_by_admin'),
-                    Grid::make()->schema([
-
-                        Placeholder::make('user_name')
-                            ->label('User Name')
-                            ->content(fn(Scout $record) => new HtmlString('<b><a class="text-primary-600 dark:text-primary-400"  href="' . url('admin/users/' . $record->user_id . '/edit') . '">' . User::query()->find($record->user_id)->name . '</a></b>')
-                            ),
-
-                        Placeholder::make('user_email')
-                            ->label('User Email')
-                            ->content(fn(Scout $record): ?string => User::find($record->user_id)->email),
-
-                        Placeholder::make('created_at')
-                            ->label('Created at')
-                            ->content(fn(Scout $record): ?string => $record->created_at?->diffForHumans()),
-                    ])->columns(3)
-                ]),
+                Section::make('User Info')
+                    ->schema([
+                        Toggle::make('profile.approved_by_admin'),
+                        TextInput::make('name')->required(),
+                        TextInput::make('email')->required(),
+                        TextInput::make('password')->required(fn(string $context): bool => $context === 'create'),
+                    ])->relationship('user'),
 
                 Section::make()->schema([
                     Grid::make()->schema([
@@ -76,7 +66,27 @@ class ScoutResource extends Resource
                         ]),
                     ])->columns(1),
 
-                ])
+                ]),
+                Section::make()->schema([
+                    CheckboxList::make('notification_settings')->options([
+                        "new_followers" => "New Followers",
+                        "follower_challenges" => "Follower Challenges",
+                        "follower_opportunities" => "Follower Opportunities",
+                        "new_message" => "New Message",
+                        "email_notifications" => "Email Notifications"
+                    ])->descriptions([
+                        'new_followers' => 'notify users when getting new followers',
+                        'follower_challenges' => 'notify users when one of his/her following list add new challenge post',
+                        'follower_opportunities' => 'notify users when one of his/her following list add new opportunities post',
+                        "new_message" => 'notify users when receiving new message',
+
+                    ])
+                        ->columns(2)
+                        ->searchable()
+                        ->bulkToggleable()
+
+
+                ])->relationship('user'),
             ]);
     }
 

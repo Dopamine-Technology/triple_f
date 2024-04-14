@@ -1,35 +1,24 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Resources\TalentsResource\RelationManagers;
 
-use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
-use App\Models\Section;
-use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class UserResource extends Resource
+class UserRelationManager extends RelationManager
 {
-    protected static ?string $model = User::class;
+    protected static string $relationship = 'user';
 
-    protected static ?string $navigationIcon = 'icon-users';
-    protected static ?int $navigationSort = 8;
-
-    public static function getEloquentQuery(): Builder
-    {
-        return User::query()->where('is_admin', false);
-    }
-
-    public static function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -61,47 +50,33 @@ class UserResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
+//            ->recordTitleAttribute('user.notification_settings')
             ->columns([
                 TextColumn::make('id')->color('primary'),
                 TextColumn::make('name'),
                 TextColumn::make('email')->copyable()->copyMessage('email copied to clipboard')->icon('heroicon-o-clipboard'),
                 TextColumn::make('created_at'),
                 TextColumn::make('updated_at'),
-
             ])
             ->filters([
                 //
             ])
+            ->headerActions([
+//                Tables\Actions\CreateAction::make(),
+            ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+//                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+//                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ])
-            ->emptyStateActions([
-                Tables\Actions\CreateAction::make(),
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
-    public static function getPages(): array
-    {
-        return [
-            'index' => Pages\ListUsers::route('/'),
-            'create' => Pages\CreateUser::route('/create'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
-        ];
-    }
 
 }

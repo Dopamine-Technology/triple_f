@@ -12,7 +12,9 @@ use App\Models\Talent;
 use App\Models\User;
 use Carbon\Carbon;
 use Filament\Forms;
+use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
@@ -43,25 +45,17 @@ class TalentsResource extends Resource
     {
         return $form
             ->schema([
-                Section::make()->schema([
-                    Toggle::make('approved_by_admin'),
+                Section::make('User Info')
+                    ->schema([
+                        Toggle::make('profile.approved_by_admin'),
+                            TextInput::make('name')->required(),
+                            TextInput::make('email')->required(),
+                            TextInput::make('password')->required(fn(string $context): bool => $context === 'create'),
+                    ])->relationship('user'),
+                Section::make('profile Info')->schema([
                     Grid::make()->schema([
-                        Placeholder::make('user_name')
-                            ->label('User Name')
-                            ->content(fn(Talent $record) => new HtmlString('<b><a class="text-primary-600 dark:text-primary-400"  href="' . url('admin/users/' . $record->user_id . '/edit') . '">' . User::query()->find($record->user_id)->name . '</a></b>')
-                            ),
-                        Placeholder::make('user_email')
-                            ->label('User Email')
-                            ->content(fn(Talent $record): ?string => User::find($record->user_id)->email),
-                        Placeholder::make('created_at')
-                            ->label('Created at')
-                            ->content(fn(Talent $record): ?string => $record->created_at?->diffForHumans()),
-                    ])->columns(3)
-                ]),
-                Section::make()->schema([
-                    Grid::make()->schema([
-                        Select::make('country_id')->label('Country')->options(Country::query()->pluck('name' , 'id'))->searchable(),
-                        Select::make('city_id')->label('City')->options(City::query()->pluck('name' , 'id'))->searchable(),
+                        Select::make('country_id')->label('Country')->options(Country::query()->pluck('name', 'id'))->searchable(),
+                        Select::make('city_id')->label('City')->options(City::query()->pluck('name', 'id'))->searchable(),
                     ])->columns(2),
                     Grid::make()->schema([
                         TextInput::make('mobile_number'),
@@ -93,6 +87,24 @@ class TalentsResource extends Resource
                     ])->columns(2),
                 ]),
 
+               Section::make()->schema([
+                    CheckboxList::make('notification_settings')->options([
+                        "new_followers" => "New Followers",
+                        "follower_challenges" => "Follower Challenges",
+                        "follower_opportunities" => "Follower Opportunities",
+                        "new_message" => "New Message",
+                        "email_notifications" => "Email Notifications"
+                    ])->descriptions([
+                        'new_followers' => 'notify users when getting new followers',
+                        'follower_challenges' => 'notify users when one of his/her following list add new challenge post',
+                        'follower_opportunities' => 'notify users when one of his/her following list add new opportunities post',
+                        "new_message" => 'notify users when receiving new message',
+
+                    ])
+                        ->columns(2)
+                        ->searchable()
+                        ->bulkToggleable()
+                ])->relationship('user'),
             ]);
     }
 
@@ -129,7 +141,7 @@ class TalentsResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+//            RelationManagers\UserRelationManager::class
         ];
     }
 
@@ -147,4 +159,5 @@ class TalentsResource extends Resource
             'edit' => Pages\EditTalents::route('/{record}/edit'),
         ];
     }
+
 }

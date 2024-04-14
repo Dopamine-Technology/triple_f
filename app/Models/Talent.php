@@ -12,7 +12,7 @@ class Talent extends Model
 
     protected $guarded = [];
     protected $casts = ['birth_date' => 'date'];
-    protected $with = ['sport', 'parent_position', 'position'];
+    protected $with = ['sport', 'parent_position', 'position' ];
     protected $table = 'talents';
     protected $appends = ['age'];
 

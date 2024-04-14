@@ -18,11 +18,11 @@ class UserObserver
     public function getDefaultNotificationSettings(): array
     {
         $notification_settings = [
-            "new_followers" => true,
-            "follower_challenges" => true,
-            "follower_opportunities" => true,
-            "new_message" => true,
-            "email_notifications" => true
+            "new_followers",
+            "follower_challenges",
+            "follower_opportunities",
+            "new_message",
+            "email_notifications"
         ];
         return $notification_settings;
     }

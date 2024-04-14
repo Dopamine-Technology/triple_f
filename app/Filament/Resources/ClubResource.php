@@ -7,6 +7,9 @@ use App\Filament\Resources\ClubResource\RelationManagers;
 use App\Models\Club;
 use Filament\Enums\ThemeMode;
 use Filament\Forms;
+use Filament\Forms\Components\CheckboxList;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\Section;
@@ -22,6 +25,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Infolists;
 use Filament\Infolists\Infolist;
@@ -51,7 +55,9 @@ public static function getNavigationIcon(): ?string
     {
         return $infolist
             ->schema([
+
                 Section::make('Club Details')->schema([
+
                     ImageEntry::make('logo')->height(60)
                         ->circular()->label(''),
                     TextEntry::make('name')->label('Club Name')->weight('bold'),
@@ -116,7 +122,31 @@ public static function getNavigationIcon(): ?string
     {
         return $form
             ->schema([
-                //
+                \Filament\Forms\Components\Section::make('User Info')
+                    ->schema([
+                        Toggle::make('profile.approved_by_admin'),
+                        TextInput::make('name')->required(),
+                        TextInput::make('email')->required(),
+                        TextInput::make('password')->required(fn(string $context): bool => $context === 'create'),
+                    ])->relationship('user'),
+                \Filament\Forms\Components\Section::make()->schema([
+                    CheckboxList::make('notification_settings')->options([
+                        "new_followers" => "New Followers",
+                        "follower_challenges" => "Follower Challenges",
+                        "follower_opportunities" => "Follower Opportunities",
+                        "new_message" => "New Message",
+                        "email_notifications" => "Email Notifications"
+                    ])->descriptions([
+                        'new_followers' => 'notify users when getting new followers',
+                        'follower_challenges' => 'notify users when one of his/her following list add new challenge post',
+                        'follower_opportunities' => 'notify users when one of his/her following list add new opportunities post',
+                        "new_message" => 'notify users when receiving new message',
+
+                    ])
+                        ->columns(2)
+                        ->searchable()
+                        ->bulkToggleable()
+                ])->relationship('user'),
             ]);
     }
 
@@ -139,7 +169,7 @@ public static function getNavigationIcon(): ?string
                 //
             ])
             ->actions([
-//                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make(),
                 Tables\Actions\ViewAction::make(),
 
             ])
@@ -179,6 +209,10 @@ public static function getNavigationIcon(): ?string
             'view' => Pages\ViewClub::route('/{record}'),
 
         ];
+    }
+    public static function canDelete(Model $record): bool
+    {
+        return false;
     }
 
     public static function canCreate(): bool
