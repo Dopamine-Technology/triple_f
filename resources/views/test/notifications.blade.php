@@ -11,8 +11,8 @@
             cluster: 'ap2'
         });
 
-        var channel = pusher.subscribe('new-notification');
-        channel.bind('my-event', function (data) {
+        var channel = pusher.subscribe('notification-channel');
+        channel.bind('notification-event', function (data) {
             var div = document.getElementById('notifications_list');
             div.innerHTML += '<p>'+JSON.stringify(data)+'</p>';
             alert(JSON.stringify(data));

@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Pusher\Pusher;
 
 class NewFollower extends Notification
 {
@@ -20,6 +21,14 @@ class NewFollower extends Notification
     public function __construct($follower)
     {
         $this->$follower = $follower;
+        $pusher = new Pusher(
+            "323996d4cfab0016889a",
+            "ea95ab6a646732d824d7",
+            "1787669",
+            array('cluster' => 'ap2')
+        );
+        $pusher->trigger('notification-channel', 'notification-event', array('message' => 'hello world'));
+
     }
 
     /**
