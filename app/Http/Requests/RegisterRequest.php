@@ -51,6 +51,9 @@ class RegisterRequest extends FormRequest
     protected function passedValidation()
     {
         $data = array();
+
+
+
         $data['user']['first_name'] = $this->first_name;
         $data['user']['last_name'] = $this->last_name;
         $data['user']['image'] = isset($this->image) && !empty($this->image) ? $this->file('image')->store('avatars', 'public') : 'profile_avatar.svg';

@@ -31,6 +31,7 @@ return new class extends Migration {
             $table->dateTime('baned_to')->nullable();
             $table->string('email_otp')->nullable();
             $table->timestamp('email_verified_at')->nullable();
+            $table->json('notification_settings')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

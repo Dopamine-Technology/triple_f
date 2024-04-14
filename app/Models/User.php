@@ -17,7 +17,9 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements HasMedia, FilamentUser
 {
+//observedBy:UserObserver
     use HasApiTokens, HasFactory, Notifiable, InteractsWithMedia, HasRoles;
+
 
     protected $with = ['profile_type'];
     protected $appends = ['profile'];
@@ -110,7 +112,6 @@ class User extends Authenticatable implements HasMedia, FilamentUser
     {
         return $this->belongsToMany(User::class, 'follows', 'user_id', 'followed_id');
     }
-
 
 
 }

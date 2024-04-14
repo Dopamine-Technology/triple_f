@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Models\Club;
 use App\Models\ContactUs;
+use App\Models\User;
 use App\Observers\ClubObserver;
 use App\Observers\ContactUsObserver;
+use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -31,6 +33,7 @@ class EventServiceProvider extends ServiceProvider
     {
         ContactUs::observe(ContactUsObserver::class);
         Club::observe(ClubObserver::class);
+        User::observe(UserObserver::class);
 
     }
 
