@@ -9,6 +9,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Pusher\Pusher;
 
+
 class NewFollower extends Notification
 {
     use Queueable;
