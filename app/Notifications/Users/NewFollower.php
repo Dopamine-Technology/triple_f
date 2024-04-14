@@ -52,14 +52,9 @@ class NewFollower extends Notification
     {
         return [
             'follower' => [
-                'id' => $this->follower->id,
-                'name' => $this->follower->name,
-                'email' => $this->follower->email,
+                'id' => $this->follower,
             ],
-            'profile' => [
-                'id' => $this->follower->profile->id,
-                'type' => $this->follower->profile_type->name,
-            ],
+
 
         ];
     }
