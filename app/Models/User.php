@@ -53,7 +53,10 @@ class User extends Authenticatable implements HasMedia, FilamentUser
         'is_blocked' => 'boolean',
         'notification_settings' => 'array',
     ];
-
+    public function receivesBroadcastNotificationsOn()
+    {
+        return 'App.User.' . $this->id;
+    }
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->is_admin;

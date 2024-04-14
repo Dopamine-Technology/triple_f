@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 648.14 237.29">
+  <defs>
+    <style>
+      .cls-1 {
+        letter-spacing: -.06em;
+      }
+
+      .cls-2 {
+        letter-spacing: 0em;
+      }
+
+      .cls-3 {
+        font-family: Quicksand-Bold, Quicksand;
+        font-size: 138.61px;
+        font-weight: 700;
+      }
+
+      .cls-3, .cls-4 {
+        fill: #213555;
+      }
+
+      .cls-4 {
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <g>
+    <path class="cls-4" d="M506.62,118.64c0-15.01-10.18-27.68-23.99-31.49v62.97c13.81-3.81,23.99-16.48,23.99-31.49Z"/>
+    <path class="cls-4" d="M441.29,118.64c0,15.01,10.18,27.68,23.99,31.49v-62.97c-13.81,3.81-23.99,16.48-23.99,31.49Z"/>
+    <path class="cls-4" d="M482.63,69.39c23.46,4.12,41.34,24.64,41.34,49.25s-17.88,45.14-41.34,49.25v69.39h113.31c14.34,0,26.01-11.67,26.01-26.01v-31.06h-54.92c-4.79,0-8.67-3.88-8.67-8.67v-105.8c0-4.79,3.88-8.67,8.67-8.67h54.92v-31.06c0-14.34-11.67-26.01-26.01-26.01h-113.31v69.39Z"/>
+    <path class="cls-4" d="M465.29,167.9c-23.46-4.12-41.34-24.64-41.34-49.25s17.88-45.13,41.34-49.25V0h-113.31c-14.34,0-26.01,11.67-26.01,26.01v31.06h54.81c4.79,0,8.67,3.88,8.67,8.67v105.8c0,4.79-3.88,8.67-8.67,8.67h-54.81v31.06c0,14.34,11.67,26.01,26.01,26.01h113.31v-69.39Z"/>
+  </g>
+  <text class="cls-3" transform="translate(0 165.1)"><tspan class="cls-1" x="0" y="0">T</tspan><tspan x="78.45" y="0">rip</tspan><tspan class="cls-2" x="258.37" y="0">l</tspan><tspan x="294.4" y="0" xml:space="preserve">e     F</tspan></text>
+</svg>

@@ -7,6 +7,7 @@ use App\Http\Resources\UserResource;
 use App\Models\Club;
 use App\Models\Follow;
 use App\Models\User;
+use App\Notifications\Users\NewFollower;
 use App\Traits\AppResponse;
 use Illuminate\Http\Request;
 
@@ -29,6 +30,7 @@ class FollowController extends Controller
             ]);
             $user->profile->follower_count = $user->profile->follower_count + 1;
             $user->profile->save();
+            $user->notify(new NewFollower(auth()->user()));
             return $this->success(true, 'User Added to your follow list');
         }
         $follow->delete();
