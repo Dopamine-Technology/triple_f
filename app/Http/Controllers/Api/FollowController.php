@@ -31,9 +31,7 @@ class FollowController extends Controller
             ]);
             $user->profile->follower_count = $user->profile->follower_count + 1;
             $user->profile->save();
-            event(new NewFollwoerEvent());
-
-//            $user->notify(new NewFollower(auth()->user()->id));
+            $user->notify(new NewFollower(auth()->user()->id));
             return $this->success(true, 'User Added to your follow list');
         }
         $follow->delete();
