@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\User\Auth\AuthController;
 use App\Http\Controllers\Api\User\Auth\LoginController;
 use App\Http\Controllers\Api\User\Auth\RegisterController;
 use App\Http\Controllers\Api\User\UserController;
+use App\Http\Controllers\Api\UserProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -103,6 +104,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::controller(NotificationController::class)->prefix('/notifications')->middleware(['localization'])->group(function () {
         Route::get('all', 'getAll');
         Route::delete('clear', 'deleteAll');
+    });
+    Route::controller(UserProfileController::class)->prefix('/profiles')->middleware(['localization'])->group(function () {
+        Route::post('talents', 'findTalentsProfiles');
+        Route::post('coaches', 'findCoachesProfiles');
+        Route::post('clubs', 'findClubsProfiles');
+        Route::post('scout', 'findScoutsProfiles');
     });
 
 
