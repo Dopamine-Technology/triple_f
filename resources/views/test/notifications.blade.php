@@ -15,7 +15,8 @@
         channel.bind('notification-event', function (data) {
             var div = document.getElementById('notifications_list');
             div.innerHTML += '<p>'+JSON.stringify(data)+'</p>';
-            alert(JSON.stringify(data));
+            console.log(JSON.stringify(data));
+            console.log(data.notifiable_id);
         });
     </script>
 </head>

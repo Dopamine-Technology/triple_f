@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AppController;
 use App\Http\Controllers\Api\ChallengeController;
 use App\Http\Controllers\Api\FollowController;
+use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\OpportunityController;
 use App\Http\Controllers\Api\StatusController;
 use App\Http\Controllers\Api\User\Auth\AuthController;
@@ -98,6 +99,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('applicants/{opportunity}', 'getApplicants');
         Route::get('user_published_opportunities/{user_id}', 'getUserPublishedOpportunities');
     });
+
+    Route::controller(NotificationController::class)->prefix('/notifications')->middleware(['localization'])->group(function () {
+        Route::get('all', 'getAll');
+        Route::delete('clear', 'deleteAll');
+    });
+
+
 });
 
 

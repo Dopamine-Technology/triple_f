@@ -2,6 +2,7 @@
 
 namespace App\Notifications\Users;
 
+use App\Services\PusherNotifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
@@ -17,21 +18,17 @@ class NewFollower extends Notification
     use Queueable;
 
     private $follower;
+    private $notificationType = 'new_follower';
+    public $user;
+
 
     /**
      * Create a new notification instance.
      */
-    public function __construct($follower)
+    public function __construct($user)
     {
-        $this->$follower = $follower;
-        $pusher = new \Pusher\Pusher(
-            "323996d4cfab0016889a",
-            "ea95ab6a646732d824d7",
-            "1787669",
-            array('cluster' => 'ap2')
-        );
-        $pusher->trigger('notification-channel', 'notification-event', array('message' => 'hello world'));
-
+        $this->user = $user;
+        new PusherNotifications(['notifiable_id' => $user->id, 'unread_notification_count' => $user->unreadNotifications()->count() + 1]);
     }
 
     /**
@@ -41,7 +38,7 @@ class NewFollower extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['broadcast'];
+        return ['broadcast', 'database'];
     }
 
     /**
@@ -63,19 +60,11 @@ class NewFollower extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'follower' => [
-                'id' => $this->follower,
-            ],
-
-
+            'id' => auth()->user()->id,
+            'name' => auth()->user()->name,
+            'notification_type' => $this->notificationType
         ];
     }
-    public function toBroadcast($notifiable)
-    {
-        return new BroadcastMessage($this->toArray($notifiable));
-    }
-    public function broadcastType()
-    {
-        return 'new-notification';
-    }
+
+
 }
