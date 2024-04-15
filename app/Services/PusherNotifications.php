@@ -7,7 +7,7 @@ use Pusher\Pusher;
 class PusherNotifications
 {
     private string $channel = 'notification-channel';
-    private string $event = 'notification-event';
+    private string $event = 'new-notification-event';
     private $notification_data;
 
     public function __construct($data)
