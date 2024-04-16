@@ -62,7 +62,7 @@ class StatusController extends Controller
             'points' => 'sometimes'
         ]);
         $reactions = ReactionStatus::query()->where('status_id', $status_id);
-        if (isset($data['points'])) {
+        if (isset($data['points']) && !empty($data['points'])) {
             $reactions->where('points', $data['points']);
         }
         $user_ids = $reactions->pluck('user_id')->toArray();
