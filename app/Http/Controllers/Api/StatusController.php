@@ -154,5 +154,14 @@ class StatusController extends Controller
         return $this->success(true, 'post successfully deleted');
     }
 
+    public function getSavedStatuses()
+    {
+        $posts_ids = UserSave::query()->where('user_id', auth()->user()->id)
+            ->where('element_type', 'challenge_post')
+            ->pluck('element_id')->toArray();
+        return $this->success(StatusResource::collection(Status::query()->whereIn('id', $posts_ids)->get()));
+
+    }
+
 
 }

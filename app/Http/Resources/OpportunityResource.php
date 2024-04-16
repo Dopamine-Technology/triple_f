@@ -18,6 +18,7 @@ class OpportunityResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'applicants_count'=>$this->applicants()->count(),
             'title' => $this->title,
             'requirements' => $this->requirements,
             'additional_info' => $this->additional_info,

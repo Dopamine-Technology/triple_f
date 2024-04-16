@@ -79,6 +79,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('react', 'reactToStatus');
         Route::post('get_reactions/{status}', 'getStatusReactions');
         Route::get('toggle_save/{status}', 'toggleSave');
+        Route::get('get_saved', 'getSavedStatuses');
         Route::put('share_status/{status}', 'shareStatus');
         Route::post('report/{status_id}', 'reportStatus');
         Route::get('stories', 'getStories');
