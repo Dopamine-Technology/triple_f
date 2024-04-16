@@ -31,13 +31,19 @@ class RegisterController extends Controller
             return $this->facebookRegisterHandler($request);
         }
         $newUser = User::query()->create($userData);
+//        dd($newUser->banner_image);
         $profileData['user_id'] = $newUser->id;
         $this->profileCreationHandler($profileData);
-        Redis::set('user:profile:' . $newUser->id, json_encode(new UserResource($newUser)));
         return $this->success([
             'token' => $newUser->createToken('apptoken')->plainTextToken,
-            'user' => json_decode(Redis::get('user:profile:' . $newUser->id)),
+            'user' => new UserResource($newUser),
         ], __('User successfully created'));
+
+//        Redis::set('user:profile:' . $newUser->id, json_encode(new UserResource($newUser)));
+//        return $this->success([
+//            'token' => $newUser->createToken('apptoken')->plainTextToken,
+//            'user' => json_decode(Redis::get('user:profile:' . $newUser->id)),
+//        ], __('User successfully created'));
     }
 
     public function profileCreationHandler($profileData)

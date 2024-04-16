@@ -30,6 +30,7 @@ class UserController extends Controller
 
     public function getUserProfile()
     {
+        return $this->success(new UserResource(User::query()->find(auth()->user()->id)), 'database');
         if (Redis::get('user:profile:' . auth()->user()->id)) {
             return $this->success(json_decode(Redis::get('user:profile:' . auth()->user()->id)), 'redis');
         } else {

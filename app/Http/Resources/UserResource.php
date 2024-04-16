@@ -32,6 +32,7 @@ class UserResource extends JsonResource
             'following_count' => Follow::query()->where('user_id', $this->id)->count(),
             'followers_count' => Follow::query()->where('followed_id', $this->id)->count(),
             'is_email_verified' => $this->email_verified_at ? true : false,
+            'profile_progress' => $this->progress,
             'profile' => [
                 'club_name' => $this->profile->name ?? '',
                 'club_logo' => $this->profile?->logo ? asset('storage/' . $this->profile->logo) : '',

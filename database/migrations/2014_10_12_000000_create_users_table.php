@@ -22,6 +22,7 @@ return new class extends Migration {
             $table->date('birth_date')->nullable();
             $table->string('email')->unique();
             $table->string('image')->default('profile_avatar.svg');
+            $table->string('banner_image')->default('profile_cover.jpg');
             $table->string('social_image')->default('profile_avatar.svg');
             $table->string('password')->nullable();
             $table->string('google_identifier')->nullable();
