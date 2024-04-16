@@ -11,11 +11,12 @@ use App\Models\Follow;
 use App\Models\User;
 use App\Notifications\Users\NewFollower;
 use App\Traits\AppResponse;
+use App\Traits\NotifyChecker;
 use Illuminate\Http\Request;
 
 class FollowController extends Controller
 {
-    use AppResponse;
+    use AppResponse, NotifyChecker;
 
     public function toggleFollow(User $user)
     {
@@ -32,7 +33,10 @@ class FollowController extends Controller
             ]);
             $user->profile->follower_count = $user->profile->follower_count + 1;
             $user->profile->save();
-            $user->notify(new NewFollower($user));
+
+// notify user
+            $this->notificationPermissionsCheck($user, 'new_followers') ? $user->notify(new NewFollower($user , auth()->user())) : '';
+// end notify
             return $this->success(true, 'User Added to your follow list');
         }
         $follow->delete();

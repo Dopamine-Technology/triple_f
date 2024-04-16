@@ -13,10 +13,12 @@ use App\Models\SeenStorie;
 use App\Models\Status;
 use App\Models\User;
 use App\Models\UserSave;
+use App\Notifications\Users\NewPost;
 use App\Services\ReactionService;
 use App\Traits\AppResponse;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class StatusController extends Controller
 {
@@ -77,7 +79,9 @@ class StatusController extends Controller
     public function createStatus(StatusRequest $request)
     {
         SeenStorie::query()->where('seen_user_id', auth()->user()->id)->delete();
-        return $this->success(new StatusResource(Status::query()->create($request['status'])));
+        $status = Status::query()->create($request['status']);
+        Notification::send(auth()->user()->followed, new NewPost($status));
+        return $this->success(new StatusResource($status));
     }
 
     public function reactToStatus(Request $request)
