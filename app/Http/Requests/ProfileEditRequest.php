@@ -76,7 +76,7 @@ class ProfileEditRequest extends FormRequest
         $roles['wight'] = 'required|numeric';
         $roles['country_id'] = 'required';
         $roles['city_id'] = 'sometimes';
-        $roles['mobile_number'] = 'required|unique:talents|unique:coaches|unique:clubs|unique:scouts';
+        $roles['mobile_number'] = 'required|unique:talents,mobile_number,' . auth()->user()->profile->id . '|unique:coaches,mobile_number,' . auth()->user()->profile->id . '|unique:clubs,mobile_number,'.auth()->user()->profile->id.'|unique:scouts,mobile_number,'.auth()->user()->profile->id;
         return $roles;
     }
 
@@ -89,7 +89,7 @@ class ProfileEditRequest extends FormRequest
         $roles['years_of_experience'] = 'required|numeric';
         $roles['country_id'] = 'required';
         $roles['city_id'] = 'sometimes';
-        $roles['mobile_number'] = 'required|unique:talents|unique:coaches|unique:clubs|unique:scouts';
+        $roles['mobile_number'] = 'required|unique:talents,mobile_number,' . auth()->user()->profile->id . '|unique:coaches,mobile_number,' . auth()->user()->profile->id . '|unique:clubs,mobile_number,'.auth()->user()->profile->id.'|unique:scouts,mobile_number,'.auth()->user()->profile->id;
         return $roles;
     }
 
@@ -100,7 +100,7 @@ class ProfileEditRequest extends FormRequest
         $roles['club_logo'] = 'sometimes';
         $roles['talent_type'] = 'required';
         $roles['country_id'] = 'required';
-        $roles['mobile_number'] = 'required|unique:talents|unique:coaches|unique:clubs|unique:scouts';
+        $roles['mobile_number'] = 'required|unique:talents,mobile_number,' . auth()->user()->profile->id . '|unique:coaches,mobile_number,' . auth()->user()->profile->id . '|unique:clubs,mobile_number,'.auth()->user()->profile->id.'|unique:scouts,mobile_number,'.auth()->user()->profile->id;
         $roles['year_founded'] = 'required';
         return $roles;
     }
@@ -113,7 +113,7 @@ class ProfileEditRequest extends FormRequest
         $roles['years_of_experience'] = 'required|numeric';
         $roles['country_id'] = 'required';
         $roles['city_id'] = 'sometimes';
-        $roles['mobile_number'] = 'required|unique:talents|unique:coaches|unique:clubs|unique:scouts';
+        $roles['mobile_number'] = 'required|unique:talents,mobile_number,' . auth()->user()->profile->id . '|unique:coaches,mobile_number,' . auth()->user()->profile->id . '|unique:clubs,mobile_number,'.auth()->user()->profile->id.'|unique:scouts,mobile_number,'.auth()->user()->profile->id;
         return $roles;
     }
 
