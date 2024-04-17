@@ -102,7 +102,7 @@ class RegisterRequest extends FormRequest
         $roles['wight'] = 'required|numeric';
         $roles['country_id'] = 'required';
         $roles['city_id'] = 'required';
-        $roles['mobile_number'] = 'required|unique:talents';
+        $roles['mobile_number'] = 'required|unique:talents|unique:coaches|unique:clubs|unique:scouts';
         return $roles;
     }
 
@@ -115,7 +115,7 @@ class RegisterRequest extends FormRequest
         $roles['years_of_experience'] = 'required|numeric';
         $roles['country_id'] = 'required';
         $roles['city_id'] = 'required';
-        $roles['mobile_number'] = 'required|unique:coaches';
+        $roles['mobile_number'] = 'required|unique:talents|unique:coaches|unique:clubs|unique:scouts';
         return $roles;
     }
 
@@ -126,7 +126,7 @@ class RegisterRequest extends FormRequest
         $roles['club_logo'] = 'sometimes';
         $roles['talent_type'] = 'required';
         $roles['country_id'] = 'required';
-        $roles['mobile_number'] = 'required|unique:clubs';
+        $roles['mobile_number'] = 'required|unique:talents|unique:coaches|unique:clubs|unique:scouts';
         $roles['year_founded'] = 'required';
         return $roles;
     }
@@ -137,10 +137,10 @@ class RegisterRequest extends FormRequest
         $roles['talent_type'] = 'required';
         $roles['gender'] = 'required|in:male,female,other';
         $roles['birth_date'] = 'required|date';
-        $roles['years_of_experience'] = 'required|scouts';
+        $roles['years_of_experience'] = 'required|unique:scouts';
         $roles['country_id'] = 'required';
         $roles['city_id'] = 'required';
-        $roles['mobile_number'] = 'required|unique:scouts';
+        $roles['mobile_number'] = 'required|unique:talents|unique:coaches|unique:clubs|unique:scouts';
         return $roles;
     }
 
