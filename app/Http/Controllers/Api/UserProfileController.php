@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CertificateResource;
 use App\Http\Resources\UserResource;
+use App\Models\Certificate;
 use App\Models\User;
 use App\Traits\AppResponse;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class UserProfileController extends Controller
@@ -42,6 +45,7 @@ class UserProfileController extends Controller
         return $this->success(UserResource::collection($users->get()));
 
     }
+
     public function findCoachesProfiles(Request $request)
     {
         $data = $request->all();
@@ -66,6 +70,7 @@ class UserProfileController extends Controller
         }
         return $this->success(UserResource::collection($users->get()));
     }
+
     public function findClubsProfiles(Request $request)
     {
         $data = $request->all();
@@ -90,6 +95,7 @@ class UserProfileController extends Controller
 
         return $this->success(UserResource::collection($users->get()));
     }
+
     public function findScoutsProfiles(Request $request)
     {
         $data = $request->all();
@@ -117,7 +123,40 @@ class UserProfileController extends Controller
     }
 
 
+    public function createCertificate(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required',
+            'issued_by' => 'required',
+            'issued_date' => 'required',
+            'credential_id' => 'required',
+        ]);
+        return $this->success(CertificateResource::make(auth()->user()->profile->certificates()->create($data)), 'certificate created successfully !');
+    }
 
+    public function editCertificate($certificate_id, Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required',
+            'issued_by' => 'required',
+            'issued_date' => 'required|date:Y-m-d',
+            'credential_id' => 'required',
+        ]);
+        $data['issued_date'] = Carbon::make($data['issued_date']);
+        Certificate::query()->where('id', $certificate_id)->update($data);
+        return $this->success(true, 'certificate updated successfully !');
+    }
+
+    public function deleteCertificate(Certificate $certificate)
+    {
+        $certificate->delete();
+        return $this->success(true, 'certificate deleted');
+    }
+
+    public function getProfileCertificate(User $user)
+    {
+        return $this->success(CertificateResource::collection($user->profile->certificates));
+    }
 
 
 }

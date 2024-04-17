@@ -32,4 +32,9 @@ class Scout extends Model
         return $this->belongsTo(City::class);
     }
 
+    public function certificates()
+    {
+        return $this->morphMany(Certificate::class, 'certificatable');
+    }
+
 }

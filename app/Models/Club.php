@@ -26,6 +26,9 @@ class Club extends Model
     {
         return $this->belongsTo(Country::class);
     }
-
+    public function certificates()
+    {
+        return $this->morphMany(Certificate::class, 'certificatable');
+    }
 
 }

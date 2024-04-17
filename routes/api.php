@@ -111,6 +111,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('coaches', 'findCoachesProfiles');
         Route::post('clubs', 'findClubsProfiles');
         Route::post('scout', 'findScoutsProfiles');
+        Route::post('create_certificate', 'createCertificate');
+        Route::get('get_certificate/{user}', 'getProfileCertificate');
+        Route::post('edit_certificate/{certificate_id}', 'editCertificate');
+        Route::delete('delete_certificate/{certificate}', 'deleteCertificate');
     });
 });
 
