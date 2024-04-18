@@ -63,9 +63,14 @@ class UserProfileController extends Controller
                 $q->where('gender', $data['gender']);
             });
         }
-        if (isset($data['years_of_experience']) && !empty($data['years_of_experience'])) {
+        if (isset($data['experience_from']) && !empty($data['experience_from'])) {
             $users->whereHas('coach', function ($q) use ($data) {
-                $q->where('years_of_experience', $data['years_of_experience']);
+                $q->where('years_of_experience', '>=', $data['experience_from']);
+            });
+        }
+        if (isset($data['experience_to']) && !empty($data['experience_to'])) {
+            $users->whereHas('coach', function ($q) use ($data) {
+                $q->where('years_of_experience', '<=', $data['experience_to']);
             });
         }
         return $this->success(UserResource::collection($users->get()));
@@ -114,9 +119,14 @@ class UserProfileController extends Controller
                 $q->where('gender', $data['gender']);
             });
         }
-        if (isset($data['years_of_experience']) && !empty($data['years_of_experience'])) {
-            $users->whereHas('scout', function ($q) use ($data) {
-                $q->where('years_of_experience', $data['years_of_experience']);
+        if (isset($data['experience_from']) && !empty($data['experience_from'])) {
+            $users->whereHas('coach', function ($q) use ($data) {
+                $q->where('years_of_experience', '>=', $data['experience_from']);
+            });
+        }
+        if (isset($data['experience_to']) && !empty($data['experience_to'])) {
+            $users->whereHas('coach', function ($q) use ($data) {
+                $q->where('years_of_experience', '<=', $data['experience_to']);
             });
         }
         return $this->success(UserResource::collection($users->get()));
