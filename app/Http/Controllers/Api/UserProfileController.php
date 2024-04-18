@@ -120,12 +120,12 @@ class UserProfileController extends Controller
             });
         }
         if (isset($data['experience_from']) && !empty($data['experience_from'])) {
-            $users->whereHas('coach', function ($q) use ($data) {
+            $users->whereHas('scout', function ($q) use ($data) {
                 $q->where('years_of_experience', '>=', $data['experience_from']);
             });
         }
         if (isset($data['experience_to']) && !empty($data['experience_to'])) {
-            $users->whereHas('coach', function ($q) use ($data) {
+            $users->whereHas('scout', function ($q) use ($data) {
                 $q->where('years_of_experience', '<=', $data['experience_to']);
             });
         }
