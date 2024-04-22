@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CertificateResource;
+use App\Http\Resources\LicenceResource;
 use App\Http\Resources\UserResource;
 use App\Models\Certificate;
+use App\Models\License;
 use App\Models\User;
 use App\Traits\AppResponse;
 use Carbon\Carbon;
@@ -168,5 +170,44 @@ class UserProfileController extends Controller
         return $this->success(CertificateResource::collection($user->profile->certificates));
     }
 
+    public function createLicence(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required',
+            'issued_by' => 'required',
+            'issued_date' => 'required|date:Y-m-d',
+            'expiration_date' => 'required|date:Y-m-d',
+            'licence_id' => 'required',
+        ]);
+        $data['user_id'] = auth()->user()->id;
+        $license = License::query()->create($data);
+        return $this->success(LicenceResource::make($license), 'licence created successfully !');
+    }
+
+    public function editLicence(Request $request, $licence_id)
+    {
+        $data = $request->validate([
+            'name' => 'required',
+            'issued_by' => 'required',
+            'issued_date' => 'required|date:Y-m-d',
+            'expiration_date' => 'required|date:Y-m-d',
+            'licence_id' => 'required',
+        ]);
+        $data['issued_date'] = Carbon::make($data['issued_date']);
+        $data['expiration_date'] = Carbon::make($data['expiration_date']);
+        License::query()->where('id', $licence_id)->update($data);
+        return $this->success(true, 'licence updated successfully !');
+    }
+
+    public function getUserLicence(User $user)
+    {
+        return $this->success(LicenceResource::collection($user->licences));
+    }
+
+    public function deleteLicence($licence_id)
+    {
+        License::query()->where('id', $licence_id)->delete();
+        return $this->success(true, 'licence deleted successfully !');
+    }
 
 }

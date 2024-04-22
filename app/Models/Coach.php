@@ -33,4 +33,5 @@ class Coach extends Model
         return $this->morphMany(Certificate::class, 'certificatable');
     }
 
+
 }

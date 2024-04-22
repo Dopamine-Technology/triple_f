@@ -140,5 +140,8 @@ class User extends Authenticatable implements HasMedia, FilamentUser
         return $attributes;
     }
 
-
+    public function licences()
+    {
+        return $this->hasMany(License::class , 'user_id');
+    }
 }

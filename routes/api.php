@@ -116,6 +116,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('get_certificate/{user}', 'getProfileCertificate');
         Route::post('edit_certificate/{certificate_id}', 'editCertificate');
         Route::delete('delete_certificate/{certificate}', 'deleteCertificate');
+        Route::post('create_licence', 'createLicence');
+        Route::get('get_licences/{user}', 'getUserLicence');
+        Route::post('edit_licence/{licence_id}', 'editLicence');
+        Route::delete('delete_licence/{licence_id}', 'deleteLicence');
     });
 });
 
