@@ -85,6 +85,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('stories', 'getStories');
         Route::get('user_stories/{user_id}', 'getUserStories');
         Route::get('user_statuses/{user_id}', 'getUserStatuses');
+        Route::get('block_status/{status_id}', 'blockStatus');
         Route::post('update_seen_stories', 'updateSeenStories');
     });
     Route::controller(FollowController::class)->prefix('/follow')->middleware(['localization'])->group(function () {

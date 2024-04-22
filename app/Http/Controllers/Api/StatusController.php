@@ -7,6 +7,7 @@ use App\Http\Requests\StatusRequest;
 use App\Http\Resources\StatusResource;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserStoriesResource;
+use App\Models\BlockedPost;
 use App\Models\ReactionStatus;
 use App\Models\ReportStatus;
 use App\Models\SeenStorie;
@@ -45,10 +46,14 @@ class StatusController extends Controller
     public function getTimelineStatuses()
     {
         $statuses_user_ids = auth()->user()->followed()->pluck('followed_id')->toArray();
+        $blocked_statuses = BlockedPost::query()->where('user_id', auth()->user()->id)->pluck('status_id')->toArray();
         array_push($statuses_user_ids, auth()->user()->id);
         $trending_this_week = Status::query()->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
             ->orderBy('total_points', 'DESC')->pluck('id')->toArray();
-        $statuses = Status::query()->whereIn('id', $trending_this_week)->whereIn('user_id', $statuses_user_ids)->orderBy('created_at', 'DESC')->get();
+        $statuses = Status::query()
+            ->whereNotIn('id', $blocked_statuses)
+            ->whereIn('id', $trending_this_week)
+            ->whereIn('user_id', $statuses_user_ids)->orderBy('created_at', 'DESC')->get();
         return $this->success(StatusResource::collection($statuses));
     }
 
@@ -161,6 +166,12 @@ class StatusController extends Controller
             ->pluck('element_id')->toArray();
         return $this->success(StatusResource::collection(Status::query()->whereIn('id', $posts_ids)->get()));
 
+    }
+
+    public function blockStatus($status_id)
+    {
+        BlockedPost::query()->updateOrCreate(['user_id' => auth()->user()->id, 'status_id' => $status_id], ['user_id' => auth()->user()->id, 'status_id' => $status_id]);
+        return $this->success(true, 'post blocked successfully !');
     }
 
 
