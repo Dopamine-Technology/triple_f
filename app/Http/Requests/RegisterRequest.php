@@ -56,7 +56,8 @@ class RegisterRequest extends FormRequest
 
         $data['user']['first_name'] = $this->first_name;
         $data['user']['last_name'] = $this->last_name;
-        $data['user']['image'] = isset($this->image) && !empty($this->image) ? $this->file('image')->store('avatars', 'public') : 'profile_avatar.svg';
+//        $data['user']['image'] = isset($this->image) && !empty($this->image) ? $this->file('image')->store('avatars', 'public') : 'profile_avatar.svg';
+        $data['user']['image'] = isset($this->image) && !empty($this->image) ? $this->file('image')->store('avatars', 'linode') : 'profile_avatar.svg';
         $data['user']['social_image'] = $this->social_image ?? '';
         $data['user']['name'] = $this->first_name . ' ' . $this->last_name;
         $data['user']['user_name'] = $this->user_name;
@@ -202,7 +203,7 @@ class RegisterRequest extends FormRequest
         $data = array();
         $data['profile']['user_type'] = $this->user_type;
         $data['profile']['name'] = $this->club_name;
-        $data['profile']['logo'] = isset($this->club_logo) && !empty($this->club_logo) ? $this->file('club_logo')->store('clubs', 'public') : '';
+        $data['profile']['logo'] = isset($this->club_logo) && !empty($this->club_logo) ? $this->file('club_logo')->store('clubs', 'linode') : '';
         $data['profile']['sport_id'] = $this->talent_type;
         $data['profile']['country_id'] = $this->country_id;
         $data['profile']['mobile_number'] = $this->mobile_number;

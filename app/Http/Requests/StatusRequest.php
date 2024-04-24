@@ -38,8 +38,8 @@ class StatusRequest extends FormRequest
         $data['status']['title'] = $this->title ?? '';
         $data['status']['description'] = $this->description ?? '';
         $data['status']['challenge_id'] = $this->challenge_id ?? 0;
-        $data['status']['video'] = $this->video ? Storage::disk('public')->put('statuses/videos', $this->video) : '';
-        $data['status']['image'] = $this->image ? Storage::disk('public')->put('statuses/images', $this->image) : '';
+        $data['status']['video'] = $this->video ? Storage::disk('linode')->put('statuses/videos', $this->video) : '';
+        $data['status']['image'] = $this->image ? Storage::disk('linode')->put('statuses/images', $this->image) : '';
         $this->merge($data);
     }
 }

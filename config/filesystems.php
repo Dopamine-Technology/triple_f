@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DISK', 'local'),
+    'default' => env('FILESYSTEM_DISK', 'linode'),
 
     /*
     |--------------------------------------------------------------------------
@@ -43,7 +43,15 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
-
+        'linode' => [
+            'driver' => 's3',
+            'key' => env('LINODE_KEY'),
+            'secret' => env('LINODE_SECRET'),
+            'endpoint' => env('LINODE_ENDPOINT'),
+            'region' => env('LINODE_REGION'),
+            'bucket' => env('LINODE_BUCKET'),
+            'visibility' => 'public',
+        ],
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
