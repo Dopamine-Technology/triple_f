@@ -36,8 +36,8 @@ return new class extends Migration {
             $table->string('foot')->default('both');
             $table->foreignIdFor(Country::class)->nullable();
             $table->foreignIdFor(City::class)->nullable();
-            $table->text('requirements')->default('');
-            $table->text('additional_info')->default('');
+            $table->text('requirements')->nullable();
+            $table->text('additional_info')->nullable();
             $table->string('status')->default('open');
             $table->timestamps();
         });
