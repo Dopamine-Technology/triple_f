@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\User\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\UserResource;
+use App\Mail\VerfyMail;
 use App\Models\Club;
 use App\Models\Coach;
 use App\Models\Scout;
@@ -12,6 +13,7 @@ use App\Models\Talent;
 use App\Models\User;
 use App\Traits\AppResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redis;
 
 class RegisterController extends Controller
@@ -20,7 +22,7 @@ class RegisterController extends Controller
 
     public function register(RegisterRequest $request)
     {
-
+        Mail::to('abdullah.basem.j@gmail.com')->send(new VerfyMail('welcome' , 'first time sending emails !'));
         $userData = $request->user;
         $profileData = $request->profile;
 
