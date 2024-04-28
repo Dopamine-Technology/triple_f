@@ -22,7 +22,14 @@ class RegisterController extends Controller
 
     public function register()
     {
-        Mail::to('abdullah.basem.j@gmail.com')->send(new VerfyMail('welcome to triple F' , 'first time sending emails !'));
+        Mail::send(['text'=> 'mail.verfiy_email'], [], function($message) {
+            // Set the receiver and subject of the mail.
+            $message->to('abdullah.basem.j@gmail.com', 'Abdullah basem')->subject('TripleF First Mail');
+            // Set the sender
+            $message->from('support@triplef.group','Triple F');
+            return "Basic email sent, check your inbox.";
+
+        });
         die();
         $userData = $request->user;
         $profileData = $request->profile;
