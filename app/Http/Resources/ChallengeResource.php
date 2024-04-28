@@ -20,7 +20,8 @@ class ChallengeResource extends JsonResource
             'id' => $this->id,
             'name' => $this->getTranslation('name', LANGUAGE),
             'description' => $this->getTranslation('description', LANGUAGE),
-            'image' => $this->image ? asset('storage/' . $this->image) : '',
+//            'image' => $this->image ? asset('storage/' . $this->image) : '',
+            'image' => $this->image ? 'https://acceptance-test.eu-central-1.linodeobjects.com/' . $this->image : '',
             'sport' => $this->sport ? [
                 'id' => $this->sport->id,
                 'name' => $this->sport->getTranslation('name', LANGUAGE),
