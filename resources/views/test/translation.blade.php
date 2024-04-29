@@ -36,6 +36,7 @@
 <form action="{{route('translation.submit')}}" method="post">
 
     <select id="countries"
+            required=""
             name="languages"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 d">
         <option value="en">English</option>
@@ -53,14 +54,17 @@
 
         <div id="accordion-collapse" data-accordion="collapse"
              class="block w-full p-6 bg-white border border-gray-200 rounded-lg shadow  mt-4">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{$key}}</h5>
+            <h5 class="mb-2 mt-2 text-2xl font-bold tracking-tight text-gray-900">{{$key}}</h5>
             @foreach($value as $field_label => $field_value)
 
                 @if(!is_array($field_value))
                     <div class="font-normal text-gray-700 dark:text-gray-400">
                         <label for="message"
-                               class="block mb-2 text-sm font-medium text-gray-900 ">{{$field_label}}</label>
+                               class="block mb-2 mt-2 text-sm font-medium text-gray-900 ">{{$field_label}}
+                        <span class="text-red-500"> *</span>
+                        </label>
                         <textarea rows="4"
+                                  required=""
                                   class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
                                   name="{{$key}}[{{$field_label}}]"
                                   placeholder="{{$field_value}}"></textarea>
@@ -71,8 +75,11 @@
                         @if(is_string($sub_field_value))
                             <div class="font-normal text-gray-700 dark:text-gray-400">
                                 <label for="message"
-                                       class="block mb-2 text-sm font-medium text-gray-900 ">{{$sub_field_value}}</label>
+                                       class="block mb-2 mt-2 text-sm font-medium text-gray-900 ">{{$sub_field_value}}
+                                    <span class="text-red-500"> *</span>
+                                </label>
                                 <textarea rows="4"
+                                          required=""
                                           class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
                                           name="{{$key}}[{{$field_label}}][{{$sub_field_label}}]"
                                           placeholder="{{$sub_field_value}}">
@@ -87,9 +94,12 @@
 
                                 <div class="font-normal text-gray-700 dark:text-gray-400">
                                     <label for="message"
-                                           class="block mb-2 text-sm font-medium text-gray-900 ">Sub link title
-                                        ({{$sub_field_value->title}})</label>
+                                           class="block mb-2 mt-2 text-sm font-medium text-gray-900 ">Sub link title
+                                        ({{$sub_field_value->title}})
+                                        <span class="text-red-500"> *</span>
+                                    </label>
                                     <textarea rows="4"
+                                              required=""
                                               class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
                                               name="{{$key}}[{{$field_label}}][{{$i}}][title]"
                                               placeholder="{{$sub_field_value->title}}"></textarea>
@@ -98,12 +108,15 @@
                                 @foreach($sub_field_value->subLinks as $sub_link)
 
                                     <div class="block w-full p-6 bg-white border border-gray-200 rounded-lg shadow m-4">
-                                        <h5 class="mb-4 text-2xl font-bold tracking-tight text-gray-900 "> Sub Link</h5>
+                                        <h5 class="mb-2 mt-2 text-2xl font-bold tracking-tight text-gray-900 "> Sub Link</h5>
                                         <div class="font-normal text-gray-700 dark:text-gray-400">
                                             <label for="message"
-                                                   class="block mb-2 text-sm font-medium text-gray-900 ">Sub link
-                                                ({{$sub_link}})</label>
+                                                   class="block mb-2 mt-2 text-sm font-medium text-gray-900 ">Sub link
+                                                ({{$sub_link}})
+                                                <span class="text-red-500"> *</span>
+                                            </label>
                                             <textarea rows="4"
+                                                      required=""
                                                       class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
                                                       name="{{$key}}[{{$field_label}}][{{$i}}][subLinks][{{$j}}]"
                                                       placeholder="{{$sub_link}}"></textarea>
@@ -115,21 +128,27 @@
 
                                 <div class="block w-full p-6 bg-white border border-gray-200 rounded-lg shadow m-4">
 
-                                    <h5 class="mb-4 text-2xl font-bold tracking-tight text-gray-900 "> Card</h5>
+                                    <h5 class="mb-2 mt-2 text-2xl font-bold tracking-tight text-gray-900 "> Card</h5>
                                     <div class="font-normal text-gray-700 dark:text-gray-400">
                                         <label for="message"
-                                               class="block mb-2 text-sm font-medium text-gray-900 ">card title
-                                            ({{$sub_field_value->title}})</label>
+                                               class="block mb-2 mt-2 text-sm font-medium text-gray-900 ">card title
+                                            ({{$sub_field_value->title}})
+                                            <span class="text-red-500"> *</span>
+                                        </label>
                                         <textarea rows="4"
+                                                  required=""
                                                   class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
                                                   name="{{$key}}[{{$field_label}}][{{$i}}][title]"
                                                   placeholder="{{$sub_field_value->title}}"></textarea>
                                     </div>
                                     <div class="font-normal text-gray-700 dark:text-gray-400">
                                         <label for="message"
-                                               class="block mb-2 text-sm font-medium text-gray-900 ">card description
-                                            ({{$sub_field_value->desc}})</label>
+                                               class="block mb-2 mt-2 text-sm font-medium text-gray-900 ">card description
+                                            ({{$sub_field_value->desc}})
+                                            <span class="text-red-500"> *</span>
+                                        </label>
                                         <textarea rows="4"
+                                                  required=""
                                                   class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
                                                   name="{{$key}}[{{$field_label}}][{{$i}}][desc]"
                                                   placeholder="{{$sub_field_value->desc}}"></textarea>
@@ -148,7 +167,7 @@
     @endforeach
     <div class="container py-10 px-10 mx-0 min-w-full flex flex-col items-center">
         <button type="submit"
-                class="focus:outline-none w-72 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+                class="focus:outline-none w-72 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-8 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
             Submit
         </button>
     </div>
