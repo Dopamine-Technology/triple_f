@@ -20,17 +20,9 @@ class RegisterController extends Controller
 {
     use AppResponse;
 
-    public function register()
+    public function register(RegisterRequest $request)
     {
-        Mail::send(['text'=> 'mail.verfiy_email'], [], function($message) {
-            // Set the receiver and subject of the mail.
-            $message->to('abdullah.basem.j@gmail.com', 'Abdullah basem')->subject('TripleF First Mail');
-            // Set the sender
-            $message->from('support@triplef.group','Triple F');
-            return "Basic email sent, check your inbox.";
-
-        });
-        die();
+        Mail::to('abdullah.basem.j@gmail.com')->send(new VerfyMail('welcome' , 'first time sending emails !'));
         $userData = $request->user;
         $profileData = $request->profile;
 

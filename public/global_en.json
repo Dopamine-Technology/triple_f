@@ -1,0 +1,372 @@
+{
+    "navbar": {
+      "home": "Home",
+      "aboutus":"About Us ",
+      "whoFor": "Who is TripleF For",
+      "howItWorks": "How it works",
+      "testimonial":"Testimonial",
+      "contactUs": "Contact us",
+      "news": "News",
+      "login":"Login"
+    },
+    "header":{
+        "title":"What We Do In Life Echoes In Eternity",
+        "subTitle":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+        "Register":"Register now"
+    },
+    "About":{
+      "title":"We Unlock Potential",
+      "desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    "whos":{
+      "title":"Who is TripleF for",
+      "cards":[
+        {
+          "title":"talents",
+          "desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+        },
+        {
+          "title":"Coaches",
+          "desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+        },
+        {
+          "title":"Clubs",
+          "desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+        },{
+          "title":"Scouts",
+          "desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+        }
+      ]
+    },
+    "howItWorks":{
+      "title":"How it works",
+      "desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure.",
+      "cards":[
+        {
+          "title":"Step One",
+          "desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+        },
+        {
+          "title":"Step Two",
+          "desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+        },
+        {
+          "title":"Step Three",
+          "desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+        }
+      ]
+    },
+    "ourClients":{
+      "title":"What people are saying"
+      
+  },
+  "ContactUs":{
+    "title":"Become a client Do you have any questions? Talk to our analysts",
+    "contactUs_name":"name",
+    "contactUs_email":"email",
+    "contactUs_message":"message",
+    "contactUs_btn":"Send Message"
+},
+"News":{
+  "title":"Our Latest News",
+  "view_more":"view more"
+},
+
+"Footer":{
+  "desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  "headTitles": [
+    {
+      "title": "Useful Links",
+      "subLinks": [" About Us", "How it works", "How TripleF for","Register Now"]
+    },
+    {
+      "title": "Help & Support",
+      "subLinks": ["Contact Us ", " Privacy Policy ", "Terms & Conditions"]
+    },
+    {
+      "title": "Who is TripleF for",
+      "subLinks": ["   Talented", "    Coaches ", "   Clubs","  Companies"]
+    }
+  ],
+  "copyRight":"© 2023 Dopamine All Rights Reserved."
+  
+  
+},
+
+"Login":{
+  "title":"Welcome Back",
+  "desc":"Welcome Back, please enter your details",
+  "or":"or",
+  "emailAddress":"Email Address",
+  "Password":"Password",
+  "remmeberMe":"Remmeber Me",
+  "forgotPassword":"Forgot password?",
+  "signIn":"Sign in",
+  "dont_have_account":"Don’t have an account?",
+  "signup":"Sign Up"
+},
+"Register":{
+  "title":"Create an Account",
+  "or":"or",
+  "new_image":"upload image",
+  "first_name":"First Name",
+  "last_name":"Last Name",
+  "user_name":"UserName",
+  "email_address":"Email Address",
+  "password":"Create Password",
+  "validation":"8+ Characters",
+  "next":"Next",
+  "stepNum1":"Step 1 / 2",
+  "need_account":"Already have an account?",
+  "sign_in":"Sign in",
+  "agreements":"I accept the Privacy Policies and Terms&Conditions Agreements.",
+  "account_type":"Account Type",
+  "talent_type":"Talent Type",
+  "position":"Position",
+  "subPosition":"Sub Position",
+  "gender":"Gender",
+  "genderOptions":["Male","Female","Rather not to say","Both"],
+  "preferredFoot":"Preferred Foot",
+  "preferredFootOptions":["Right","Left","Both"],
+  "birthDate":"Date Of Birth",
+  "height":"Height",
+  "weight":"Weight",
+  "country":"country",
+  "city":"city",
+  "residencePlace":"Place of Residence",
+  "mobileNumber":"Mobile Number",
+  "back":"Back",
+  "getStarted":"Get Started",
+  "stepNum2":"Step 2 / 2",
+  "exp_years":"Years of experience",
+  "year_founded":"Year Founded",
+  "logo":"Logo",
+  "clubName":"Club Name",
+  "saveChanges":"Save Changes",
+  "myAccount":"My Account",
+  "verifyEmail":"Verify your email",
+  "SendVerification":"Verification email sent"
+
+},
+"BlogsList":{
+  "news":"News",
+  "recentPosts":"Recent posts",
+  "categories":"Categories",
+  "Tags":"Tags",
+  "noBlogs":"No blogs available"
+},
+"LayoutNavbar":{
+  "myProfile":"My Profile",
+  "settings":"Settings",
+  "language":"Languages",
+  "signOut":"sign out"
+},
+"leftArea":{
+  "home":"Home",
+  "clubs":"Clubs",
+  "scouts":"Scouts",
+  "coaches":"Coaches",
+  "talents":"Talents",
+  "opportunities":"Opportunities",
+  "myOpportunities":"My Opportunities",
+  "findOpportunities":"Find Opportunity",
+  "challenges":"Challenges",
+  "saved":"Saved"
+  
+},
+"mainarea":{
+  "me":"me",
+  "shareChallenge":"Share your challenges",
+  "shareChallengeDesc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed",
+  "shareBtn":"Share",
+  "medal":"medal",
+  "share":"share",
+  "save":"save",
+  "recommendedChallenges":"Recommended Challenges",
+  "followClubs":"Clubs to Follow",
+  "followScouts":"Scouts to Follow",
+  "discoverBtn":"Discover more",
+  "allChallenges":"All Challenges",
+  "seen":"seen",
+  "postOpportunities":"Post your Opportunities",
+  "add":"Add",
+  "shareTrainingSession":"Share your Training sessions",
+  "all":"All",
+  "noLikes":"There is no likes"
+ },
+ "ShareChallenge":{
+  "title":"Share your challenges",
+  "selectChallenge":"Select your challenge",
+  "shouldI":"What should | do?",
+  "btn":"Upload My Challenge Video",
+  "submitBtn":"Submit"
+ },
+
+ "Profile":{
+  "followers":"followers",
+  "following":"following",
+  "gender":"Gender",
+  "nationality":"Nationality",
+  "position":"Position",
+  "languages":"Languages",
+  "preferredFoot":"Preferred Foot",
+  "birthDate":"Date Of Birth",
+  "exp_years":"Years of experience",
+  "residencePlace":"Place of Residence",
+  "mobileNumber":"Mobile Number",
+  "certifications":"Certifications",
+  "license":"coaching License",
+  "profileStrength":"Complete your profile",
+  "ProfileCompletion":"Profile completion",
+  "verifyEmail":"Verify Email",
+  "personalPhoto":"Personal Photo",
+  "coverPhoto":"Cover Photo",
+  "personalInfo":"Personal Info",
+  "height":"Height",
+  "weight":"Weight",
+  "coachingLicense":"Coaching License",
+  "follow":"Follow",
+  "unfollow":"unfollow",
+  "issudBy":"Issued by",
+  "issuedDate":"Issued date",
+  "credentialId":"Credential ID",
+  "expiredDate":"Expired Date",
+  "Licenseno":"License no"
+ },
+  
+ "SettingsSidebar":{
+   "myAccount":"My Account",
+   "changePassword":"Change Password",
+   "notifications":"Notifications"
+ },
+ "ChangePassword":{
+  "ChangePassword":"Change Password",
+  "currentPassword":"Current Password",
+  "NewPassword":"New Password",
+  "ConfirmPassword":"Confirm Password"
+},
+"notificationToggle":{
+ "newFollowers":"New Followers",
+ "followersChallenges":"Follower’s Challenges",
+ "followersOpportunities":"Follower’s Opportunities",
+ "newMessage":"New Message",
+ "emailNotfications":"Email Notfications"
+},
+"accounts":{
+  "newFollowers":"New Followers",
+  "followersChallenges":"Follower’s Challenges",
+  "followersOpportunities":"Follower’s Opportunities",
+  "newMessage":"New Message",
+  "emailNotfications":"Email Notfications"
+ },
+ "Opportunity":{
+  "applyNow":"Apply Now",
+  "age":"Age",
+  "requirements":"Requirements",
+  "additionalInformation":"Additional Information",
+  "search":"Search",
+  "applicants":"Applicants",
+  "closeOpportunity":"Discard Opportunity",
+  "openOpportunity":"Reopen Opportunity",
+  "published":"Published",
+  "applied":"Applied"
+ },
+ "validationErrors":{
+  "talent_type":"Talent Type is required",
+  "parent_position":"Position is required",
+  "gender":"Gender is required",
+  "birth_date":"Birth date is required",
+  "valid_birth_date":"Birth date must be a valid date",
+  "height":"Height is required",
+  "valid_height":"Height must be a valid number",
+  "min_height":"Height must be greater than or equal to 1",
+  "max_height":"Height must be less than or equal to 300",
+  "weight":"Weight is required",
+  "valid_weight":"Weight must be a valid number",
+  "min_weight":"Weight must be greater than or equal to 1",
+  "max_weight":"Weight must be less than or equal to 300",
+  "country_id":"Country is required",
+  "mobile_number":"Mobile number is required",
+  "valid_mobile_number":"Mobile number must be a valid number",
+  "position":"Sub Position is required",
+  "sport_type":"Sport Type is required",
+  "years_of_experience":"Years of Experience is required",
+  "valid_years_of_experience":"Years of Experience must be a valid date",
+  "club_logo":"Image is required",
+  "club_name":"Club Name is required",
+  "year_founded":"year founded is required",
+  "valid_year_founded":"year founded must be a valid date",
+  "email":"Email is required",
+  "valid_email":"Provide a valid email address ex:John@example.com",
+  "first_name":"First name is required",
+  "valid_fisrt_name":"First Name cannot contain Arabic letters",
+  "last_name":"Last name is required",
+  "valid_last_name":"Last Name cannot contain Arabic letters",
+  "user_name":"Username is required",
+  "valid_user_name":"Username cannot contain Arabic letters",
+  "password":"password is required",
+  "valid_password":"Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case",
+  "residence_place":"Place of Residence is required",
+  "city_id":"city is required",
+  "opp_title":"Opportunity Title is required",
+  "from_age":"Starting age is required",
+  "to_age":"End age is required",
+  "foot":"Foot is required",
+  "requirements":"Requirements are required"
+  
+ },
+ "Verification":{
+  "title":"Verify your email",
+  "desc":"Verifying your email gives you access to more features on Triple F",
+  "btn":"Verify Email"
+ },
+ "ResetPassword":{
+  "title":"Reset your password",
+  "desc":"Please fill in the eamil fields below, We’ll send you a link to reset your password",
+  "btn":"Reset Password"
+ },
+ "PostActions":{
+  "copyLink":"Copy link to Post",
+  "copiedLink":"Link Copied",
+  "notInterested":"Not Interested",
+  "unfollow":"Unfollow user",
+  "reportPost":"Report Post",
+  "deletePost":"Delete Post"
+ },
+ "AddOpportunity":{
+  "addOpportunity":"Add opportunity",
+  "opportunitieTitle":"Opportunitie Title",
+  "agefrom":"Age from",
+  "to":"to",
+  "heightFrom":"Height from",
+  "weightFrom":"Weight from",
+  "requirements":"Requirements",
+  "additionalInformation":"Additional Information",
+  "requirementsPlaceholder":"Add your opportunity requirements here",
+  "additionalInfoPlaceholder":"Add any additional Information here",
+  "experienceFrom":"Experience from",
+  "targeted_type":"Type",
+  "targeted_type_options": [ "talent","scout","coach"]
+
+ },
+ "AddCertificate":{
+  "addCertificate":"Add Certificate",
+  "certificateName":"Certificate Name *",
+  "editCertificate":"Edit Certificate"
+ },
+ "NotFound":{
+    "title":"Sorry, the page not found",
+    "desc":"The link you followed probably broken or the page has been removed",
+    "back":"Back to previous page"
+ },
+ "Notification":{
+  "notifications":"Notifications",
+  "startedFollowing":"started following you",
+  "addedPost":"added new Post",
+  "addedMedal":"added a medal to your challenge",
+  "milestone":"Your post just hit a milestone! It's received",
+  "viewMore":"View more notifications",
+  "noNotification":"No notifications"
+ }
+
+  }

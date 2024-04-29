@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\NotificationTest\NotificationController;
+use App\Http\Controllers\NotificationTest\TransllationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,11 @@ Route::get('login', function () {
 
 Route::controller(NotificationController::class)->group(function () {
     Route::post('submit_login', 'submitLogin')->name('submit_login');
+});
+
+Route::controller(TransllationController::class)->prefix('translation')->group(function () {
+    Route::get('form', 'getForm');
+    Route::post('post', 'submitForm')->name('translation.submit');
 });
 
 //Route::get('/notifications', function () {
