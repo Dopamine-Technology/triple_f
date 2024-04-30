@@ -22,7 +22,11 @@ class RegisterController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        Mail::to('abdullah.basem.j@gmail.com')->send(new VerfyMail('welcome' , 'first time sending emails !'));
+        Mail::to('abdullah.basem.j@gmail.com')->send(new VerfyMail('welcome', 'first time sending emails !'));
+        $fail = Mail::failures();
+        if (!empty($fail)) throw new \Exception('Could not send message to ' . $fail[0]);
+        if (empty($result)) throw new \Exception('Email could not be sent.');
+
         $userData = $request->user;
         $profileData = $request->profile;
 
