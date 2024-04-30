@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
                     'name' => $user . '_' . $type,
                     'parent_position_id' => 1,
                     'sport_id' => 1,
-                    'position_id' => 11,
+                    'positions' => json_encode([11, 1, 2]),
                     'height' => 170,
                     'wight' => 67,
                     'country_id' => 1,
@@ -78,7 +78,7 @@ class UserSeeder extends Seeder
         }
         if ($type == 'coache') {
             unset($data['parent_position_id']);
-            unset($data['position_id']);
+            unset($data['positions']);
             unset($data['name']);
             unset($data['height']);
             unset($data['wight']);
@@ -87,7 +87,7 @@ class UserSeeder extends Seeder
         }
         if ($type == 'scout') {
             unset($data['parent_position_id']);
-            unset($data['position_id']);
+            unset($data['positions']);
             unset($data['name']);
             unset($data['height']);
             unset($data['wight']);
@@ -96,7 +96,7 @@ class UserSeeder extends Seeder
         }
         if ($type == 'club') {
             unset($data['parent_position_id']);
-            unset($data['position_id']);
+            unset($data['positions']);
             unset($data['years_of_experience']);
             unset($data['height']);
             unset($data['wight']);

@@ -11,8 +11,8 @@ class Talent extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $casts = ['birth_date' => 'date'];
-    protected $with = ['sport', 'parent_position', 'position' ];
+    protected $casts = ['birth_date' => 'date', 'positions' => 'array'];
+    protected $with = ['sport', 'parent_position', 'position'];
     protected $table = 'talents';
     protected $appends = ['age'];
 

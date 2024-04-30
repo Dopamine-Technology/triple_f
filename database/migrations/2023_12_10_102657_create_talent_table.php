@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->string('mobile_number');
             $table->foreignIdFor(Sport::class);
             $table->foreignIdFor(Position::class, 'parent_position_id')->nullable();
-            $table->foreignIdFor(Position::class, 'position_id')->nullable();
+            $table->json( 'positions')->nullable();
             $table->string('gender')->default('other');
             $table->date('birth_date')->nullable();
             $table->integer('height')->default(160);

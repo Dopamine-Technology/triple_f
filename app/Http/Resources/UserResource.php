@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Follow;
+use App\Models\Position;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -16,7 +17,6 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-
         return [
             'id' => $this->id,
             'first_name' => $this->first_name ?? '',
@@ -64,10 +64,7 @@ class UserResource extends JsonResource
                     'id' => $this->profile->parent_position->id,
                     'name' => $this->profile->parent_position->getTranslation('name', LANGUAGE),
                 ] : null,
-                'position' => $this->profile->parent_position ? [
-                    'id' => $this->profile->position->id,
-                    'name' => $this->profile->position->getTranslation('name', LANGUAGE),
-                ] : null,
+                'positions' => $this->profile->positions ? PostionsResource::collection(Position::query()->whereIn('id', $this->profile->positions)->get()) : null,
                 "certificates" => $this->profile->certificates ? CertificateResource::collection($this->profile->certificates) : []
             ],
         ];

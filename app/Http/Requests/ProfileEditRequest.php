@@ -69,14 +69,14 @@ class ProfileEditRequest extends FormRequest
     {
         $roles = $this->commonRoles;
         $roles['parent_position'] = 'required|exists:positions,id';
-        $roles['position'] = 'required|exists:positions,id';
+        $roles['position'] = 'required';
         $roles['gender'] = 'required|in:male,female,other';
         $roles['birth_date'] = 'required|date';
         $roles['height'] = 'required|numeric';
         $roles['wight'] = 'required|numeric';
         $roles['country_id'] = 'required';
         $roles['city_id'] = 'sometimes';
-        $roles['mobile_number'] = 'required|unique:talents,mobile_number,' . auth()->user()->profile->id . '|unique:coaches,mobile_number,' . auth()->user()->profile->id . '|unique:clubs,mobile_number,'.auth()->user()->profile->id.'|unique:scouts,mobile_number,'.auth()->user()->profile->id;
+        $roles['mobile_number'] = 'required|unique:talents,mobile_number,' . auth()->user()->profile->id . '|unique:coaches,mobile_number,' . auth()->user()->profile->id . '|unique:clubs,mobile_number,' . auth()->user()->profile->id . '|unique:scouts,mobile_number,' . auth()->user()->profile->id;
         return $roles;
     }
 
@@ -89,7 +89,7 @@ class ProfileEditRequest extends FormRequest
         $roles['years_of_experience'] = 'required|numeric';
         $roles['country_id'] = 'required';
         $roles['city_id'] = 'sometimes';
-        $roles['mobile_number'] = 'required|unique:talents,mobile_number,' . auth()->user()->profile->id . '|unique:coaches,mobile_number,' . auth()->user()->profile->id . '|unique:clubs,mobile_number,'.auth()->user()->profile->id.'|unique:scouts,mobile_number,'.auth()->user()->profile->id;
+        $roles['mobile_number'] = 'required|unique:talents,mobile_number,' . auth()->user()->profile->id . '|unique:coaches,mobile_number,' . auth()->user()->profile->id . '|unique:clubs,mobile_number,' . auth()->user()->profile->id . '|unique:scouts,mobile_number,' . auth()->user()->profile->id;
         return $roles;
     }
 
@@ -100,7 +100,7 @@ class ProfileEditRequest extends FormRequest
         $roles['club_logo'] = 'sometimes';
         $roles['talent_type'] = 'required';
         $roles['country_id'] = 'required';
-        $roles['mobile_number'] = 'required|unique:talents,mobile_number,' . auth()->user()->profile->id . '|unique:coaches,mobile_number,' . auth()->user()->profile->id . '|unique:clubs,mobile_number,'.auth()->user()->profile->id.'|unique:scouts,mobile_number,'.auth()->user()->profile->id;
+        $roles['mobile_number'] = 'required|unique:talents,mobile_number,' . auth()->user()->profile->id . '|unique:coaches,mobile_number,' . auth()->user()->profile->id . '|unique:clubs,mobile_number,' . auth()->user()->profile->id . '|unique:scouts,mobile_number,' . auth()->user()->profile->id;
         $roles['year_founded'] = 'required';
         return $roles;
     }
@@ -113,7 +113,7 @@ class ProfileEditRequest extends FormRequest
         $roles['years_of_experience'] = 'required|numeric';
         $roles['country_id'] = 'required';
         $roles['city_id'] = 'sometimes';
-        $roles['mobile_number'] = 'required|unique:talents,mobile_number,' . auth()->user()->profile->id . '|unique:coaches,mobile_number,' . auth()->user()->profile->id . '|unique:clubs,mobile_number,'.auth()->user()->profile->id.'|unique:scouts,mobile_number,'.auth()->user()->profile->id;
+        $roles['mobile_number'] = 'required|unique:talents,mobile_number,' . auth()->user()->profile->id . '|unique:coaches,mobile_number,' . auth()->user()->profile->id . '|unique:clubs,mobile_number,' . auth()->user()->profile->id . '|unique:scouts,mobile_number,' . auth()->user()->profile->id;
         return $roles;
     }
 
@@ -143,7 +143,7 @@ class ProfileEditRequest extends FormRequest
         $data = array();
         $data['profile']['sport_id'] = $this->talent_type;
         $data['profile']['parent_position_id'] = $this->parent_position;
-        $data['profile']['position_id'] = $this->position;
+        $data['profile']['positions'] = json_decode($this->position);
         $data['profile']['gender'] = $this->gender;
         $data['profile']['birth_date'] = date("Y-m-d", strtotime($this->birth_date));
         $data['profile']['height'] = $this->height;

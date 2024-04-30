@@ -53,7 +53,6 @@ class RegisterRequest extends FormRequest
         $data = array();
 
 
-
         $data['user']['first_name'] = $this->first_name;
         $data['user']['last_name'] = $this->last_name;
 //        $data['user']['image'] = isset($this->image) && !empty($this->image) ? $this->file('image')->store('avatars', 'public') : 'profile_avatar.svg';
@@ -96,7 +95,7 @@ class RegisterRequest extends FormRequest
         $roles['talent_type'] = 'required';
         $roles['preferred_foot'] = 'required';
         $roles['parent_position'] = 'required|exists:positions,id';
-        $roles['position'] = 'required|exists:positions,id';
+        $roles['position'] = 'required';
         $roles['gender'] = 'required|in:male,female,other';
         $roles['birth_date'] = 'required|date';
         $roles['height'] = 'required|numeric';
@@ -173,7 +172,7 @@ class RegisterRequest extends FormRequest
         $data['profile']['preferred_foot'] = $this->preferred_foot;
         $data['profile']['sport_id'] = $this->talent_type;
         $data['profile']['parent_position_id'] = $this->parent_position;
-        $data['profile']['position_id'] = $this->position;
+        $data['profile']['positions'] = json_decode($this->position);
         $data['profile']['gender'] = $this->gender;
         $data['profile']['birth_date'] = $this->birth_date;
         $data['profile']['height'] = $this->height;
