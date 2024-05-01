@@ -24,7 +24,7 @@ class LoginController extends Controller
 //        dump(Hash::check($request->password, $user->password));
         if (!Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
-                'password' => ['The provided credentials are incorrect.'],
+                'password' => ['The provided password are incorrect.'],
             ]);
         } else {
             if ($user->user_type_id == 3 && !$user->profile->approved_by_admin) {
