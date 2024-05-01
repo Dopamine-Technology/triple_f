@@ -21,6 +21,7 @@ class LoginController extends Controller
     public function loginWithEmail(LoginRequest $request)
     {
         $user = User::query()->where('email', $request->email)->first();
+//        dump(Hash::check($request->password, $user->password));
         if (!Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
                 'password' => ['The provided credentials are incorrect.'],
