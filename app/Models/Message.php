@@ -10,4 +10,5 @@ class Message extends Model
     use HasFactory;
 
     protected $guarded = [];
+    protected $casts = ['is_seen' => 'boolean'];
 }

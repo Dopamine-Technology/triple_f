@@ -16,8 +16,12 @@ class MessageResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'from' => $this->id,
-            'id' => $this->id,
+            'message_from' => $this->message_from,
+            'message_to' => $this->message_to,
+            'message' => $this->message,
+            'file_path' => $this->file_path ?? '',
+            'is_seen' => $this->is_seen,
+            'created_at' => $this->created_at?->format('Y-m-d H:i'),
         ];
     }
 }

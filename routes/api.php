@@ -124,6 +124,8 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::controller(MessageController::class)->prefix('/chat')->middleware(['localization'])->group(function () {
         Route::get('get_chats', 'getChats');
+        Route::get('get_chat_messages/{user_id}', 'getChatMessages');
+        Route::post('send_message', 'sendMessage');
 
     });
 });

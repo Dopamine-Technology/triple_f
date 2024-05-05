@@ -29,7 +29,14 @@ class ChatResource extends JsonResource
                     $query->where('message_from', auth()->user()->id)
                         ->where('message_to', $this->id);
                 })->orderBy('id', 'DESC')->first()
-            )
+            ),
+            'unread_count' => Message::query()->where(function ($query) {
+                $query->where('message_from', $this->id)
+                    ->where('message_to', auth()->user()->id);
+            })->orWhere(function ($query) {
+                $query->where('message_from', auth()->user()->id)
+                    ->where('message_to', $this->id);
+            })->where('is_seen', false)->count()
 
         ];
     }
