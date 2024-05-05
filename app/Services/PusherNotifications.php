@@ -13,13 +13,14 @@ class PusherNotifications
     public function __construct($data)
     {
         $this->notification_data = $data;
-        $this->sendPusherMessage();
         if (isset($data['channel'])) {
             $this->channel = $data['channel'];
         }
         if (isset($data['event'])) {
             $this->event = $data['event'];
         }
+        $this->sendPusherMessage();
+
     }
 
     public function sendPusherMessage(): void
