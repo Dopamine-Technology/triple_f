@@ -23,7 +23,6 @@ class MessageController extends Controller
         $deleted_chats = DeletedChat::query()->where('user_id', auth()->user()->id)->pluck('deleted_user_id')->toArray();
         $users = User::query()->whereIn('id', $user_ids)->where('id', '!=', auth()->user()->id)->whereNotIn('id', $deleted_chats)->get();
         return $this->success(ChatResource::collection($users));
-
     }
 
     public function getChatMessages($user_id)
@@ -35,9 +34,7 @@ class MessageController extends Controller
             $query->where('message_from', auth()->user()->id)
                 ->where('message_to', $user_id);
         })->orderBy('id', 'DESC')->get();
-
         return $this->success(MessageResource::collection($messages));
-
     }
 
 
@@ -53,8 +50,6 @@ class MessageController extends Controller
 
     public function updateSeenMessage($user_id)
     {
-
-
         Message::query()->where(function ($query) use ($user_id) {
             $query->where('message_from', $user_id)
                 ->where('message_to', auth()->user()->id);
@@ -69,7 +64,6 @@ class MessageController extends Controller
     {
         DeletedChat::query()->updateOrCreate(['user_id' => auth()->user()->id, 'deleted_user_id' => $user_id], ['user_id' => auth()->user()->id, 'deleted_user_id' => $user_id]);
         return $this->success(true);
-
     }
 
 
