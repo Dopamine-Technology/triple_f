@@ -26,7 +26,10 @@ class RegisterController extends Controller
         $userData = $request->user;
         $profileData = $request->profile;
 
-        dd($request->profile);
+        var_dump($request->all());
+        var_dump($request->user);
+        var_dump($request->profile);
+        die();
 
         if ($request->google_identifier) {
             return $this->googleRegisterHandler($request);
