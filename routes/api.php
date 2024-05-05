@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AppController;
 use App\Http\Controllers\Api\ChallengeController;
 use App\Http\Controllers\Api\FollowController;
+use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\OpportunityController;
 use App\Http\Controllers\Api\StatusController;
@@ -120,6 +121,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('get_licences/{user}', 'getUserLicence');
         Route::post('edit_licence/{licence_id}', 'editLicence');
         Route::delete('delete_licence/{licence_id}', 'deleteLicence');
+    });
+    Route::controller(MessageController::class)->prefix('/chat')->middleware(['localization'])->group(function () {
+        Route::get('get_chats', 'getChats');
+
     });
 });
 

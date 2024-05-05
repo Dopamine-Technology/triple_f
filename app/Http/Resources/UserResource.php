@@ -64,7 +64,7 @@ class UserResource extends JsonResource
                     'id' => $this->profile->parent_position->id,
                     'name' => $this->profile->parent_position->getTranslation('name', LANGUAGE),
                 ] : null,
-                'positions' => $this->profile->positions ? PostionsResource::collection(Position::query()->whereIn('id', $this->profile->positions)->get()) : null,
+                'position' => $this->profile->positions ? PostionsResource::collection(Position::query()->whereIn('id', $this->profile->positions)->get()) : null,
                 "certificates" => $this->profile->certificates ? CertificateResource::collection($this->profile->certificates) : []
             ],
         ];
