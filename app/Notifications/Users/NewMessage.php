@@ -51,7 +51,7 @@ class NewMessage extends Notification
      */
     public function toArray(object $notifiable): array
     {
-        new PusherNotifications(['notifiable_id' => $notifiable->id, 'unread_notification_count' => $notifiable->unreadNotifications()->count() + 1, 'channel' => 'chat_channel', 'event' => 'new_message']);
+        new PusherNotifications(['notifiable_id' => $notifiable->id, 'unread_notification_count' => $notifiable->unreadNotifications()->count() + 1, 'channel' => 'chat-channel', 'event' => 'new-message']);
         return [
             "sender" => [
                 "id" => $this->sender->id,
