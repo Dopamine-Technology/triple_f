@@ -5,22 +5,19 @@ namespace App\Notifications\Users;
 use App\Services\PusherNotifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Pusher\Pusher;
 
-//use Pusher\Pusher;
-
-
-class NewFollower extends Notification implements ShouldQueue
+class NewMessage extends Notification
 {
     use Queueable;
 
-    private $follower;
-    private $notificationType = 'new_follower';
+    private $notificationType = 'new_message';
     public $sender;
 
+    /**
+     * Create a new notification instance.
+     */
     public function __construct($sender)
     {
         $this->sender = $sender;
@@ -39,6 +36,13 @@ class NewFollower extends Notification implements ShouldQueue
     /**
      * Get the mail representation of the notification.
      */
+//    public function toMail(object $notifiable): MailMessage
+//    {
+//        return (new MailMessage)
+//                    ->line('The introduction to the notification.')
+//                    ->action('Notification Action', url('/'))
+//                    ->line('Thank you for using our application!');
+//    }
 
     /**
      * Get the array representation of the notification.
@@ -47,7 +51,7 @@ class NewFollower extends Notification implements ShouldQueue
      */
     public function toArray(object $notifiable): array
     {
-        new PusherNotifications(['notifiable_id' => $notifiable->id, 'unread_notification_count' => $notifiable->unreadNotifications()->count() + 1]);
+        new PusherNotifications(['notifiable_id' => $notifiable->id, 'unread_notification_count' => $notifiable->unreadNotifications()->count() + 1, 'channel' => 'chat_channel', 'event' => 'new_message']);
         return [
             "sender" => [
                 "id" => $this->sender->id,
@@ -55,11 +59,8 @@ class NewFollower extends Notification implements ShouldQueue
                 "image" => asset('storage/' . $this->sender->image),
             ],
             "notification_type" => $this->notificationType,
-            "redirection" => $this->sender->id,
+            "redirection" => '',
             "notification_data" => ""
         ];
-
     }
-
-
 }
