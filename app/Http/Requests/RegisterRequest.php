@@ -172,7 +172,7 @@ class RegisterRequest extends FormRequest
         $data['profile']['preferred_foot'] = $this->preferred_foot;
         $data['profile']['sport_id'] = $this->talent_type;
         $data['profile']['parent_position_id'] = $this->parent_position;
-        $data['profile']['positions'] = json_decode($this->position);
+        $data['profile']['position'] = json_decode($this->position);
         $data['profile']['gender'] = $this->gender;
         $data['profile']['birth_date'] = $this->birth_date;
         $data['profile']['height'] = $this->height;
