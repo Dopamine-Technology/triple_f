@@ -22,10 +22,10 @@ class RegisterController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        Mail::to('abdullah.basem.j@gmail.com')->send(new VerfyMail('welcome' , 'first time sending emails !'));
+//        Mail::to('abdullah.basem.j@gmail.com')->send(new VerfyMail('welcome' , 'first time sending emails !'));
         $userData = $request->user;
         $profileData = $request->profile;
-
+//dd($profileData = $request->profile);
 
         if ($request->google_identifier) {
             return $this->googleRegisterHandler($request);

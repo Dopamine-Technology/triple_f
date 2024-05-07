@@ -12,7 +12,7 @@ class Talent extends Model
 
     protected $guarded = [];
     protected $casts = ['birth_date' => 'date', 'positions' => 'array'];
-    protected $with = ['sport', 'parent_position', 'position'];
+    protected $with = ['sport', 'parent_position'];
     protected $table = 'talents';
     protected $appends = ['age'];
 
@@ -26,10 +26,10 @@ class Talent extends Model
         return $this->belongsTo(Position::class, 'parent_position_id');
     }
 
-    public function position()
-    {
-        return $this->belongsTo(Position::class, 'position_id');
-    }
+//    public function position()
+//    {
+//        return $this->belongsTo(Position::class, 'position_id');
+//    }
 
     public function user()
     {
