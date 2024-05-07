@@ -21,7 +21,7 @@ class MessageResource extends JsonResource
             'message' => $this->message,
             'file_path' => $this->file_path ?? '',
             'is_seen' => $this->is_seen,
-            'created_at' => $this->created_at?->format('Y-m-d H:i'),
+            'created_at' => $this->created_at?->diffForHumans(),
         ];
     }
 }
