@@ -291,9 +291,13 @@
                                                 <table width="100%">
                                                     <tr>
                                                         <td><![endif]-->
-                                                <h1 class="v-text-align v-font-size"
-                                                    style="margin: 0px; color: #023047; line-height: 170%; text-align: center; word-wrap: break-word; font-family: 'Open Sans',sans-serif; font-size: 26px; font-weight: 400;">
-                                                    <span><span><strong>Verfiy your Email </strong></span></span></h1>
+
+                                                    <h1 class="v-text-align v-font-size"
+                                                        style="margin: 0px; color: #023047; line-height: 170%; text-align: center; word-wrap: break-word; font-family: 'Open Sans',sans-serif; font-size: 26px; font-weight: 400;">
+                                                        <span><span><strong>Reset your Password </strong></span></span>
+                                                    </h1>
+
+
                                                 <!--[if mso]></td></tr></table><![endif]-->
 
                                             </td>
@@ -312,11 +316,11 @@
                                                 <div class="v-text-align v-font-size"
                                                      style="font-size: 14px; line-height: 170%; text-align: center; word-wrap: break-word;">
                                                     <p style="font-size: 14px; line-height: 170%;"><span
-                                                            style="font-family: Lato, sans-serif; font-size: 16px; line-height: 27.2px;">verfiying your email give access to more features on triple f </span>
+                                                            style="font-family: Lato, sans-serif; font-size: 16px; line-height: 27.2px;">forget your password ? </span>
                                                     </p>
                                                     <p style="font-size: 14px; line-height: 170%;"> </p>
                                                     <p style="font-size: 14px; line-height: 170%;"><span
-                                                            style="font-family: Lato, sans-serif; font-size: 16px; line-height: 27.2px;">click the buton below to join our family </span>
+                                                            style="font-family: Lato, sans-serif; font-size: 16px; line-height: 27.2px;">it's ok click the button and complete resting a new password for your account </span>
                                                     </p>
                                                     <p style="font-size: 14px; line-height: 170%;"> </p>
                                                 </div>
@@ -377,16 +381,16 @@
                                                     <!--[if mso]>
                                                     <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml"
                                                                  xmlns:w="urn:schemas-microsoft-com:office:word"
-                                                                 href="triplef.group/verify"
+                                                                 href="triplef.group/reset-password/{{$hashed_user_id}}"
                                                                  style="height:57px; v-text-anchor:middle; width:260px;"
                                                                  arcsize="77%" stroke="f" fillcolor="#33428d">
                                                         <w:anchorlock/>
                                                         <center style="color:#FFFFFF;"><![endif]-->
-                                                    <a href="triplef.group/verify" target="_blank"
+                                                    <a href="triplef.group/reset-password/{{$hashed_user_id}}" target="_blank"
                                                        class="v-button v-font-size"
                                                        style="box-sizing: border-box;display: inline-block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #33428d; border-radius: 44px;-webkit-border-radius: 44px; -moz-border-radius: 44px; width:auto; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;font-size: 14px;">
                                                         <span style="display:block;padding:20px 70px;line-height:120%;"><strong><span
-                                                                    style="font-family: 'Open Sans', sans-serif; font-size: 14px; line-height: 16.8px;">V E R I F Y&nbsp; &nbsp;N O W</span></strong></span>
+                                                                    style="font-family: 'Open Sans', sans-serif; font-size: 14px; line-height: 16.8px;">R E S E T &nbsp;   Y O U R &nbsp; &nbsp;P A S S W O R D</span></strong></span>
                                                     </a>
                                                     <!--[if mso]></center></v:roundrect><![endif]-->
                                                 </div>

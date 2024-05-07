@@ -27,10 +27,10 @@ trait AppResponse
         return $this->genRes(null, Response::HTTP_FORBIDDEN, $message);
     }
 
-        public function notFound($message = ""): JsonResponse
-        {
-            return $this->genRes(null, Response::HTTP_NOT_FOUND, $message);
-        }
+    public function notFound($message = ""): JsonResponse
+    {
+        return $this->genRes(null, Response::HTTP_NOT_FOUND, $message);
+    }
 
     public function unauthorized($message = ""): JsonResponse
     {

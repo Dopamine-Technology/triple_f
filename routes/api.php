@@ -47,7 +47,9 @@ Route::controller(LoginController::class)->prefix('/user/auth')->middleware(['lo
 
 });
 Route::controller(AuthController::class)->prefix('/user/auth')->middleware(['localization'])->group(function () {
-    Route::post('verify_email', 'verifyEmail');
+    Route::get('send_verify_email', 'sendVerifyEmail')->middleware('auth:sanctum');
+    Route::get('verify_email', 'verifyEmail')->middleware('auth:sanctum');
+    Route::post('forget_password', 'forgetPassword');
     Route::post('reset_password', 'resetPassword');
     Route::post('unique_email', 'uniqueEmail');
 
