@@ -33,7 +33,7 @@ class AuthController extends Controller
         return $this->success('user email' . $user->email . ' ' . 'verified successfully');
     }
 
-    public function forgetPassword(Request $request)
+    public function sendForgetPasswordEmail(Request $request)
     {
         $data = $request->validate([
             'email' => 'required|exists:users,email'
@@ -43,6 +43,15 @@ class AuthController extends Controller
         return $this->success(true, 'forget password sent to user email : ' . $data['email']);
     }
 
+    public function forgetPassword(Request $request)
+    {
+        $data = $request->validate([
+            'user_token' => 'required',
+            'password' => 'required|min:8|confirmed',
+        ]);
+        User::query()->where(DB::raw('md5(id)'), $data['user_token'])->update(['password' => Hash::make($data['password'])]);
+        return $this->success(true, 'user password reset successfully');
+    }
 
     public function resetPassword(Request $request)
     {
