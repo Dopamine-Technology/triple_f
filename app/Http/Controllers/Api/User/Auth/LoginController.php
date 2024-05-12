@@ -37,20 +37,25 @@ class LoginController extends Controller
                     'blocked_by_admin' => ['Your Account is currently suspended , please contact with support for more details'],
                 ]);
             }
-            if (Redis::get('user:profile:' . $user->id)) {
-                return $this->success([
-                    'source' => 'redis',
-                    'user' => json_decode(Redis::get('user:profile:' . $user->id)),
-                    'token' => $user->createToken('apptoken')->plainTextToken,
-                ], __('User successfully logged in'));
-            }else{
-                Redis::set('user:profile:' . $user->id , json_encode(new UserResource($user)));
-                return $this->success([
-                    'source' => 'database',
-                    'user' => json_decode(Redis::get('user:profile:' . $user->id)),
-                    'token' => $user->createToken('apptoken')->plainTextToken,
-                ], __('User successfully logged in'));
-            }
+            return $this->success([
+                'source' => 'database',
+                'user' => UserResource::make($user),
+                'token' => $user->createToken('apptoken')->plainTextToken,
+            ], __('User successfully logged in'));
+//            if (Redis::get('user:profile:' . $user->id)) {
+//                return $this->success([
+//                    'source' => 'redis',
+//                    'user' => json_decode(Redis::get('user:profile:' . $user->id)),
+//                    'token' => $user->createToken('apptoken')->plainTextToken,
+//                ], __('User successfully logged in'));
+//            }else{
+//                Redis::set('user:profile:' . $user->id , json_encode(new UserResource($user)));
+//                return $this->success([
+//                    'source' => 'database',
+//                    'user' => json_decode(Redis::get('user:profile:' . $user->id)),
+//                    'token' => $user->createToken('apptoken')->plainTextToken,
+//                ], __('User successfully logged in'));
+//            }
 
         }
     }
@@ -75,20 +80,22 @@ class LoginController extends Controller
                 'approved_by_admin' => ['Club need to be approved by admin to proceed'],
             ]);
         }
-        if (Redis::get('user:profile:' . $user->id)) {
-            return $this->success([
-                'source' => 'redis',
-                'user' => json_decode(Redis::get('user:profile:' . $user->id)),
-                'token' => $user->createToken('apptoken')->plainTextToken,
-            ], __('User successfully logged in'));
-        }else{
-            Redis::set('user:profile:' . $user->id , json_encode(new UserResource($user)));
-            return $this->success([
-                'source' => 'database',
-                'user' => json_decode(Redis::get('user:profile:' . $user->id)),
-                'token' => $user->createToken('apptoken')->plainTextToken,
-            ], __('User successfully logged in'));
-        }
+        return $this->success([
+            'source' => 'database',
+            'user' => UserResource::make($user),
+            'token' => $user->createToken('apptoken')->plainTextToken,
+        ], __('User successfully logged in'));
+
+//        if (Redis::get('user:profile:' . $user->id)) {
+//
+//        }else{
+//            Redis::set('user:profile:' . $user->id , json_encode(new UserResource($user)));
+//            return $this->success([
+//                'source' => 'database',
+//                'user' => json_decode(Redis::get('user:profile:' . $user->id)),
+//                'token' => $user->createToken('apptoken')->plainTextToken,
+//            ], __('User successfully logged in'));
+//        }
 
 
     }
@@ -119,20 +126,26 @@ class LoginController extends Controller
                 'approved_by_admin' => ['Club need to be approved by admin to proceed'],
             ]);
         }
-        if (Redis::get('user:profile:' . $user->id)) {
-            return $this->success([
-                'source' => 'redis',
-                'user' => json_decode(Redis::get('user:profile:' . $user->id)),
-                'token' => $user->createToken('apptoken')->plainTextToken,
-            ], __('User successfully logged in'));
-        }else{
-            Redis::set('user:profile:' . $user->id , json_encode(new UserResource($user)));
-            return $this->success([
-                'source' => 'database',
-                'user' => json_decode(Redis::get('user:profile:' . $user->id)),
-                'token' => $user->createToken('apptoken')->plainTextToken,
-            ], __('User successfully logged in'));
-        }
+        return $this->success([
+            'source' => 'database',
+            'user' => UserResource::make($user),
+            'token' => $user->createToken('apptoken')->plainTextToken,
+        ], __('User successfully logged in'));
+
+//        if (Redis::get('user:profile:' . $user->id)) {
+//            return $this->success([
+//                'source' => 'redis',
+//                'user' => json_decode(Redis::get('user:profile:' . $user->id)),
+//                'token' => $user->createToken('apptoken')->plainTextToken,
+//            ], __('User successfully logged in'));
+//        }else{
+//            Redis::set('user:profile:' . $user->id , json_encode(new UserResource($user)));
+//            return $this->success([
+//                'source' => 'database',
+//                'user' => json_decode(Redis::get('user:profile:' . $user->id)),
+//                'token' => $user->createToken('apptoken')->plainTextToken,
+//            ], __('User successfully logged in'));
+//        }
     }
 
 }
