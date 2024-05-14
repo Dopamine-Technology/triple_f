@@ -14,11 +14,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        FilamentIcon::register([
-            'panels::pages.dashboard.navigation-item' => 'icon-house',
+        if ($this->app->environment('local')) {
+            $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
+            $this->app->register(TelescopeServiceProvider::class);
+        }
+        FilamentIcon::register([ 'panels::pages.dashboard.navigation-item' => 'icon-house']);
 
 //            'panels::sidebar.group.collapse-button' => view('icons.chevron-up'),
-        ]);
+
     }
 
     /**

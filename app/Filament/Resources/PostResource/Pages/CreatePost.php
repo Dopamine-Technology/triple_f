@@ -16,9 +16,10 @@ class CreatePost extends CreateRecord
     {
         $newsPost = new Post();
         $newsPost->admin_id = auth()->user()->id;
-        $newsPost->setTranslation('title', 'ar', $data['title']['ar'])
+        $newsPost
+//            ->setTranslation('title', 'ar', $data['title']['ar'])
             ->setTranslation('title', 'en', $data['title']['en'])
-            ->setTranslation('content', 'ar', $data['content']['ar'])
+//            ->setTranslation('content', 'ar', $data['content']['ar'])
             ->setTranslation('content', 'en', $data['content']['en'])->save();
         return $newsPost;
 
