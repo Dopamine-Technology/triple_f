@@ -53,7 +53,7 @@ class ChallengeResource extends Resource
                     ])->columns(1),
                     Grid::make()->schema([
                         Select::make('positions')
-                            ->options(Position::query()->pluck('name', 'id')->toArray())
+                            ->options(Position::query()->pluck('name', 'id')->where('parent_id' , 0)->toArray())
                             ->searchable()->multiple(),
                     ])->columns(1),
                 ]),
