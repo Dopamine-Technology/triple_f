@@ -54,6 +54,7 @@ class UserResource extends JsonResource
                 'country' => $this->profile->country ? [
                     'id' => $this->profile->country->id,
                     'name' => $this->profile->country->getTranslation('name', LANGUAGE),
+                    'image'=> asset($this->image),
                 ] : null,
                 'city' => $this->profile->city ? [
                     'id' => $this->profile->city->id,
