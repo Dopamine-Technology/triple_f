@@ -56,9 +56,8 @@ class AppController extends Controller
 
     public function getLatestPosts(Request $request)
     {
-        $offset = $request->page ?? 0;
-        $limit = $request->limit ?? 10;
-        $posts = Post::query()->skip($offset * $limit)->limit($limit)->orderBy('created_at', 'DESC')->get();
+
+        $posts = Post::query()->orderBy('created_at', 'DESC')->get();
         return $this->success(PostResource::collection($posts));
     }
 

@@ -22,7 +22,5 @@ class CreatePost extends CreateRecord
 //            ->setTranslation('content', 'ar', $data['content']['ar'])
             ->setTranslation('content', 'en', $data['content']['en'])->save();
         return $newsPost;
-
-
     }
 }
