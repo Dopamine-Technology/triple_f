@@ -56,10 +56,14 @@ class AppController extends Controller
 
     public function getLatestPosts(Request $request)
     {
-
         $posts = Post::query()->orderBy('created_at', 'DESC')->get();
         return $this->success(PostResource::collection($posts));
     }
+    public function getPost($post_id){
+        $post = Post::query()->where('id', $post_id)->first();
+        return $this->success(PostResource::make($post));
+    }
+
 
     public function getUserTypes()
     {

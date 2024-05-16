@@ -19,7 +19,7 @@ class PostResource extends JsonResource
            'content'=> $this->getTranslation('content' , LANGUAGE),
            'main_image'=> $this->getMedia('main_image')->first()?->getUrl() ?? '',
            'post_media'=> MediaResource::collection($this->getMedia('post_media')),
-           'created_at'=> $this->created_at,
+           'created_at'=> $this->created_at->format('Y-m-d'),
         ];
     }
 }
