@@ -21,7 +21,7 @@ class MessageController extends Controller
         $messages_users = Message::query()->where('message_from', auth()->user()->id)->orWhere('message_to', auth()->user()->id)->pluck('message_from', 'message_to')->toArray();
         $user_ids = array_unique(array_merge(array_keys($messages_users), array_values($messages_users)));
         $deleted_chats = DeletedChat::query()->where('user_id', auth()->user()->id)->pluck('deleted_user_id')->toArray();
-        $users = User::query()->whereIn('id', $user_ids)->where('id', '!=', auth()->user()->id)->whereNotIn('id', $deleted_chats)->get();
+        $users = User::query()->blockedUsers()->whereIn('id', $user_ids)->where('id', '!=', auth()->user()->id)->whereNotIn('id', $deleted_chats)->get();
         return $this->success(ChatResource::collection($users));
     }
 

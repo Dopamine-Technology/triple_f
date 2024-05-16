@@ -20,7 +20,7 @@ class UserProfileController extends Controller
     public function findTalentsProfiles(Request $request)
     {
         $data = $request->all();
-        $users = User::query()->where('user_type_id', 1);
+        $users = User::query()->blockedUsers()->where('user_type_id', 1);
         if (isset($data['name']) && !empty($data['name'])) {
             $users->where('name', 'LIKE', '%' . $data['name'] . '%');
         }
@@ -51,7 +51,7 @@ class UserProfileController extends Controller
     public function findCoachesProfiles(Request $request)
     {
         $data = $request->all();
-        $users = User::query()->where('user_type_id', 2);
+        $users = User::query()->blockedUsers()->where('user_type_id', 2);
         if (isset($data['name']) && !empty($data['name'])) {
             $users->where('name', 'LIKE', '%' . $data['name'] . '%');
         }
@@ -81,7 +81,7 @@ class UserProfileController extends Controller
     public function findClubsProfiles(Request $request)
     {
         $data = $request->all();
-        $users = User::query()->where('user_type_id', 3);
+        $users = User::query()->blockedUsers()->where('user_type_id', 3);
 
         if (isset($data['name']) && !empty($data['name'])) {
             $users->whereHas('club', function ($q) use ($data) {
@@ -106,7 +106,7 @@ class UserProfileController extends Controller
     public function findScoutsProfiles(Request $request)
     {
         $data = $request->all();
-        $users = User::query()->where('user_type_id', 4);
+        $users = User::query()->blockedUsers()->where('user_type_id', 4);
 
         if (isset($data['name']) && !empty($data['name'])) {
             $users->where('name', 'LIKE', '%' . $data['name'] . '%');

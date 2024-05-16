@@ -3,17 +3,22 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Scopes\BlockScope;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use PhpParser\Node\Stmt\Block;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Builder;
+
 
 class User extends Authenticatable implements HasMedia, FilamentUser
 {
@@ -142,6 +147,13 @@ class User extends Authenticatable implements HasMedia, FilamentUser
 
     public function licences()
     {
-        return $this->hasMany(License::class , 'user_id');
+        return $this->hasMany(License::class, 'user_id');
     }
+
+
+    public function scopeBlockedUsers(Builder $query): void
+    {
+        $query->whereNotIn('id', BlockedUsers::query()->pluck('blocked_id')->toArray());
+    }
+
 }

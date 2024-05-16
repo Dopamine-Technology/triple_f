@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\OpportunityRequest;
 use App\Http\Resources\OpportunityResource;
 use App\Http\Resources\UserResource;
+use App\Models\BlockedUsers;
 use App\Models\Opportunity;
 use App\Models\OpportunityApplicant;
 use App\Traits\AppResponse;
@@ -40,6 +41,7 @@ class OpportunityController extends Controller
 
         $opportunities = Opportunity::query()
             ->where('user_id', '!=', auth()->user()->id)
+            ->whereNotIn('user_id', BlockedUsers::query()->pluck('blocked_id')->toArray())
             ->where('targeted_type', auth()->user()->user_type_id)
             ->whereNotIn('id', $applied_opportunities)
             ->orderBy('created_at', 'DESC')

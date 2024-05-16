@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileEditRequest;
 use App\Http\Resources\UserResource;
+use App\Models\BlockedUsers;
 use App\Models\Club;
 use App\Models\Coach;
 use App\Models\Follow;
@@ -12,6 +13,7 @@ use App\Models\Scout;
 use App\Models\Talent;
 use App\Models\User;
 use App\Traits\AppResponse;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -96,7 +98,19 @@ class UserController extends Controller
         return $this->success(true, 'notifications settings successfully updated');
     }
 
+    public function blockUser($user_id)
+    {
+        $auth_id = auth()->id();
+        Follow::query()->where(function (Builder $query) use ($auth_id, $user_id) {
+            $query->where('user_id', $auth_id)->where('followed_id', $user_id);
+        })->orWhere(function (Builder $query) use ($auth_id, $user_id) {
+            $query->where('user_id', $user_id)->where('followed_id', $auth_id);
+        })->delete();
+        BlockedUsers::query()->updateOrCreate(['user_id' => $auth_id, 'blocked_id' => $user_id]);
+        BlockedUsers::query()->updateOrCreate(['user_id' => $user_id, 'blocked_id' => $auth_id]);
+        return $this->success(true, 'user blocked successfully');
 
+    }
 
 
 }

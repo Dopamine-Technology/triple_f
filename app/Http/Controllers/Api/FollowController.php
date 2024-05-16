@@ -61,7 +61,7 @@ class FollowController extends Controller
         $limit = $data['limit'] ?? 10;
         $index = $data['index'] ?? 1;
 
-        $users = User::query()
+        $users = User::query()->blockedUsers()
             ->where('user_type_id', '!=', 0)
             ->where('user_type_id', $data['type'])
             ->whereNotIn('id', auth()->user()->followed()->pluck('user_id')->toArray())
