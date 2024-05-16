@@ -35,7 +35,7 @@ class FollowController extends Controller
             $user->profile->save();
 
 // notify user
-//            $this->notificationPermissionsCheck($user, 'new_followers') ? $user->notify(new NewFollower(auth()->user())) : '';
+            $this->notificationPermissionsCheck($user, 'new_followers') ? $user->notify(new NewFollower(auth()->user())) : '';
 // end notify
             return $this->success(true, 'User Added to your follow list');
         }
