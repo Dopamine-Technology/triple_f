@@ -34,7 +34,7 @@ class UserResource extends JsonResource
             'followers_count' => Follow::query()->where('followed_id', $this->id)->count(),
             'is_email_verified' => $this->email_verified_at ? true : false,
             'profile_progress' => $this->progress,
-            'profile' => [
+            'profile' => $this->profile ?[
                 'club_name' => $this->profile->name ?? '',
                 'club_logo' => $this->profile?->logo ? asset('storage/' . $this->profile->logo) : '',
                 'type_id' => $this->user_type_id,
@@ -67,7 +67,7 @@ class UserResource extends JsonResource
                 ] : null,
                 'position' => $this->profile->positions ? PostionsResource::collection(Position::query()->whereIn('id', $this->profile->positions)->get()) : null,
                 "certificates" => $this->profile->certificates ? CertificateResource::collection($this->profile->certificates) : []
-            ],
+            ] : [],
         ];
     }
 }

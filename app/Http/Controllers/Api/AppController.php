@@ -11,6 +11,7 @@ use App\Http\Resources\PostionsResource;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\SportResource;
 use App\Http\Resources\TranslationResource;
+use App\Http\Resources\UserResource;
 use App\Http\Resources\UsertypeResource;
 use App\Models\City;
 use App\Models\ContactUs;
@@ -19,6 +20,7 @@ use App\Models\Language;
 use App\Models\Post;
 use App\Models\Sport;
 use App\Models\Translation;
+use App\Models\User;
 use App\Models\UserType;
 use App\Traits\AppResponse;
 use Illuminate\Http\Request;
@@ -94,4 +96,15 @@ class AppController extends Controller
         }
         return $this->success(PostionsResource::collection($positions->get()));
     }
+
+    public function globalSearch(Request $request)
+    {
+        $data = $request->all();
+        $users = User::query();
+        if (isset($data['name'])) {
+            $users->where('name', 'LIKE', '%' . $data['name'] . '%');
+        }
+        return $this->success(UserResource::collection($users->limit(10)->get()));
+    }
+
 }
