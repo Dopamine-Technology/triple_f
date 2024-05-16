@@ -25,10 +25,16 @@ class PusherNotifications
 
     public function sendPusherMessage(): void
     {
+//        $pusher = new Pusher(
+//            env('PUSHER_APP_KEY'),
+//            env('PUSHER_APP_SECRET'),
+//            env('PUSHER_APP_ID'),
+//            array('cluster' => 'ap2')
+//        );
         $pusher = new Pusher(
-            env('PUSHER_APP_KEY'),
-            env('PUSHER_APP_SECRET'),
-            env('PUSHER_APP_ID'),
+            config('app.pusher_app_key'),
+            config('app.pusher_app_secret'),
+            config('app.pusher_app_id'),
             array('cluster' => 'ap2')
         );
         $pusher->trigger($this->channel, $this->event, $this->notification_data);

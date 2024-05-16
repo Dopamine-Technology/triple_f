@@ -42,7 +42,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    'debug' => (bool)env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -121,6 +121,11 @@ return [
     | will not be safe. Please do this before deploying an application!
     |
     */
+    'pusher_app_id' => env('PUSHER_APP_ID'),
+    'pusher_app_key' => env('PUSHER_APP_KEY'),
+    'pusher_app_secret' => env('PUSHER_APP_SECRET'),
+    'pusher_app_cluster' => env('PUSHER_APP_CLUSTER'),
+    'pusher_scheme' => env('PUSHER_SCHEME'),
 
     'key' => env('APP_KEY'),
 
@@ -165,7 +170,7 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-         App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\Filament\AdminPanelProvider::class,
         App\Providers\RouteServiceProvider::class,
