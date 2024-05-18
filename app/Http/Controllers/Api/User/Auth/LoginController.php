@@ -11,7 +11,7 @@ use App\Traits\AppResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
@@ -20,8 +20,8 @@ class LoginController extends Controller
 
     public function loginWithEmail(LoginRequest $request)
     {
-        $user = User::query()->where('email', $request->email)->first();
-//        dump(Hash::check($request->password, $user->password));
+        $user = User::query()->where('email', $request->email)->firstOrFail();
+
         if (!Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
                 'password' => ['The provided password are incorrect.'],
@@ -32,30 +32,27 @@ class LoginController extends Controller
                     'approved_by_admin' => ['Club need to be approved by admin to proceed'],
                 ]);
             }
+
             if (!$user->profile->approved_by_admin) {
                 throw ValidationException::withMessages([
                     'blocked_by_admin' => ['Your Account is currently suspended , please contact with support for more details'],
                 ]);
             }
-            return $this->success([
-                'source' => 'database',
-                'user' => UserResource::make($user),
-                'token' => $user->createToken('apptoken')->plainTextToken,
-            ], __('User successfully logged in'));
-//            if (Redis::get('user:profile:' . $user->id)) {
-//                return $this->success([
-//                    'source' => 'redis',
-//                    'user' => json_decode(Redis::get('user:profile:' . $user->id)),
-//                    'token' => $user->createToken('apptoken')->plainTextToken,
-//                ], __('User successfully logged in'));
-//            }else{
-//                Redis::set('user:profile:' . $user->id , json_encode(new UserResource($user)));
-//                return $this->success([
-//                    'source' => 'database',
-//                    'user' => json_decode(Redis::get('user:profile:' . $user->id)),
-//                    'token' => $user->createToken('apptoken')->plainTextToken,
-//                ], __('User successfully logged in'));
-//            }
+
+            if (Cache::get('user_' . $user->id)) {
+                return $this->success([
+                    'source' => 'redis',
+                    'user' => UserResource::make(Cache::get('user_' . $user->id)),
+                    'token' => $user->createToken('apptoken')->plainTextToken,
+                ], __('User successfully logged in'));
+            } else {
+                Cache::store('redis')->put('user_' . $user->id, $user, now()->addHours(4)); // 4 Hours
+                return $this->success([
+                    'source' => 'database',
+                    'user' => UserResource::make(Cache::get('user_' . $user->id)),
+                    'token' => $user->createToken('apptoken')->plainTextToken,
+                ], __('User successfully logged in'));
+            }
 
         }
     }
@@ -80,6 +77,15 @@ class LoginController extends Controller
                 'approved_by_admin' => ['Club need to be approved by admin to proceed'],
             ]);
         }
+
+        if (Cache::get('user_' . $user->id)){
+            return $this->success([
+                'source' => 'database',
+                'user' => UserResource::make(Cache::get('user_' . $user->id)),
+                'token' => $user->createToken('apptoken')->plainTextToken,
+            ], __('User successfully logged in'));
+        }
+
         return $this->success([
             'source' => 'database',
             'user' => UserResource::make($user),
@@ -126,26 +132,26 @@ class LoginController extends Controller
                 'approved_by_admin' => ['Club need to be approved by admin to proceed'],
             ]);
         }
-        return $this->success([
-            'source' => 'database',
-            'user' => UserResource::make($user),
-            'token' => $user->createToken('apptoken')->plainTextToken,
-        ], __('User successfully logged in'));
+//        return $this->success([
+//            'source' => 'database',
+//            'user' => UserResource::make($user),
+//            'token' => $user->createToken('apptoken')->plainTextToken,
+//        ], __('User successfully logged in'));
 
-//        if (Redis::get('user:profile:' . $user->id)) {
-//            return $this->success([
-//                'source' => 'redis',
-//                'user' => json_decode(Redis::get('user:profile:' . $user->id)),
-//                'token' => $user->createToken('apptoken')->plainTextToken,
-//            ], __('User successfully logged in'));
-//        }else{
-//            Redis::set('user:profile:' . $user->id , json_encode(new UserResource($user)));
-//            return $this->success([
-//                'source' => 'database',
-//                'user' => json_decode(Redis::get('user:profile:' . $user->id)),
-//                'token' => $user->createToken('apptoken')->plainTextToken,
-//            ], __('User successfully logged in'));
-//        }
+        if (Redis::get('user:profile:' . $user->id)) {
+            return $this->success([
+                'source' => 'redis',
+                'user' => json_decode(Redis::get('user:profile:' . $user->id)),
+                'token' => $user->createToken('apptoken')->plainTextToken,
+            ], __('User successfully logged in'));
+        } else {
+            Redis::set('user:profile:' . $user->id, json_encode(new UserResource($user)));
+            return $this->success([
+                'source' => 'database',
+                'user' => json_decode(Redis::get('user:profile:' . $user->id)),
+                'token' => $user->createToken('apptoken')->plainTextToken,
+            ], __('User successfully logged in'));
+        }
     }
 
 }
