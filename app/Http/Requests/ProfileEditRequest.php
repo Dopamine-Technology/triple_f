@@ -143,7 +143,7 @@ class ProfileEditRequest extends FormRequest
         $data = array();
         $data['profile']['sport_id'] = $this->talent_type;
         $data['profile']['parent_position_id'] = $this->parent_position;
-        $data['profile']['positions'] = json_decode($this->position);
+        $data['profile']['positions'] = $this->position;
         $data['profile']['gender'] = $this->gender;
         $data['profile']['birth_date'] = date("Y-m-d", strtotime($this->birth_date));
         $data['profile']['height'] = $this->height;
