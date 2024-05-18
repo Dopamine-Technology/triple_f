@@ -45,14 +45,14 @@ class OpportunityController extends Controller
             ->where('targeted_type', auth()->user()->user_type_id)
             ->whereNotIn('id', $applied_opportunities)
             ->orderBy('created_at', 'DESC')
-            ->get();
+            ->simplePaginate(10);
         return $this->success(OpportunityResource::collection($opportunities));
 
     }
 
     public function getUserPublishedOpportunities($user_id)
     {
-        $opportunities = Opportunity::query()->where('user_id', $user_id)->orderBy('created_at', 'DESC')->get();
+        $opportunities = Opportunity::query()->where('user_id', $user_id)->orderBy('created_at', 'DESC')->simplePaginate(10);
         return $this->success(OpportunityResource::collection($opportunities));
     }
 
@@ -76,10 +76,11 @@ class OpportunityController extends Controller
         if ($data['type'] == 'applied') {
             $applied_opportunities = OpportunityApplicant::query()->where('user_id', auth()->user()->id)
                 ->where('user_type_id', auth()->user()->user_type_id)->pluck('opportunity_id')->toArray();
-            $opportunities = Opportunity::query()->whereIn('id', $applied_opportunities)->orderBy('created_at', 'DESC')->get();
+
+            $opportunities = Opportunity::query()->whereIn('id', $applied_opportunities)->orderBy('created_at', 'DESC')->simplePaginate(10);
             return $this->success(OpportunityResource::collection($opportunities));
         } else {
-            $opportunities = Opportunity::query()->where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->get();
+            $opportunities = Opportunity::query()->where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->simplePaginate(10);
             return $this->success(OpportunityResource::collection($opportunities));
         }
     }

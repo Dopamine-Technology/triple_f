@@ -51,13 +51,13 @@ class UserController extends Controller
     public function getFollowingList($user_id)
     {
         $following_ids = Follow::query()->where('user_id', $user_id)->pluck('followed_id')->toArray();
-        return $this->success(UserResource::collection(User::query()->whereIn('id', $following_ids)->get()));
+        return $this->success(UserResource::collection(User::query()->whereIn('id', $following_ids)->simplePaginate(10)));
     }
 
     public function getFollowersList($user_id)
     {
         $followers_ids = Follow::query()->where('followed_id', $user_id)->pluck('user_id')->toArray();
-        return $this->success(UserResource::collection(User::query()->whereIn('id', $followers_ids)->get()));
+        return $this->success(UserResource::collection(User::query()->whereIn('id', $followers_ids)->simplePaginate(10)));
     }
 
     public function updateProfile(ProfileEditRequest $request)

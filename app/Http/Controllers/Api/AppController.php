@@ -32,13 +32,13 @@ class AppController extends Controller
 
     public function getSiteLocaleLanguages()
     {
-        $languages = Language::query()->where('is_site_locale', true)->get();
+        $languages = Language::query()->where('is_site_locale', true)->simplePaginate(10);
         return $this->success(LanguageResource::collection($languages));
     }
 
     public function getLanguages()
     {
-        return $this->success(LanguageResource::collection(Language::all()));
+        return $this->success(LanguageResource::collection(Language::query()->simplePaginate(10)));
     }
 
     public function getTranslatableStrings()
@@ -56,33 +56,33 @@ class AppController extends Controller
 
     public function getLatestPosts(Request $request)
     {
-        $posts = Post::query()->orderBy('created_at', 'DESC')->get();
+        $posts = Post::query()->orderBy('created_at', 'DESC')->simplePaginate(10);
         return $this->success(PostResource::collection($posts));
     }
+
     public function getPost($post_id){
         $post = Post::query()->where('id', $post_id)->first();
         return $this->success(PostResource::make($post));
     }
 
-
     public function getUserTypes()
     {
-        return $this->success(UsertypeResource::collection(UserType::all()));
+        return $this->success(UsertypeResource::collection(UserType::query()->simplePaginate(10)));
     }
 
     public function getSports()
     {
-        return $this->success(SportResource::collection(Sport::all()));
+        return $this->success(SportResource::collection(Sport::query()->simplePaginate(10)));
     }
 
     public function getCountries()
     {
-        return $this->success(CountriesResource::collection(Country::query()->get()));
+        return $this->success(CountriesResource::collection(Country::query()->simplePaginate(10)));
     }
 
     public function getCities($country_id = 0)
     {
-        $cities = $country_id ? City::query()->where('country_id', $country_id)->get() : City::query()->get();
+        $cities = $country_id ? City::query()->where('country_id', $country_id)->simplePaginate(10) : City::query()->simplePaginate(10);
         return $this->success(CitiesResource::collection($cities));
     }
 
@@ -97,7 +97,7 @@ class AppController extends Controller
         } else {
             $positions = $positions->where('parent_id', $request->parent_id);
         }
-        return $this->success(PostionsResource::collection($positions->get()));
+        return $this->success(PostionsResource::collection($positions->simplePaginate(10)));
     }
 
     public function globalSearch(Request $request)
@@ -107,7 +107,7 @@ class AppController extends Controller
         if (isset($data['name'])) {
             $users->where('name', 'LIKE', '%' . $data['name'] . '%');
         }
-        return $this->success(UserResource::collection($users->limit(10)->get()));
+        return $this->success(UserResource::collection($users->simplePaginate(10)));
     }
 
 }

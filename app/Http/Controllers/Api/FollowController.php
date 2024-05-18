@@ -48,7 +48,7 @@ class FollowController extends Controller
 
     public function getFollowList()
     {
-        return $this->success(UserResource::collection(auth()->user()->followed()->paginate(10)));
+        return $this->success(UserResource::collection(auth()->user()->followed()->simplePaginate(10)));
     }
 
     public function getSuggestionsToFollow(Request $request)
@@ -68,7 +68,7 @@ class FollowController extends Controller
             ->where('id', '!=', auth()->user()->id)
             ->get();
         return $this->success(UserResource::collection($users->sortByDesc(function ($user) {
-            return $user->profile->follower_count;
+            return $user->profile?->follower_count;
         })->forPage($index, $limit)));
     }
 

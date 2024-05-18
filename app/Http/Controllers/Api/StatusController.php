@@ -30,7 +30,7 @@ class StatusController extends Controller
         $followed_users_ids = auth()->user()->followed()->pluck('followed_id')->toArray();
         $followedWithStatuses = User::query()->whereIn('id', $followed_users_ids)
             ->whereHas('statuses')
-            ->get()->sortByDesc(function ($user) {
+            ->simplePaginate(10)->sortByDesc(function ($user) {
                 return $user->statuses->first()->created_at ?? null;
             });
         return $this->success(UserStoriesResource::collection($followedWithStatuses));
@@ -38,7 +38,7 @@ class StatusController extends Controller
 
     public function getUserStories($user_id)
     {
-        $statuses = Status::query()->where('user_id', $user_id)->orderBy('created_at', 'DESC')->get();
+        $statuses = Status::query()->where('user_id', $user_id)->orderBy('created_at', 'DESC')->simplePaginate(10);
         return $this->success(StatusResource::collection($statuses));
     }
 
@@ -47,19 +47,22 @@ class StatusController extends Controller
     {
         $statuses_user_ids = auth()->user()->followed()->pluck('followed_id')->toArray();
         $blocked_statuses = BlockedPost::query()->where('user_id', auth()->user()->id)->pluck('status_id')->toArray();
+
         array_push($statuses_user_ids, auth()->user()->id);
+
         $trending_this_week = Status::query()->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
             ->orderBy('total_points', 'DESC')->pluck('id')->toArray();
+
         $statuses = Status::query()
             ->whereNotIn('id', $blocked_statuses)
             ->whereIn('id', $trending_this_week)
-            ->whereIn('user_id', $statuses_user_ids)->orderBy('created_at', 'DESC')->get();
+            ->whereIn('user_id', $statuses_user_ids)->orderBy('created_at', 'DESC')->simplePaginate(100);
         return $this->success(StatusResource::collection($statuses));
     }
 
     public function getUserStatuses($user_id)
     {
-        $statuses = Status::query()->where('user_id', $user_id)->orderBy('created_at', 'DESC')->get();
+        $statuses = Status::query()->where('user_id', $user_id)->orderBy('created_at', 'DESC')->simplePaginate(100);
         return $this->success(StatusResource::collection($statuses));
     }
 
@@ -73,7 +76,7 @@ class StatusController extends Controller
             $reactions->where('points', $data['points']);
         }
         $user_ids = $reactions->pluck('user_id')->toArray();
-        return $this->success(UserResource::collection(User::query()->whereIn('id', $user_ids)->get()));
+        return $this->success(UserResource::collection(User::query()->whereIn('id', $user_ids)->simplePaginate(100)));
     }
 
     public function getOne(Status $status)
@@ -164,8 +167,7 @@ class StatusController extends Controller
         $posts_ids = UserSave::query()->where('user_id', auth()->user()->id)
             ->where('element_type', 'challenge_post')
             ->pluck('element_id')->toArray();
-        return $this->success(StatusResource::collection(Status::query()->whereIn('id', $posts_ids)->get()));
-
+        return $this->success(StatusResource::collection(Status::query()->whereIn('id', $posts_ids)->simplePaginate(20)));
     }
 
     public function blockStatus($status_id)

@@ -62,7 +62,9 @@ class MessageController extends Controller
 
     public function deleteChat($user_id)
     {
-        DeletedChat::query()->updateOrCreate(['user_id' => auth()->user()->id, 'deleted_user_id' => $user_id], ['user_id' => auth()->user()->id, 'deleted_user_id' => $user_id]);
+        DeletedChat::query()->updateOrCreate(
+            ['user_id' => auth()->user()->id, 'deleted_user_id' => $user_id], ['user_id' => auth()->user()->id, 'deleted_user_id' => $user_id]
+        );
         return $this->success(true);
     }
 
