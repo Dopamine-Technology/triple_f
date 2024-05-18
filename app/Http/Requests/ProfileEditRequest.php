@@ -172,7 +172,11 @@ class ProfileEditRequest extends FormRequest
         $data = array();
 
         $data['profile']['name'] = $this->club_name;
-        $data['profile']['logo'] = isset($this->club_logo) && !empty($this->club_logo) ? $this->file('club_logo')->store('clubs', 'public') : '';
+
+        if (isset($this->club_logo) && !empty($this->club_logo)) {
+            $data['profile']['logo'] = $this->file('club_logo')->store('clubs', 'linode');
+        }
+        
         $data['profile']['sport_id'] = $this->talent_type;
         $data['profile']['country_id'] = $this->country_id;
         $data['profile']['mobile_number'] = $this->mobile_number;
