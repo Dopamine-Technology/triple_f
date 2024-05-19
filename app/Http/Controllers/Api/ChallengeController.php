@@ -9,7 +9,7 @@ use App\Traits\AppResponse;
 
 class ChallengeController extends Controller
 {
-    use  AppResponse; 
+    use  AppResponse;
 
     public function getChallenges()
     {
@@ -22,4 +22,18 @@ class ChallengeController extends Controller
         })->get();
         return $this->success(ChallengeResource::collection($challenges));
     }
+
+    public function getRecommendedChallenges()
+    {
+        $challenges = Challenge::query()->where(function ($query) {
+            $query->where('sport_id', auth()->user()->profile->sport_id);
+            $query->where('positions', 'like', "%" . auth()->user()->profile->position_id . "%");
+        })->orWhere(function ($query) {
+            $query->orWhere('sport_id', 0);
+            $query->orWhere('positions', 'like', "[]");
+        })->inRandomOrder()->simplePaginate(10);
+
+        return $this->success(ChallengeResource::collection($challenges));
+    }
+
 }

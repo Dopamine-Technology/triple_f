@@ -29,7 +29,7 @@ class ChallengeResource extends JsonResource
             'tips' => $this->tips ? collect($this->tips)->map(function ($tip) {
                 return $tip[LANGUAGE];
             }) : [],
-            'position' => PostionsResource::collection(Position::query()->whereIn('id', $this->positions)->get())
+            'position' => PostionsResource::collection(Position::query()->whereIn('id', $this->positions)->get()),
         ];
     }
 }

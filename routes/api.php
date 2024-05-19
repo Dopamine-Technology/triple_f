@@ -77,6 +77,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::controller(ChallengeController::class)->prefix('/challenge')->middleware(['localization'])->group(function () {
         Route::get('get', 'getChallenges');
+        Route::get('get_recommended', 'getRecommendedChallenges');
     });
     Route::controller(StatusController::class)->prefix('/status')->middleware(['localization'])->group(function () {
         Route::get('timeline', 'getTimelineStatuses');
