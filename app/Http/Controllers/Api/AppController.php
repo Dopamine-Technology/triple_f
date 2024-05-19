@@ -67,22 +67,22 @@ class AppController extends Controller
 
     public function getUserTypes()
     {
-        return $this->success(UsertypeResource::collection(UserType::query()->simplePaginate(10)));
+        return $this->success(UsertypeResource::collection(UserType::query()->get()));
     }
 
     public function getSports()
     {
-        return $this->success(SportResource::collection(Sport::query()->simplePaginate(10)));
+        return $this->success(SportResource::collection(Sport::query()->get()));
     }
 
     public function getCountries()
     {
-        return $this->success(CountriesResource::collection(Country::query()->simplePaginate(10)));
+        return $this->success(CountriesResource::collection(Country::query()->get()));
     }
 
     public function getCities($country_id = 0)
     {
-        $cities = $country_id ? City::query()->where('country_id', $country_id)->simplePaginate(10) : City::query()->simplePaginate(10);
+        $cities = $country_id ? City::query()->where('country_id', $country_id)->get() : City::query()->get();
         return $this->success(CitiesResource::collection($cities));
     }
 
@@ -97,7 +97,7 @@ class AppController extends Controller
         } else {
             $positions = $positions->where('parent_id', $request->parent_id);
         }
-        return $this->success(PostionsResource::collection($positions->simplePaginate(10)));
+        return $this->success(PostionsResource::collection($positions->get()));
     }
 
     public function globalSearch(Request $request)
@@ -107,7 +107,7 @@ class AppController extends Controller
         if (isset($data['name'])) {
             $users->where('name', 'LIKE', '%' . $data['name'] . '%');
         }
-        return $this->success(UserResource::collection($users->simplePaginate(10)));
+        return $this->success(UserResource::collection($users->get()));
     }
 
 }
