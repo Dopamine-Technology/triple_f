@@ -45,7 +45,7 @@ class OpportunityController extends Controller
             ->where('targeted_type', auth()->user()->user_type_id)
             ->whereNotIn('id', $applied_opportunities)
             ->orderBy('created_at', 'DESC')
-            ->simplePaginate(10);
+            ->get();
         return $this->success(OpportunityResource::collection($opportunities));
 
     }
