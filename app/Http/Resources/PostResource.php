@@ -15,6 +15,7 @@ class PostResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+           'id'=> $this->id,
            'title'=> $this->getTranslation('title' , LANGUAGE),
            'content'=> $this->getTranslation('content' , LANGUAGE),
            'main_image'=> $this->getMedia('main_image')->first()?->getUrl() ?? '',

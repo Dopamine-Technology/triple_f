@@ -44,7 +44,7 @@ class UserProfileController extends Controller
                 $q->where('preferred_foot', $data['preferred_foot']);
             });
         }
-        return $this->success(UserResource::collection($users->simplePaginate(10)));
+        return $this->success(UserResource::collection($users->get()));
 
     }
 
@@ -75,7 +75,7 @@ class UserProfileController extends Controller
                 $q->where('years_of_experience', '<=', $data['experience_to']);
             });
         }
-        return $this->success(UserResource::collection($users->simplePaginate(10)));
+        return $this->success(UserResource::collection($users->get()));
     }
 
     public function findClubsProfiles(Request $request)
@@ -100,7 +100,7 @@ class UserProfileController extends Controller
             });
         }
 
-        return $this->success(UserResource::collection($users->simplePaginate(10)));
+        return $this->success(UserResource::collection($users->get()));
     }
 
     public function findScoutsProfiles(Request $request)
@@ -131,7 +131,7 @@ class UserProfileController extends Controller
                 $q->where('years_of_experience', '<=', $data['experience_to']);
             });
         }
-        return $this->success(UserResource::collection($users->simplePaginate(10)));
+        return $this->success(UserResource::collection($users->get()));
     }
 
 
