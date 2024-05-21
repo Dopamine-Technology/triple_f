@@ -56,7 +56,7 @@ class AppController extends Controller
 
     public function getLatestPosts(Request $request)
     {
-        $posts = Post::query()->orderBy('created_at', 'DESC')->simplePaginate(10);
+        $posts = Post::query()->orderBy('created_at', 'DESC')->get();
         return $this->success(PostResource::collection($posts));
     }
 
