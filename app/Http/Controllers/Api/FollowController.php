@@ -64,7 +64,7 @@ class FollowController extends Controller
         $users = User::query()->blockedUsers()
             ->where('user_type_id', '!=', 0)
             ->where('user_type_id', $data['type'])
-            ->whereNotIn('id', auth()->user()->followed()->pluck('user_id')->toArray())
+            ->whereNotIn('id', auth()->user()->followed()->pluck('followed_id')->toArray())
             ->where('id', '!=', auth()->user()->id)
             ->get();
         return $this->success(UserResource::collection($users->sortByDesc(function ($user) {
