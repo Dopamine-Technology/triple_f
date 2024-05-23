@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->json('description');
             $table->string('image')->nullable();
             $table->json('tips')->nullable();
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

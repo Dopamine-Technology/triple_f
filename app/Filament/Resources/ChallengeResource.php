@@ -20,6 +20,7 @@ use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -36,9 +37,11 @@ class ChallengeResource extends Resource
     {
         return $form
             ->schema([
+
                 Section::make()->schema([
+                    Forms\Components\Toggle::make('is_active'),
                     Group::make()->schema([
-                        FileUpload::make('image'),
+                        FileUpload::make('image')->image(),
                     ])->columns(1),
                     Group::make()->schema([
                         TextInput::make('name.ar')->label('Arabic Title')->required(),
@@ -53,7 +56,7 @@ class ChallengeResource extends Resource
                     ])->columns(1),
                     Grid::make()->schema([
                         Select::make('positions')
-                            ->options(Position::query()->where('parent_id' , 0)->pluck('name', 'id')->toArray())
+                            ->options(Position::query()->where('parent_id', 0)->pluck('name', 'id')->toArray())
                             ->searchable()->multiple(),
                     ])->columns(1),
                 ]),
@@ -79,7 +82,18 @@ class ChallengeResource extends Resource
                 TextColumn::make('positions')
                     ->formatStateUsing(fn(string $state): string => Position::query()->find($state)->name)
                     ->badge(),
+                IconColumn::make('is_active')->label('Active')
+                    ->icon(fn(string $state): string => match ($state) {
+                        '1' => 'heroicon-o-check-circle',
+                        default => 'heroicon-o-no-symbol',
+                    })->color(fn (string $state): string => match ($state) {
+                        '1' => 'info',
+                        default => 'danger',
+
+                    }),
+
                 TextColumn::make('created_at')->default('-'),
+
             ])
             ->filters([
                 //
@@ -88,9 +102,9 @@ class ChallengeResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+//                Tables\Actions\BulkActionGroup::make([
+//                    Tables\Actions\DeleteBulkAction::make(),
+//                ]),
             ]);
     }
 

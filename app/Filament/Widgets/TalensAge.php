@@ -7,7 +7,7 @@ use Filament\Widgets\ChartWidget;
 
 class TalensAge extends ChartWidget
 {
-    protected static ?string $heading = 'Chart';
+    protected static ?string $heading = 'Talents By Age';
 
     protected function getData(): array
     {

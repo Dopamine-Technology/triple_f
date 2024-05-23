@@ -23,10 +23,11 @@ class EditPost extends EditRecord
     {
 
         $record->admin_id = auth()->user()->id;
-        return $record->setTranslation('title', 'ar', $data['title']['ar'])
-            ->setTranslation('title', 'en', $data['title']['en'])
-            ->setTranslation('content', 'ar', $data['content']['ar'])
-            ->setTranslation('content', 'en', $data['content']['en'])->save();
+        $record->setTranslation('title', 'en', $data['title'])
+//            ->setTranslation('title', 'en', $data['title']['en'])
+//            ->setTranslation('content', 'ar', $data['content']['ar'])
+            ->setTranslation('content', 'en', $data['content'])->save();
+        return $record;
 
     }
 

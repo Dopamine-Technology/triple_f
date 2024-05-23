@@ -33,36 +33,36 @@ class OpportunityResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('title'),
-                TextColumn::make('requirements'),
-                TextColumn::make('additional_info'),
-                TextColumn::make('status')->badge(),
+                TextColumn::make('title')->disabledClick(),
+                TextColumn::make('requirements')->disabledClick(),
+                TextColumn::make('additional_info')->disabledClick(),
+                TextColumn::make('status')->badge()->disabledClick(),
                 TextColumn::make('from_age')->state(
                     static function (Opportunity $record): string {
                         return ($record->from_age != 0 ? $record->from_age : '') . ' - ' . ($record->to_age != 0 ? $record->to_age : '');
                     }
-                )->label('Age'),
+                )->label('Age')->disabledClick(),
                 TextColumn::make('height')->state(
                     static function (Opportunity $record): string {
                         return ($record->from_height != 0 ? $record->from_height . ' cm ' : '') . ' - ' . ($record->to_height != 0 ? $record->to_height . ' cm ' : '');
                     }
-                )->label('Height'),
+                )->label('Height')->disabledClick(),
                 TextColumn::make('weight')->state(
                     static function (Opportunity $record): string {
                         return ($record->from_weight != 0 ? $record->from_weight . ' kg ' : '') . ' - ' . ($record->to_weight != 0 ? $record->to_weight . ' kg ' : '');
                     }
-                )->label('Weight'),
+                )->label('Weight')->disabledClick(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+//                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+//                Tables\Actions\BulkActionGroup::make([
+//                    Tables\Actions\DeleteBulkAction::make(),
+//                ]),
             ]);
     }
 

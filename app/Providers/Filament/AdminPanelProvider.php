@@ -30,7 +30,7 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->brandLogo(asset('logo.svg'))
+            ->brandLogo(asset('logo.png'))
             ->darkModeBrandLogo(asset('dark-logo.svg'))
             ->darkMode(true)
             ->brandLogoHeight('2rem')
@@ -60,6 +60,7 @@ class AdminPanelProvider extends PanelProvider
                 AccountsOverView::class,
                 TalensAge::class,
                 UserByGender::class,
+
             ])
             ->middleware([
                 EncryptCookies::class,

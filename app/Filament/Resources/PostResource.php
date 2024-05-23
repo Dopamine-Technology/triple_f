@@ -107,9 +107,9 @@ class PostResource extends Resource
                     })->icon('heroicon-o-language')->color('info')
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+//                Tables\Actions\BulkActionGroup::make([
+//                    Tables\Actions\DeleteBulkAction::make(),
+//                ]),
             ])
             ->emptyStateActions([
                 Tables\Actions\CreateAction::make(),

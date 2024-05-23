@@ -37,14 +37,15 @@ class StatusResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make()->schema([
+//                    Forms\Components\TextInput::make('user_id')->default(auth()->id()),
                     Toggle::make('approved'),
                     Forms\Components\Grid::make()->schema([
-                        Forms\Components\TextInput::make('title'),
-                        Forms\Components\Textarea::make('description')->label('Text')->rows(4),
+                        Forms\Components\TextInput::make('title')->required(),
+                        Forms\Components\Textarea::make('description')->label('Text')->rows(4)->required(),
                     ])->columns(2),
                     Forms\Components\Grid::make()->schema([
-                        Forms\Components\FileUpload::make('image'),
-                        Forms\Components\FileUpload::make('video'),
+                        Forms\Components\FileUpload::make('image')->image()->required(),
+                        Forms\Components\FileUpload::make('video')->acceptedFileTypes(['.mp4'])->required(),
                     ])->columns(2),
                 ])
             ]);
@@ -114,9 +115,9 @@ class StatusResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+//                Tables\Actions\BulkActionGroup::make([
+//                    Tables\Actions\DeleteBulkAction::make(),
+//                ]),
             ]);
     }
 
@@ -135,6 +136,11 @@ class StatusResource extends Resource
         return [
             //
         ];
+    }
+
+    public static function canCreate(): bool
+    {
+        return false;
     }
 
     public static function getPages(): array

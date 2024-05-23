@@ -45,12 +45,12 @@ class TalentsResource extends Resource
     {
         return $form
             ->schema([
+                Toggle::make('approved_by_admin'),
                 Section::make('User Info')
                     ->schema([
-                        Toggle::make('profile.approved_by_admin'),
-                            TextInput::make('name')->required(),
-                            TextInput::make('email')->required(),
-                            TextInput::make('password')->required(fn(string $context): bool => $context === 'create'),
+                        TextInput::make('name')->required(),
+                        TextInput::make('email')->required(),
+                        TextInput::make('password')->required(fn(string $context): bool => $context === 'create'),
                     ])->relationship('user'),
                 Section::make('profile Info')->schema([
                     Grid::make()->schema([
@@ -87,7 +87,7 @@ class TalentsResource extends Resource
                     ])->columns(2),
                 ]),
 
-               Section::make()->schema([
+                Section::make()->schema([
                     CheckboxList::make('notification_settings')->options([
                         "new_followers" => "New Followers",
                         "follower_challenges" => "Follower Challenges",
@@ -132,9 +132,9 @@ class TalentsResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+//                Tables\Actions\BulkActionGroup::make([
+//                    Tables\Actions\DeleteBulkAction::make(),
+//                ]),
             ]);
     }
 

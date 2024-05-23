@@ -15,7 +15,7 @@ class ChallengeController extends Controller
 
     public function getChallenges()
     {
-        $challenges = Challenge::query()->where(function ($query) {
+        $challenges = Challenge::query()->where('is_active', true)->where(function ($query) {
             $query->where('sport_id', auth()->user()->profile->sport_id);
             $query->where('positions', 'like', "%" . auth()->user()->profile->position_id . "%");
         })->orWhere(function ($query) {

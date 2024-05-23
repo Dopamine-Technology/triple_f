@@ -33,5 +33,10 @@ class Coach extends Model
         return $this->morphMany(Certificate::class, 'certificatable');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 
 }

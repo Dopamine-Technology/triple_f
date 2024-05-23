@@ -36,13 +36,14 @@ class ScoutResource extends Resource
 
     protected static ?string $navigationIcon = 'icon-scout';
     protected static ?int $navigationSort = 4;
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+                Toggle::make('approved_by_admin'),
                 Section::make('User Info')
                     ->schema([
-                        Toggle::make('profile.approved_by_admin'),
                         TextInput::make('name')->required(),
                         TextInput::make('email')->required(),
                         TextInput::make('password')->required(fn(string $context): bool => $context === 'create'),
@@ -50,14 +51,24 @@ class ScoutResource extends Resource
 
                 Section::make()->schema([
                     Grid::make()->schema([
-                        Select::make('country_id')->label('Country')->options(Country::query()->pluck('name' , 'id'))->searchable(),
-                        Select::make('city_id')->label('City')->options(City::query()->pluck('name' , 'id'))->searchable(),
+                        Select::make('country_id')->label('Country')->options(Country::query()->pluck('name', 'id'))->searchable(),
+                        Select::make('city_id')->label('City')->options(City::query()->pluck('name', 'id'))->searchable(),
                     ])->columns(2),
                     Grid::make()->schema([
                         TextInput::make('mobile_number'),
                         DatePicker::make('birth_date'),
-                        TextInput::make('residence_place'),
-                    ])->columns(3),
+                        Select::make('country_id')
+                            ->options(Country::query()->pluck('name', 'id')->toArray())
+                            ->getSearchResultsUsing(fn(string $search): array => Country::query()->where('name', 'like', "%{$search}%")->limit(10)->pluck('name', 'id')->toArray())->label('Select Country')
+                            ->getOptionLabelsUsing(fn(array $values): array => Country::whereIn('id', $values)->pluck('name', 'id')->toArray())
+                            ->searchable(),
+                        Select::make('city_id')
+                            ->label('Select City')
+                            ->options(City::query()->pluck('name', 'id')->toArray())
+                            ->getSearchResultsUsing(fn(string $search): array => City::query()->where('name', 'like', "%{$search}%")->limit(10)->pluck('name', 'id')->toArray())
+                            ->getOptionLabelsUsing(fn(array $values): array => City::whereIn('id', $values)->pluck('name', 'id')->toArray())
+                            ->searchable(),
+                    ])->columns(4),
                     Grid::make()->schema([
                         Select::make('gender')->options([
                             'male' => 'Male',
@@ -112,9 +123,9 @@ class ScoutResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+//                Tables\Actions\BulkActionGroup::make([
+//                    Tables\Actions\DeleteBulkAction::make(),
+//                ]),
             ]);
     }
 
@@ -136,6 +147,6 @@ class ScoutResource extends Resource
 
     public static function canCreate(): bool
     {
-     return false;
+        return false;
     }
 }

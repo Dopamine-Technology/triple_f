@@ -39,8 +39,7 @@ class AdminResource extends Resource
                     TextInput::make('password')->required(fn(string $context): bool => $context === 'create'),
                     Select::make('role')
                         ->options(Role::query()->pluck('name', 'id')->toArray())
-                        ->relationship(name: 'roles', titleAttribute: 'name')
-
+//                        ->relationship(name: 'roles', titleAttribute: 'name')
                 ])
             ]);
     }

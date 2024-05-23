@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "bezhansalleh/filament-google-analytics": "^2.0",
         "filament/filament": "^3.1.22",
         "filament/notifications": "*",
         "filament/spatie-laravel-media-library-plugin": "*",
@@ -23,6 +24,7 @@
         "owenvoke/blade-fontawesome": "^2.5",
         "predis/predis": "^2.2",
         "pusher/pusher-php-server": "^7.2",
+        "spatie/laravel-analytics": "^5.3",
         "spatie/laravel-medialibrary": "*",
         "spatie/laravel-permission": "^6.1",
         "spatie/laravel-translatable": "^6.5"

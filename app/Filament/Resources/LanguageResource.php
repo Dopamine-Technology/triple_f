@@ -27,9 +27,9 @@ class LanguageResource extends Resource
             ->schema([
                 Forms\Components\Section::make()->schema([
                     Forms\Components\Grid::make()->schema([
-                        TextInput::make('name.en')->label('English Name'),
-                        TextInput::make('name.ar')->label('Arabic Name'),
-                        TextInput::make('iso_code')->label('ISO Code')->maxLength(4),
+                        TextInput::make('name.en')->label('English Name')->required(),
+                        TextInput::make('name.ar')->label('Arabic Name')->required(),
+                        TextInput::make('iso_code')->label('ISO Code')->maxLength(4)->required(),
                     ])->columns(1)
                 ]),
             ]);
@@ -54,9 +54,9 @@ class LanguageResource extends Resource
                     ->action(fn(Language $record) => redirect()->to(url('admin/languages/' . $record->id . '/translation')))
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+//                Tables\Actions\BulkActionGroup::make([
+//                    Tables\Actions\DeleteBulkAction::make(),
+//                ]),
             ])
             ->emptyStateActions([
                 Tables\Actions\CreateAction::make(),
