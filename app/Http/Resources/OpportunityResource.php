@@ -32,7 +32,7 @@ class OpportunityResource extends JsonResource
             'to_weight' => $this->to_weight,
             'gender' => $this->gender,
             'foot' => $this->foot,
-            'position' => new PostionsResource($this->positions),
+            'position' => new PostionsResource($this->position),
             'targeted_type' => $this->targeted_type,
             'user' => new UserResource($this->user),
             'languages' => !empty($this->languages) ? LanguageResource::collection(Language::query()->whereIn('id', $this->languages)->get()) : [],
