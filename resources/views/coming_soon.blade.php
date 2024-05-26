@@ -27,7 +27,8 @@
     <div class="hero-container">
         <h1>Triple F By Dopamine Technology</h1>
         <h2>We're working hard to improve our website and we'll ready to launch after</h2>
-        <div class="countdown" data-count="2024/2/1" data-template="%d days %h:%m:%s"></div>
+        <h1>Coming Soon !</h1>
+
     </div>
 </section>
 
