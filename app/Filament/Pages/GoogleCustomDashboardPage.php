@@ -9,6 +9,7 @@ class GoogleCustomDashboardPage extends Page
 {
     protected static ?string $navigationIcon = 'icon-analytic';
     protected static ?string $navigationLabel = 'Google Analytic Dashboard';
+    protected static ?string $title = 'Google Analytic Dashboard';
     protected static string $view = 'filament.pages.google-custom-dashboard-page';
 
     protected function getHeaderWidgets(): array
