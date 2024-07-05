@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::middleware('throttle:420,1')->group(function () {
 Route::controller(AppController::class)->prefix('/app')->middleware(['localization'])->group(function () {
     Route::get('get_translations', 'getTranslatableStrings');
     Route::get('get_locales', 'getSiteLocaleLanguages');
@@ -139,5 +140,5 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 
-
+});
 
