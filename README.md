@@ -46,6 +46,12 @@ DB_PASSWORD=
 ```
 composer update
 ```
+4- Migrations & Seed Demo Data
+
+```
+php artisan migrate:fresh --seed
+```
+
 ## Laivewire
 check livewire official<a href="https://livewire.laravel.com/"> documentation</a> 
 
