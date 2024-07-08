@@ -39,20 +39,25 @@ class LoginController extends Controller
                 ]);
             }
 
-            if (Cache::get('user_' . $user->id)) {
-                return $this->success([
-                    'source' => 'redis',
-                    'user' => UserResource::make(Cache::get('user_' . $user->id)),
-                    'token' => $user->createToken('apptoken')->plainTextToken,
-                ], __('User successfully logged in'));
-            } else {
-                Cache::store('redis')->put('user_' . $user->id, $user, now()->addHours(4)); // 4 Hours
-                return $this->success([
-                    'source' => 'database',
-                    'user' => UserResource::make(Cache::get('user_' . $user->id)),
-                    'token' => $user->createToken('apptoken')->plainTextToken,
-                ], __('User successfully logged in'));
-            }
+            return $this->success([
+                'source' => 'redis',
+                'user' => UserResource::make($user),
+                'token' => $user->createToken('apptoken')->plainTextToken,
+            ], __('User successfully logged in'));
+//            if (Cache::get('user_' . $user->id)) {
+//                return $this->success([
+//                    'source' => 'redis',
+//                    'user' => UserResource::make(Cache::get('user_' . $user->id)),
+//                    'token' => $user->createToken('apptoken')->plainTextToken,
+//                ], __('User successfully logged in'));
+//            } else {
+//                Cache::store('redis')->put('user_' . $user->id, $user, now()->addHours(4)); // 4 Hours
+//                return $this->success([
+//                    'source' => 'database',
+//                    'user' => UserResource::make(Cache::get('user_' . $user->id)),
+//                    'token' => $user->createToken('apptoken')->plainTextToken,
+//                ], __('User successfully logged in'));
+//            }
 
         }
     }
@@ -78,13 +83,13 @@ class LoginController extends Controller
             ]);
         }
 
-        if (Cache::get('user_' . $user->id)){
-            return $this->success([
-                'source' => 'database',
-                'user' => UserResource::make(Cache::get('user_' . $user->id)),
-                'token' => $user->createToken('apptoken')->plainTextToken,
-            ], __('User successfully logged in'));
-        }
+//        if (Cache::get('user_' . $user->id)) {
+//            return $this->success([
+//                'source' => 'database',
+//                'user' => UserResource::make(Cache::get('user_' . $user->id)),
+//                'token' => $user->createToken('apptoken')->plainTextToken,
+//            ], __('User successfully logged in'));
+//        }
 
         return $this->success([
             'source' => 'database',
@@ -132,26 +137,31 @@ class LoginController extends Controller
                 'approved_by_admin' => ['Club need to be approved by admin to proceed'],
             ]);
         }
+        return $this->success([
+            'source' => 'database',
+            'user' => UserResource::make($user),
+            'token' => $user->createToken('apptoken')->plainTextToken,
+        ], __('User successfully logged in'));
 //        return $this->success([
 //            'source' => 'database',
 //            'user' => UserResource::make($user),
 //            'token' => $user->createToken('apptoken')->plainTextToken,
 //        ], __('User successfully logged in'));
 
-        if (Redis::get('user:profile:' . $user->id)) {
-            return $this->success([
-                'source' => 'redis',
-                'user' => json_decode(Redis::get('user:profile:' . $user->id)),
-                'token' => $user->createToken('apptoken')->plainTextToken,
-            ], __('User successfully logged in'));
-        } else {
-            Redis::set('user:profile:' . $user->id, json_encode(new UserResource($user)));
-            return $this->success([
-                'source' => 'database',
-                'user' => json_decode(Redis::get('user:profile:' . $user->id)),
-                'token' => $user->createToken('apptoken')->plainTextToken,
-            ], __('User successfully logged in'));
-        }
+//        if (Redis::get('user:profile:' . $user->id)) {
+//            return $this->success([
+//                'source' => 'redis',
+//                'user' => json_decode(Redis::get('user:profile:' . $user->id)),
+//                'token' => $user->createToken('apptoken')->plainTextToken,
+//            ], __('User successfully logged in'));
+//        } else {
+//            Redis::set('user:profile:' . $user->id, json_encode(new UserResource($user)));
+//            return $this->success([
+//                'source' => 'database',
+//                'user' => json_decode(Redis::get('user:profile:' . $user->id)),
+//                'token' => $user->createToken('apptoken')->plainTextToken,
+//            ], __('User successfully logged in'));
+//        }
     }
 
 }

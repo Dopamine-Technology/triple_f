@@ -35,14 +35,14 @@ class RegisterController extends Controller
             return $this->facebookRegisterHandler($request);
         }
         $newUser = User::query()->create($userData);
-        Cache::store('redis')->put('user_' . $newUser->id, $newUser, now()->addHours(4)); // 4 Hours
+//        Cache::store('redis')->put('user_' . $newUser->id, $newUser, now()->addHours(4)); // 4 Hours
 
         $profileData['user_id'] = $newUser->id;
         $this->profileCreationHandler($profileData);
         return $this->success([
             'data_source' => 'redis',
             'token' => $newUser->createToken('apptoken')->plainTextToken,
-            'user' => new UserResource(Cache::get('user_' . $newUser->id)),
+            'user' => new UserResource( $newUser),
         ], __('User successfully created'));
     }
 
@@ -75,10 +75,10 @@ class RegisterController extends Controller
             $exist_user->email_verified_at = now();
             $exist_user->save();
 
-            Cache::store('redis')->put('user_' . $exist_user->id, $exist_user, now()->addHours(4)); // 4 Hours
+//            Cache::store('redis')->put('user_' . $exist_user->id, $exist_user, now()->addHours(4)); // 4 Hours
             return $this->success([
                 'data_source'=>'redis',
-                'user' => UserResource::make(Cache::get('user_' . $exist_user->id)),
+                'user' => UserResource::make($exist_user),
                 'token' => $exist_user->createToken('apptoken')->plainTextToken,
             ], __('User successfully logged in via google'));
         } else {
@@ -88,10 +88,10 @@ class RegisterController extends Controller
             $profileData['user_id'] = $newUser->id;
 
             $this->profileCreationHandler($profileData);
-            Cache::store('redis')->put('user_' . $newUser->id, $newUser, now()->addHours(4)); // 4 Hours
+//            Cache::store('redis')->put('user_' . $newUser->id, $newUser, now()->addHours(4)); // 4 Hours
             return $this->success([
                 'data_source' => 'redis',
-                'user' => UserResource::make(Cache::get('user_' . $newUser->id)),
+                'user' => UserResource::make($newUser),
                 'token' => $newUser->createToken('apptoken')->plainTextToken,
             ], __('User successfully Registered via google'));
         }
@@ -106,10 +106,10 @@ class RegisterController extends Controller
             $exist_user->facebook_identifier = $request->facebook_identifier;
             $exist_user->email_verified_at = now();
             $exist_user->save();
-            Cache::store('redis')->put('user_' . $exist_user->id, $exist_user, now()->addHours(4)); // 4 Hours
+//            Cache::store('redis')->put('user_' . $exist_user->id, $exist_user, now()->addHours(4)); // 4 Hours
             return $this->success([
                 'data_source'=>'redis',
-                'user' => UserResource::make(Cache::get('user_' . $exist_user->id)),
+                'user' => UserResource::make($exist_user),
                 'token' => $exist_user->createToken('apptoken')->plainTextToken,
             ], __('User successfully logged in via facebook'));
         } else {
@@ -118,10 +118,10 @@ class RegisterController extends Controller
             $newUser->save();
             $profileData['user_id'] = $newUser->id;
             $this->profileCreationHandler($profileData);
-            Cache::store('redis')->put('user_' . $newUser->id, $newUser, now()->addHours(4)); // 4 Hours
+//            Cache::store('redis')->put('user_' . $newUser->id, $newUser, now()->addHours(4)); // 4 Hours
             return $this->success([
                 'data_source'=>'redis',
-                'user' => UserResource::make(Cache::get('user_' . $newUser->id)),
+                'user' => UserResource::make($newUser),
                 'token' => $newUser->createToken('apptoken')->plainTextToken,
             ], __('User successfully Registered via facebook'));
         }
